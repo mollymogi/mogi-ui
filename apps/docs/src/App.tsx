@@ -3,6 +3,9 @@ import { toast } from "sonner"
 import {
   CheckCircle2,
   CircleX,
+  Copy,
+  Inbox,
+  PlugZap,
   Clock3,
   Flower2,
   LoaderCircle,
@@ -46,7 +49,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@mogi-ui/ui/components/dropdown-menu"
+import { CodeBlock } from "@mogi-ui/ui/components/code-block"
+import { DescriptionItem, DescriptionList } from "@mogi-ui/ui/components/description-list"
+import { EmptyState, LoadingState } from "@mogi-ui/ui/components/empty-state"
 import { Input } from "@mogi-ui/ui/components/input"
+import { LoadMore } from "@mogi-ui/ui/components/load-more"
 import { Label } from "@mogi-ui/ui/components/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@mogi-ui/ui/components/popover"
 import { RadioGroup, RadioGroupItem } from "@mogi-ui/ui/components/radio-group"
@@ -179,6 +186,37 @@ function TableDemo() {
     </div>
   )
 }
+
+function LoadMoreDemo() {
+  const [loaded, setLoaded] = useState(20)
+  const [loading, setLoading] = useState(false)
+  const hasMore = loaded < 50
+
+  return (
+    <LoadMore
+      loaded={loaded}
+      pages={Math.ceil(loaded / 20)}
+      hasMore={hasMore}
+      loading={loading}
+      onLoadMore={() => {
+        setLoading(true)
+        setTimeout(() => {
+          setLoaded((n) => Math.min(n + 20, 50))
+          setLoading(false)
+        }, 600)
+      }}
+    />
+  )
+}
+
+const samplePayload = `{
+  "event_id": "evt_01J9ZK3Q",
+  "kind": "memory.write",
+  "payload": {
+    "item": "user prefers concise replies",
+    "token": "••••••••"
+  }
+}`
 
 export function App() {
   const [dark, setDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches)
@@ -465,6 +503,69 @@ export function App() {
 
         <Section title="表格">
           <TableDemo />
+          <div className="rounded-xl border bg-card px-4">
+            <LoadMoreDemo />
+          </div>
+        </Section>
+
+        <Section title="详情与原始数据">
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-4 rounded-xl border bg-card p-4">
+              <DescriptionList>
+                <DescriptionItem term="事件 ID">
+                  <code>evt_01J9ZK3Q</code>
+                </DescriptionItem>
+                <DescriptionItem term="提供方">memory-service</DescriptionItem>
+                <DescriptionItem term="写入路径">/var/lib/jasmine/memory/items/2026-10-15/evt_01J9ZK3Q.json</DescriptionItem>
+              </DescriptionList>
+              <Separator />
+              <DescriptionList compact>
+                <DescriptionItem term="状态">已提交</DescriptionItem>
+                <DescriptionItem term="尚未交付">2 条</DescriptionItem>
+              </DescriptionList>
+            </div>
+            <CodeBlock
+              label="event.payload"
+              masked
+              tags={[{ label: "machine 原文" }]}
+              actions={
+                <Button size="sm" variant="outline" onClick={() => toast("已复制")}>
+                  <Copy /> 复制
+                </Button>
+              }
+            >
+              {samplePayload}
+            </CodeBlock>
+          </div>
+        </Section>
+
+        <Section title="空态与加载">
+          <div className="grid gap-4 md:grid-cols-2">
+            <EmptyState
+              icon={<Inbox />}
+              title="还没有记录"
+              description="Core 返回了空列表，写入第一条记忆后会显示在这里。"
+              action={<Button size="sm">新建记录</Button>}
+            />
+            <LoadingState label="正在读取验证运行…" />
+            <EmptyState
+              variant="error"
+              icon={<CircleX />}
+              title="读取失败"
+              description="Core 拒绝了请求：403 forbidden。"
+              action={
+                <Button size="sm" variant="outline">
+                  重试
+                </Button>
+              }
+            />
+            <EmptyState
+              variant="unavailable"
+              icon={<PlugZap />}
+              title="未接入"
+              description="这个接口还没有上线，接入后自动显示数据。"
+            />
+          </div>
         </Section>
       </div>
       <Toaster theme={dark ? "dark" : "light"} />
