@@ -26,12 +26,18 @@ pnpm build
 pnpm registry:build   # 生成 apps/docs/public/r/*.json
 ```
 
+## 预览站
+
+线上地址：https://mollymogi.github.io/mogi-ui/
+
+每次推送到 `main` 都会通过 GitHub Actions（`.github/workflows/deploy-docs.yml`）自动构建并发布到 GitHub Pages。
+
 ## 在其他项目里使用
 
-**方式一：只用主题。** 任何 shadcn 项目都可以直接套用 mogi 配色（预览站部署后）：
+**方式一：只用主题。** 任何 shadcn 项目都可以直接套用 mogi 配色：
 
 ```bash
-npx shadcn add https://<预览站地址>/r/mogi-theme.json
+npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json
 ```
 
 **方式二：作为 workspace 包。** 在 Tailwind v4 的 CSS 入口里引入：
