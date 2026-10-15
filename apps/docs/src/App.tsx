@@ -1,6 +1,19 @@
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-import { CheckCircle2, Flower2, Moon, PawPrint, Sun, TriangleAlert } from "lucide-react"
+import {
+  CheckCircle2,
+  CircleX,
+  Clock3,
+  Flower2,
+  LoaderCircle,
+  Moon,
+  PawPrint,
+  PencilLine,
+  Sparkles,
+  Star,
+  Sun,
+  TriangleAlert,
+} from "lucide-react"
 
 import { Alert, AlertDescription, AlertTitle } from "@mogi-ui/ui/components/alert"
 import { Avatar, AvatarFallback } from "@mogi-ui/ui/components/avatar"
@@ -128,11 +141,19 @@ function TableDemo() {
                 </TableCell>
                 <TableCell>{run.suite}</TableCell>
                 <TableCell>
-                  <Badge
-                    variant={run.status === "通过" ? "success" : run.status === "失败" ? "highlight" : "secondary"}
-                  >
-                    {run.status}
-                  </Badge>
+                  {run.status === "通过" ? (
+                    <Badge variant="success">
+                      <CheckCircle2 /> 通过
+                    </Badge>
+                  ) : run.status === "失败" ? (
+                    <Badge variant="highlight">
+                      <CircleX /> 失败
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary">
+                      <LoaderCircle /> 运行中
+                    </Badge>
+                  )}
                 </TableCell>
                 <TableCell className="text-right">{run.duration}</TableCell>
               </TableRow>
@@ -241,6 +262,26 @@ export function App() {
             <Badge variant="secondary">次要</Badge>
             <Badge variant="outline">草稿</Badge>
             <Badge variant="destructive">失败</Badge>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="soft">
+              <Sparkles /> 新功能
+            </Badge>
+            <Badge variant="success">
+              <CheckCircle2 /> 已完成
+            </Badge>
+            <Badge variant="warning">
+              <Clock3 /> 待审核
+            </Badge>
+            <Badge variant="highlight">
+              <Star /> 推荐
+            </Badge>
+            <Badge variant="outline">
+              <PencilLine /> 草稿
+            </Badge>
+            <Badge variant="destructive">
+              <CircleX /> 失败
+            </Badge>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             <Alert variant="success">
