@@ -13,6 +13,7 @@ packages/
 apps/
   docs/     组件预览站（Vite + React），同时托管 shadcn registry
 docs/       设计文档：token 方案、路线图
+skills/     给 AI agent 的使用规范（SKILL.md）
 registry.json  shadcn registry 定义
 ```
 
@@ -53,6 +54,29 @@ import { Button } from "@mogi-ui/ui/components/button"
 ```
 
 只需要配色和字体、不需要组件时，引入 `@mogi-ui/tokens` 即可（包含 `@theme` 映射，需在 `@import "tailwindcss"` 之后）。
+
+## 给 AI agent 用
+
+使用规范写在 [`skills/mogi-ui/SKILL.md`](./skills/mogi-ui/SKILL.md)，这是唯一来源，Claude Code、Codex 等 agent 共用同一份。规则改了只改这个文件，各项目重新下载一次即可更新。
+
+**支持 SKILL.md 的 agent**（Claude Code、Codex 等）：把文件放进它的 skills 目录，全局装一次所有项目都能用。
+
+```bash
+URL=https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-ui/SKILL.md
+# Claude Code
+mkdir -p ~/.claude/skills/mogi-ui && curl -fsSL $URL -o ~/.claude/skills/mogi-ui/SKILL.md
+# Codex
+mkdir -p ~/.codex/skills/mogi-ui && curl -fsSL $URL -o ~/.codex/skills/mogi-ui/SKILL.md
+```
+
+只想对单个项目生效时，放到该项目的 `.claude/skills/mogi-ui/` 或 `.agents/skills/mogi-ui/` 下。
+
+**只读 AGENTS.md 的 agent**：把规范正文追加到项目根目录的 `AGENTS.md`：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-ui/SKILL.md \
+  | awk 'f>=2; /^---$/{f++}' >> AGENTS.md
+```
 
 ## 字体
 
