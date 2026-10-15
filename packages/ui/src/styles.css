@@ -1,0 +1,10 @@
+/*
+ * 组件库样式入口。使用方在自己的 Tailwind v4 入口里引入：
+ *   @import "@mogi-ui/ui/styles.css";
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@mogi-ui/tokens";
+
+/* 让 Tailwind 扫描组件源码里的 class */
+@source "./components";

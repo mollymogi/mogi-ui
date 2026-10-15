@@ -1,0 +1,3 @@
+/* 英文与数字：JetBrains Mono（可变字重）；中文：江城圆体（按 unicode-range 分片按需加载） */
+@import "@fontsource-variable/jetbrains-mono";
+@import "../fonts/jiangcheng.css";

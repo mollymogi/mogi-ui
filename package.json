@@ -1,0 +1,17 @@
+{
+  "name": "mogi-ui",
+  "private": true,
+  "description": "Mogi UI: a personal component library based on shadcn/ui, styled after mogi (jasmine + corgi)",
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "dev": "pnpm --filter docs dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "registry:build": "shadcn build --output apps/docs/public/r"
+  },
+  "devDependencies": {
+    "shadcn": "4.21.5",
+    "turbo": "^2.5.0",
+    "typescript": "~5.9.0"
+  }
+}
