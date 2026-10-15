@@ -25,6 +25,8 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 字体沿用主题：英文/数字 JetBrains Mono，中文江城圆体，不另引字体。
 - 圆角、阴影、间距使用主题 token，不自定义数值。
 - 优先用 mogi-ui 已有组件和变体；同一功能不要自己再写一个。
+- 表示状态的 Badge（成功、失败、待审核等）前面放一个 lucide 图标，直接写在 children 里，例如 `<Badge variant="success"><CheckCircle2 /> 已完成</Badge>`，不只靠颜色区分。
+- 数据表格用 mogi-ui 的 `Table` 组合组件（自带横向滚动容器）：选中行设 `data-state="selected"`，并在首列放 `Checkbox` 让读屏也能识别；空表用 `TableEmpty`。
 - 亮/暗两套主题都要检查；文字对比度不低于 4.5:1。
 - 不修改 mogi-ui 主题文件本身；需要改主题时走第 3 步上报。
 
