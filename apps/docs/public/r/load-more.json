@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "load-more",
+  "title": "load-more",
+  "description": "列表底部的已载入条数和继续加载",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/button.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/load-more.tsx",
+      "content": "import * as React from \"react\"\nimport { LoaderCircle } from \"lucide-react\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\n\n// mogi: 列表底部的\"已载入 N 条 + 继续加载\"。不叫 Pagination，避免和 shadcn 的页码分页组件撞名。\nfunction LoadMore({\n  className,\n  loaded,\n  pages,\n  hasMore,\n  loading = false,\n  onLoadMore,\n  status,\n  loadMoreLabel = \"继续加载\",\n  ...props\n}: Omit<React.ComponentProps<\"div\">, \"children\"> & {\n  /** 已载入条数 */\n  loaded: number\n  /** 已载入页数，可选 */\n  pages?: number\n  hasMore: boolean\n  loading?: boolean\n  onLoadMore?: () => void\n  /** 自定义说明文字，传入后替换默认文案 */\n  status?: React.ReactNode\n  loadMoreLabel?: React.ReactNode\n}) {\n  const defaultStatus = (\n    <>\n      已载入 {loaded} 条{pages !== undefined ? `（${pages} 页）` : \"\"}，\n      {hasMore ? \"还有更多\" : \"已全部载入\"}\n    </>\n  )\n\n  return (\n    <div\n      data-slot=\"load-more\"\n      data-state={loading ? \"loading\" : hasMore ? \"more\" : \"done\"}\n      className={cn(\n        \"flex flex-wrap items-center justify-between gap-3 py-3 text-sm\",\n        className\n      )}\n      {...props}\n    >\n      <p\n        data-slot=\"load-more-status\"\n        role=\"status\"\n        aria-live=\"polite\"\n        className=\"text-muted-foreground\"\n      >\n        {status ?? defaultStatus}\n      </p>\n      {hasMore && (\n        <Button\n          data-slot=\"load-more-button\"\n          variant=\"outline\"\n          size=\"sm\"\n          onClick={onLoadMore}\n          disabled={loading}\n          aria-busy={loading}\n        >\n          {loading && <LoaderCircle className=\"animate-spin\" />}\n          {loadMoreLabel}\n        </Button>\n      )}\n    </div>\n  )\n}\n\nexport { LoadMore }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -7,7 +7,7 @@
     "dev": "pnpm --filter docs dev",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
-    "registry:build": "shadcn build --output apps/docs/public/r"
+    "registry:build": "node scripts/build-registry.mjs"
   },
   "devDependencies": {
     "shadcn": "4.21.5",

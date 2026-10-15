@@ -18,6 +18,7 @@ import {
   TriangleAlert,
 } from "lucide-react"
 
+import { AlertDialogDemo, FormDemo, PaginationDemo, SheetDemo, SidebarDemo } from "./demos-v2"
 import { Alert, AlertDescription, AlertTitle } from "@mogi-ui/ui/components/alert"
 import { Avatar, AvatarFallback } from "@mogi-ui/ui/components/avatar"
 import { Badge } from "@mogi-ui/ui/components/badge"
@@ -407,7 +408,7 @@ export function App() {
                   <TabsTrigger value="docs">文档</TabsTrigger>
                 </TabsList>
                 <TabsContent value="components" className="pt-2 text-muted-foreground">
-                  20 个基础组件，全部来自 shadcn/ui 并套用 mogi 主题。
+                  30 个组件，来自 shadcn/ui 并套用 mogi 主题，另有几个 mogi 自有组件。
                 </TabsContent>
                 <TabsContent value="tokens" className="pt-2 text-muted-foreground">
                   基础色板 + 语义变量，变量名与 shadcn 一致。
@@ -445,8 +446,25 @@ export function App() {
           </div>
         </Section>
 
+        <Section title="表单校验">
+          <div className="grid items-start gap-6 md:grid-cols-2">
+            <FormDemo />
+            <p className="text-sm text-muted-foreground">
+              Form 基于 react-hook-form：直接点“创建”会看到每个字段下方的错误提示，标签同时变成危险色，
+              输入框带 aria-invalid，读屏也能读到错误。
+            </p>
+          </div>
+        </Section>
+
+        <Section title="导航">
+          <SidebarDemo />
+          <PaginationDemo />
+        </Section>
+
         <Section title="浮层">
           <div className="flex flex-wrap gap-3">
+            <SheetDemo />
+            <AlertDialogDemo />
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline">打开对话框</Button>
