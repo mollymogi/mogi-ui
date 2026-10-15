@@ -1,4 +1,4 @@
-# Mogi 风格 Design Token 方案（v1.0 基础版，2026-10-15 定稿）
+# Mogi 风格 Design Token 方案（v1.1，2026-10-15：亮色主题对比度修正）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
@@ -13,29 +13,30 @@
 
 | 名称 | 用途 | 色阶 |
 |---|---|---|
-| `corgi` | 主色，柯基姜橘 | 50 `#fdf6ee` · 100 `#fae8d3` · 200 `#f3cfa6` · 300 `#e9b07a` · 400 `#dc9357` · **500 `#c97d45`** · 600 `#ad6534` · 700 `#8c4f2a` · 800 `#6d3f24` · 900 `#58331f` |
-| `sand` | 中性色，奶油到摩卡 | 50 `#fdfaf5` · 100 `#f9efe3` · 200 `#efe1d0` · 300 `#dfcbb5` · 400 `#c4a88f` · 500 `#a57e69` · 600 `#86634f` · 700 `#6a4c3c` · 800 `#4e372c` · 900 `#3a2820` · 950 `#291b15` |
-| `terracotta` | 辅助强调（毛衣肩部） | 100 `#f8ddd0` · 300 `#eab399` · **500 `#d98d6a`** · 700 `#b86b48` |
-| `jasmine` | 叶绿，成功态 / 点缀 | 100 `#e8efd6` · 300 `#b9cc8a` · **500 `#7f9a4a`** · 700 `#5f7a32` |
+| `corgi` | 主色，柯基姜橘 | 50 `#fdf6ee` · 100 `#fae8d3` · 200 `#f3cfa6` · 300 `#e9b07a` · 400 `#dc9357` · **500 `#c97d45`** · 600 `#a65a2a` · 700 `#8c4f2a` · 800 `#6d3f24` · 900 `#58331f` |
+| `sand` | 中性色，奶油到摩卡 | 50 `#fdfaf5` · 100 `#f9efe3` · 200 `#efe1d0` · 300 `#dfcbb5` · 400 `#c4a88f` · 500 `#a57e69` · 600 `#86634f` · 650 `#765645` · 700 `#6a4c3c` · 800 `#4e372c` · 900 `#3a2820` · 950 `#291b15` |
+| `terracotta` | 辅助强调（毛衣肩部） | 100 `#f8ddd0` · 300 `#eab399` · **500 `#d98d6a`** · 700 `#b86b48` · 800 `#984a28` |
+| `jasmine` | 叶绿，成功态 / 点缀 | 100 `#e8efd6` · 300 `#b9cc8a` · **500 `#7f9a4a`** · 700 `#55702a` |
 | `petal` | 茉莉白，高亮面 | `#fffaf3` |
-| `rose` | 错误 / 危险态 | 100 `#f9ddd6` · **500 `#c4553c`** · 700 `#9b3f2b` |
+| `rose` | 错误 / 危险态 | 100 `#f9ddd6` · **500 `#c4553c`** · 600 `#a8402c` · 700 `#9b3f2b` |
 | `honey` | 警告态 | 100 `#fbefc9` · **500 `#d9a63a`** · 700 `#a67a1f` |
 
 ## 三、语义层（沿用 shadcn 变量名）
 
-亮色：
+亮色（文字类配对全部达到 WCAG AA 4.5:1：主按钮 4.9、链接 4.9、success 标签 4.8、highlight 标签 4.9、muted 区域文字 5.5、删除按钮 5.9）：
 ```css
 :root {
   --background: #fdfaf5;
   --foreground: #3a2820;
   --card: #fffdf9;            --card-foreground: #3a2820;
   --popover: #fffdf9;         --popover-foreground: #3a2820;
-  --primary: #c97d45;         --primary-foreground: #fffaf3;
+  --primary: #a65a2a;         --primary-foreground: #fffaf3;
   --secondary: #f9efe3;       --secondary-foreground: #6a4c3c;
-  --muted: #f3e8da;           --muted-foreground: #86634f;
+  --muted: #f3e8da;           --muted-foreground: #765645;
   --accent: #fae8d3;          --accent-foreground: #8c4f2a;
-  --destructive: #c4553c;     --destructive-foreground: #fffaf3;
-  --success: #7f9a4a;         --success-foreground: #fffaf3;
+  --destructive: #a8402c;     --destructive-foreground: #fffaf3;
+  --success: #55702a;         --success-foreground: #fffaf3;
+  --highlight: #984a28;
   --warning: #d9a63a;         --warning-foreground: #3a2820;
   --border: #e9dccb;
   --input: #e3d4c1;
@@ -80,7 +81,7 @@
 
 ## 五、组件层约定（少量）
 
-- 按钮：默认 `primary`，hover 用 `corgi-600`，active `corgi-700`；`secondary` 用 sand-100 底 + sand-700 字。
+- 按钮：默认 `primary`（亮色为 `corgi-600`），hover 为 primary 的 90% 透明度；`secondary` 用 sand-100 底 + sand-700 字。
 - 标签 Badge：圆角 full，低饱和底色（corgi-100 / jasmine-100 / terracotta-100）+ 深字。
 - 卡片：petal 底色 + border + shadow-sm，hover 升为 shadow-md。
 - 空状态、加载态插画位可以放 mogi 的简笔形象（耳朵 + 茉莉花图标）。
