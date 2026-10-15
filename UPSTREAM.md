@@ -20,3 +20,14 @@
 | table | 表头加浅底；选中态（`data-state="selected"` 或 `aria-selected="true"`）改为 `accent/50` 底色加首列左侧 primary 色条；新增 `TableEmpty` 空表行；`Table` 新增 `containerClassName` |
 
 其余组件与上游一致，mogi 风格完全来自 `@mogi-ui/tokens` 里的 CSS 变量。
+
+## mogi 自有组件
+
+以下组件 shadcn 没有，由 mogi-ui 自己实现，不需要跟上游同步：
+
+| 组件 | 文件 | 说明 |
+|---|---|---|
+| LoadMore | `load-more.tsx` | 列表底部"已载入 N 条 + 继续加载"，说明文字可自定义；不叫 Pagination，避免和 shadcn 的页码分页撞名 |
+| DescriptionList | `description-list.tsx` | 键值列表，语义化 `dl > div > dt + dd`，`compact` 收紧行距 |
+| CodeBlock | `code-block.tsx` | 原始 JSON / 文本块，标题栏放标签和操作，内容区限高滚动；`masked` 时加"已遮罩"标签和左侧色条 |
+| EmptyState / LoadingState | `empty-state.tsx` | 空态、失败、未接入三种状态（`variant`）和骨架加载态 |

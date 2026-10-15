@@ -87,6 +87,20 @@ curl -fsSL https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-
   覆盖 GB2312 全部 6763 个汉字和中文标点，浏览器只下载页面实际用到的分片。
   范围外的生僻字会回退到 Noto Sans SC 或系统字体。
 
+**方式一（只套主题）的项目怎么拿字体：** 主题 JSON 只写字体名，不带文件。
+- JetBrains Mono：`npm i @fontsource-variable/jetbrains-mono`，在入口 `import "@fontsource-variable/jetbrains-mono"`。
+- 江城圆体：预览站把整套文件原样发布在 `https://mollymogi.github.io/mogi-ui/fonts/`，
+  包括 `jiangcheng.css`、`jiangcheng/` 下的分片和许可证 `OFL-jiangcheng.txt`。
+  建议把这三样下载到自己项目里自托管（保持 `jiangcheng.css` 与 `jiangcheng/` 的相对路径），再在入口引入 `jiangcheng.css`。
+  workspace 项目直接 `@import "@mogi-ui/tokens/fonts.css"` 即可。
+
+预览站构建关闭了 Vite 的资源内联（`assetsInlineLimit: 0`），所有字体都是独立文件，不会出现 `data:` 字体，开了 CSP 的项目可以直接参照。
+
+## 兼容性
+
+组件按 React 19 写法实现（`ref` 作为普通 prop 传递，没有 `forwardRef`），只支持 React 19。
+在 React 18 里 `ref` 会被丢掉，`asChild` 组合（如 `<TooltipTrigger asChild><Button /></TooltipTrigger>`）的定位和焦点管理会失效。
+
 ## 上游同步
 
 组件来源和 mogi 改动记录在 [UPSTREAM.md](./UPSTREAM.md)。

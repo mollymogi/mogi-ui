@@ -15,8 +15,9 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 
 ## 1. 接入
 
-1. 项目需为 React + Tailwind，并已初始化 shadcn（`npx shadcn init`）。
+1. 项目需为 React 19 + Tailwind v4，并已初始化 shadcn（`npx shadcn init`）。
 2. 套用主题：`npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json`
+   主题不带字体文件：JetBrains Mono 装 `@fontsource-variable/jetbrains-mono`；江城圆体从 https://mollymogi.github.io/mogi-ui/fonts/ 下载 `jiangcheng.css`、`jiangcheng/` 和 `OFL-jiangcheng.txt` 自托管。
 3. 需要的组件从 mogi-ui 仓库的 ui 包复制或通过 registry 安装，不要从 shadcn 官方重新拉取同名组件覆盖 mogi 版本。
 
 ## 2. 必须遵守
@@ -27,6 +28,8 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 优先用 mogi-ui 已有组件和变体；同一功能不要自己再写一个。
 - 表示状态的 Badge（成功、失败、待审核等）前面放一个 lucide 图标，直接写在 children 里，例如 `<Badge variant="success"><CheckCircle2 /> 已完成</Badge>`，不只靠颜色区分。
 - 数据表格用 mogi-ui 的 `Table` 组合组件（自带横向滚动容器）：选中行设 `data-state="selected"`，并在首列放 `Checkbox` 让读屏也能识别；空表用 `TableEmpty`。
+- 列表底部的"已载入 N 条 / 继续加载"用 `LoadMore`；详情页的键值对用 `DescriptionList` + `DescriptionItem`；原始 JSON / 文本用 `CodeBlock`；空、失败、未接入用 `EmptyState`（`variant` 为 `empty` / `error` / `unavailable`），加载中用 `LoadingState`。
+- mogi-ui 只支持 React 19；React 18 项目先升级再接入。
 - 亮/暗两套主题都要检查；文字对比度不低于 4.5:1。
 - 不修改 mogi-ui 主题文件本身；需要改主题时走第 3 步上报。
 
