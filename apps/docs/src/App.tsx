@@ -47,6 +47,16 @@ import {
 import { Separator } from "@mogi-ui/ui/components/separator"
 import { Skeleton } from "@mogi-ui/ui/components/skeleton"
 import { Switch } from "@mogi-ui/ui/components/switch"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableEmpty,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@mogi-ui/ui/components/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@mogi-ui/ui/components/tabs"
 import { Textarea } from "@mogi-ui/ui/components/textarea"
 import { Toaster } from "@mogi-ui/ui/components/sonner"
@@ -70,6 +80,82 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-lg font-bold">{title}</h2>
       {children}
     </section>
+  )
+}
+
+const runs = [
+  { id: "run_7f3a9c21", suite: "validation/core", status: "通过", duration: "12.4s" },
+  { id: "run_b81e0d4f", suite: "memory/recall", status: "失败", duration: "3.1s" },
+  { id: "run_2c9d77a0", suite: "interpretations", status: "运行中", duration: "—" },
+]
+
+function TableDemo() {
+  const [selected, setSelected] = useState<string>(runs[0].id)
+
+  return (
+    <div className="grid gap-6">
+      <div className="rounded-xl border bg-card">
+        <Table>
+          <TableCaption className="mb-4">点击行或勾选框选中；选中行有底色和左侧色条</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-10">
+                <span className="sr-only">选中</span>
+              </TableHead>
+              <TableHead>运行 ID</TableHead>
+              <TableHead>用例集</TableHead>
+              <TableHead>状态</TableHead>
+              <TableHead className="text-right">耗时</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {runs.map((run) => (
+              <TableRow
+                key={run.id}
+                data-state={selected === run.id ? "selected" : undefined}
+                onClick={() => setSelected(run.id)}
+                className="cursor-pointer"
+              >
+                <TableCell>
+                  <Checkbox
+                    checked={selected === run.id}
+                    onCheckedChange={() => setSelected(run.id)}
+                    aria-label={`选中 ${run.id}`}
+                  />
+                </TableCell>
+                <TableCell>
+                  <code>{run.id}</code>
+                </TableCell>
+                <TableCell>{run.suite}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant={run.status === "通过" ? "success" : run.status === "失败" ? "highlight" : "secondary"}
+                  >
+                    {run.status}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-right">{run.duration}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="rounded-xl border bg-card">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>记忆条目</TableHead>
+              <TableHead>来源</TableHead>
+              <TableHead>写入时间</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableEmpty colSpan={3}>还没有记忆条目</TableEmpty>
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   )
 }
 
@@ -334,6 +420,10 @@ export function App() {
           <p className="text-xs text-muted-foreground">
             English & numbers 0123456789 use JetBrains Mono，中文使用江城圆体。
           </p>
+        </Section>
+
+        <Section title="表格">
+          <TableDemo />
         </Section>
       </div>
       <Toaster theme={dark ? "dark" : "light"} />
