@@ -99,6 +99,23 @@
           "sidebar-ring": "#e0a06c"
         }
       }
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "四方向抽屉，包含滚动正文、固定头尾及键盘焦点管理。",
+      "dependencies": [
+        "radix-ui",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/sheet.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sheet.tsx"
+        }
+      ]
     }
   ]
 }

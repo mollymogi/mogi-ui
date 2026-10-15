@@ -57,6 +57,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@mogi-ui/ui/components/select"
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetBody, SheetFooter, SheetClose } from "@mogi-ui/ui/components/sheet"
 import { Separator } from "@mogi-ui/ui/components/separator"
 import { Skeleton } from "@mogi-ui/ui/components/skeleton"
 import { Switch } from "@mogi-ui/ui/components/switch"
@@ -369,7 +370,7 @@ export function App() {
                   <TabsTrigger value="docs">文档</TabsTrigger>
                 </TabsList>
                 <TabsContent value="components" className="pt-2 text-muted-foreground">
-                  20 个基础组件，全部来自 shadcn/ui 并套用 mogi 主题。
+                  基础组件与四方向抽屉，统一使用 mogi 主题。
                 </TabsContent>
                 <TabsContent value="tokens" className="pt-2 text-muted-foreground">
                   基础色板 + 语义变量，变量名与 shadcn 一致。
@@ -426,6 +427,15 @@ export function App() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+
+            {(["right", "left", "top", "bottom"] as const).map(side => <Sheet key={side}>
+              <SheetTrigger asChild><Button variant="outline">{({right:"右侧设置",left:"左侧导航",top:"顶部面板",bottom:"底部面板"})[side]}</Button></SheetTrigger>
+              <SheetContent side={side} closeLabel="关闭抽屉">
+                <SheetHeader><SheetTitle>工作区设置</SheetTitle><SheetDescription>支持四个方向、Escape 关闭与焦点返回。正文可滚动，底部操作始终可见。</SheetDescription></SheetHeader>
+                <SheetBody className="space-y-4">{Array.from({length:12}, (_, i) => <div key={i} className="grid gap-2"><Label htmlFor={`sheet-${side}-${i}`}>配置项 {i+1}</Label><Input id={`sheet-${side}-${i}`} placeholder="输入参数" /></div>)}</SheetBody>
+                <SheetFooter><SheetClose asChild><Button variant="outline">取消</Button></SheetClose><SheetClose asChild><Button>保存设置</Button></SheetClose></SheetFooter>
+              </SheetContent>
+            </Sheet>)}
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

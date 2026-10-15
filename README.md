@@ -90,3 +90,25 @@ curl -fsSL https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-
 ## 上游同步
 
 组件来源和 mogi 改动记录在 [UPSTREAM.md](./UPSTREAM.md)。
+
+## 抽屉 Sheet
+
+设置、详情与测试记录侧栏可使用 `Sheet`：
+
+```tsx
+import { Button } from "@mogi-ui/ui/components/button"
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetBody, SheetFooter, SheetClose } from "@mogi-ui/ui/components/sheet"
+
+<Sheet>
+  <SheetTrigger asChild><Button variant="outline">设置</Button></SheetTrigger>
+  <SheetContent side="right" closeLabel="关闭">
+    <SheetHeader><SheetTitle>设置</SheetTitle><SheetDescription>修改本次测试参数。</SheetDescription></SheetHeader>
+    <SheetBody>{/* 长表单或 Table，正文独立滚动 */}</SheetBody>
+    <SheetFooter><SheetClose asChild><Button>完成</Button></SheetClose></SheetFooter>
+  </SheetContent>
+</Sheet>
+```
+
+支持 `right`（默认）、`left`、`top`、`bottom`。头尾固定，正文滚动；继承 Radix Dialog 的焦点圈定、Escape 关闭、滚动锁定与关闭后焦点返回。主题在局部容器中时，可用 `SheetContent container={element}` 指定 portal 容器，或在内容节点上传入相同主题 class。
+
+通过 registry 安装：`npx shadcn add https://mollymogi.github.io/mogi-ui/r/sheet.json`。`registry:build` 会将 workspace 别名转换为消费方可解析的 shadcn 别名。

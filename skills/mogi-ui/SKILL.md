@@ -19,6 +19,12 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 2. 套用主题：`npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json`
 3. 需要的组件从 mogi-ui 仓库的 ui 包复制或通过 registry 安装，不要从 shadcn 官方重新拉取同名组件覆盖 mogi 版本。
 
+### 抽屉 / 侧栏表单
+
+设置、记录列表和详情侧栏使用 `Sheet`，不要重复拼接定位样式的 `Dialog`。
+使用 `SheetHeader` + `SheetTitle` + `SheetDescription` 提供可访问名称；长内容放在 `SheetBody`，操作放在 `SheetFooter`。
+`SheetContent` 支持 `side="right|left|top|bottom"`、`closeLabel`、`showCloseButton` 与可选 `container`；作用域主题的 portal 可通过 `container` 或内容的主题 class 保持一致。
+
 ## 2. 必须遵守
 
 - 颜色只用语义变量（`bg-primary`、`text-muted-foreground`、`bg-success` 等），禁止写死 hex 或用 Tailwind 原生色板（如 `bg-orange-500`）。
