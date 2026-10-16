@@ -99,6 +99,528 @@
           "sidebar-ring": "#e0a06c"
         }
       }
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "alert-dialog",
+      "description": "需要用户确认的对话框，用于删除等不可撤销操作",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "alert",
+      "description": "提示条，含 success / warning 变体",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "avatar",
+      "description": "头像",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "badge",
+      "description": "标签，含 soft / success / warning / highlight 变体",
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "button",
+      "description": "按钮",
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "card",
+      "description": "卡片",
+      "files": [
+        {
+          "path": ".registry/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "checkbox",
+      "description": "复选框",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:ui",
+      "title": "code-block",
+      "description": "原始 JSON / 文本块，可遮罩",
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/badge.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "description-list",
+      "type": "registry:ui",
+      "title": "description-list",
+      "description": "详情页键值列表",
+      "files": [
+        {
+          "path": ".registry/ui/description-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "dialog",
+      "description": "对话框",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "dropdown-menu",
+      "description": "下拉菜单",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "empty-state",
+      "description": "空态 / 失败 / 未接入，以及加载骨架",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "form",
+      "description": "基于 react-hook-form 的表单字段、校验提示",
+      "dependencies": [
+        "radix-ui",
+        "react-hook-form"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/label.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "input",
+      "description": "输入框",
+      "files": [
+        {
+          "path": ".registry/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "label",
+      "description": "表单标签",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "load-more",
+      "type": "registry:ui",
+      "title": "load-more",
+      "description": "列表底部的已载入条数和继续加载",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/load-more.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "pagination",
+      "description": "页码分页，中文文案",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "popover",
+      "description": "弹出层",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "radio-group",
+      "description": "单选组",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "select",
+      "description": "选择器",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "separator",
+      "description": "分隔线",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "sheet",
+      "description": "从屏幕边缘滑出的抽屉面板",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "sidebar",
+      "description": "可折叠的应用侧边栏，移动端自动变成抽屉",
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json",
+        "https://mollymogi.github.io/mogi-ui/r/input.json",
+        "https://mollymogi.github.io/mogi-ui/r/separator.json",
+        "https://mollymogi.github.io/mogi-ui/r/sheet.json",
+        "https://mollymogi.github.io/mogi-ui/r/skeleton.json",
+        "https://mollymogi.github.io/mogi-ui/r/tooltip.json",
+        "https://mollymogi.github.io/mogi-ui/r/use-mobile.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "skeleton",
+      "description": "骨架占位",
+      "files": [
+        {
+          "path": ".registry/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "sonner",
+      "description": "Toast 通知（不依赖 next-themes）",
+      "dependencies": [
+        "lucide-react",
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "switch",
+      "description": "开关",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "table",
+      "description": "数据表格，含选中态和空表行",
+      "files": [
+        {
+          "path": ".registry/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "tabs",
+      "description": "标签页",
+      "dependencies": [
+        "class-variance-authority",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "textarea",
+      "description": "多行输入框",
+      "files": [
+        {
+          "path": ".registry/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "tooltip",
+      "description": "文字提示",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "use-mobile",
+      "description": "判断是否为移动端宽度的 hook",
+      "files": [
+        {
+          "path": ".registry/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "all",
+      "type": "registry:item",
+      "title": "全部组件",
+      "description": "一次装上 mogi-ui 的全部组件",
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/alert-dialog.json",
+        "https://mollymogi.github.io/mogi-ui/r/alert.json",
+        "https://mollymogi.github.io/mogi-ui/r/avatar.json",
+        "https://mollymogi.github.io/mogi-ui/r/badge.json",
+        "https://mollymogi.github.io/mogi-ui/r/button.json",
+        "https://mollymogi.github.io/mogi-ui/r/card.json",
+        "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
+        "https://mollymogi.github.io/mogi-ui/r/code-block.json",
+        "https://mollymogi.github.io/mogi-ui/r/description-list.json",
+        "https://mollymogi.github.io/mogi-ui/r/dialog.json",
+        "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
+        "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
+        "https://mollymogi.github.io/mogi-ui/r/form.json",
+        "https://mollymogi.github.io/mogi-ui/r/input.json",
+        "https://mollymogi.github.io/mogi-ui/r/label.json",
+        "https://mollymogi.github.io/mogi-ui/r/load-more.json",
+        "https://mollymogi.github.io/mogi-ui/r/pagination.json",
+        "https://mollymogi.github.io/mogi-ui/r/popover.json",
+        "https://mollymogi.github.io/mogi-ui/r/radio-group.json",
+        "https://mollymogi.github.io/mogi-ui/r/select.json",
+        "https://mollymogi.github.io/mogi-ui/r/separator.json",
+        "https://mollymogi.github.io/mogi-ui/r/sheet.json",
+        "https://mollymogi.github.io/mogi-ui/r/sidebar.json",
+        "https://mollymogi.github.io/mogi-ui/r/skeleton.json",
+        "https://mollymogi.github.io/mogi-ui/r/sonner.json",
+        "https://mollymogi.github.io/mogi-ui/r/switch.json",
+        "https://mollymogi.github.io/mogi-ui/r/table.json",
+        "https://mollymogi.github.io/mogi-ui/r/tabs.json",
+        "https://mollymogi.github.io/mogi-ui/r/textarea.json",
+        "https://mollymogi.github.io/mogi-ui/r/tooltip.json"
+      ]
     }
   ]
 }

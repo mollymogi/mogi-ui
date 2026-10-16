@@ -14,7 +14,8 @@ apps/
   docs/     组件预览站（Vite + React），同时托管 shadcn registry
 docs/       设计文档：token 方案、路线图
 skills/     给 AI agent 的使用规范（SKILL.md）
-registry.json  shadcn registry 定义
+registry.json  shadcn registry 定义（只放主题，组件条目由脚本生成）
+scripts/       build-registry.mjs：扫描 ui 包生成每个组件的 registry 条目
 ```
 
 ## 本地开发
@@ -24,7 +25,7 @@ pnpm install
 pnpm dev          # 启动预览站
 pnpm typecheck
 pnpm build
-pnpm registry:build   # 生成 apps/docs/public/r/*.json
+pnpm registry:build   # 生成 apps/docs/public/r/*.json（主题 + 每个组件一份）
 ```
 
 ## 预览站
@@ -35,11 +36,21 @@ pnpm registry:build   # 生成 apps/docs/public/r/*.json
 
 ## 在其他项目里使用
 
-**方式一：只用主题。** 任何 shadcn 项目都可以直接套用 mogi 配色：
+**方式一：通过 registry 安装（推荐）。** 任何 React 19 + Tailwind v4 的 shadcn 项目，先套主题，再按需装组件：
 
 ```bash
-npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json
+R=https://mollymogi.github.io/mogi-ui/r
+npx shadcn add $R/mogi-theme.json      # 主题，先装
+npx shadcn add $R/button.json $R/table.json   # 按需装组件，依赖的 mogi 组件会一起装上
+npx shadcn add $R/all.json             # 或者一次装全部组件
 ```
+
+组件会复制到使用方 `components.json` 配置的目录里，导入路径按使用方的别名改写。
+组件之间的依赖都指向 mogi-ui 自己的 registry，不会混进 shadcn 官方的同名组件。
+可安装的条目见 `https://mollymogi.github.io/mogi-ui/r/registry.json`。
+
+新增或修改组件后跑 `pnpm registry:build` 即可，不需要手动改 `registry.json`；
+只有组件说明需要在 `scripts/build-registry.mjs` 的 `descriptions` 里补一行。
 
 **方式二：作为 workspace 包。** 在 Tailwind v4 的 CSS 入口里引入：
 
