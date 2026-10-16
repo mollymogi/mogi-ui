@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@mogi-ui/ui/components/alert-dialog"
+import { Avatar, AvatarFallback } from "@mogi-ui/ui/components/avatar"
 import { Badge } from "@mogi-ui/ui/components/badge"
 import { Button } from "@mogi-ui/ui/components/button"
 import {
@@ -316,11 +317,6 @@ const navItems = [
   { label: "收件箱", icon: Inbox, badge: "3" },
 ]
 
-// 设置、账号这类全局入口统一放在侧栏底部
-const footerItems = [
-  { label: "设置", icon: Settings },
-  { label: "mogi", icon: Flower2 },
-]
 
 export function SidebarDemo() {
   const [active, setActive] = useState(navItems[0].label)
@@ -368,20 +364,35 @@ export function SidebarDemo() {
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>
-            <SidebarMenu>
-              {footerItems.map((item) => (
-                <SidebarMenuItem key={item.label}>
-                  <SidebarMenuButton
-                    isActive={active === item.label}
-                    tooltip={item.label}
-                    onClick={() => setActive(item.label)}
-                  >
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+            {/* 账号和设置合成一张卡片：左边账号，右边设置；收起成图标栏时上下排 */}
+            <div className="flex items-center gap-1 rounded-lg border border-sidebar-border p-1 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:p-0">
+              <SidebarMenuButton
+                size="lg"
+                tooltip="mogi"
+                isActive={active === "账号"}
+                onClick={() => setActive("账号")}
+                className="min-w-0 flex-1"
+              >
+                <Avatar className="size-8">
+                  <AvatarFallback className="bg-primary/10 text-primary">
+                    <Flower2 className="size-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="grid min-w-0 text-left leading-tight">
+                  <span className="truncate font-bold">mogi</span>
+                  <span className="truncate text-xs text-muted-foreground">mogi@example.com</span>
+                </div>
+              </SidebarMenuButton>
+              <SidebarMenuButton
+                tooltip="设置"
+                aria-label="设置"
+                isActive={active === "设置"}
+                onClick={() => setActive("设置")}
+                className="size-8 shrink-0 justify-center p-0"
+              >
+                <Settings />
+              </SidebarMenuButton>
+            </div>
           </SidebarFooter>
           <SidebarRail />
         </Sidebar>
