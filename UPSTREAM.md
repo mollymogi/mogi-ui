@@ -34,3 +34,8 @@
 | DescriptionList | `description-list.tsx` | 键值列表，语义化 `dl > div > dt + dd`，`compact` 收紧行距 |
 | CodeBlock | `code-block.tsx` | 原始 JSON / 文本块，标题栏放标签和操作，内容区限高滚动；`masked` 时加"已遮罩"标签和左侧色条 |
 | EmptyState / LoadingState | `empty-state.tsx` | 空态、失败、未接入三种状态（`variant`）和骨架加载态 |
+
+
+## Sidebar mobile scoped themes
+
+Forward the consumer Sidebar `className` and `data-theme` to the mobile SheetContent. Scoped CSS variables must be applied to the portaled surface itself, just as they are on the desktop sidebar container. This keeps theme inheritance consistent across the responsive breakpoint.
