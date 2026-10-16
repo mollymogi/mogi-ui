@@ -47,11 +47,11 @@
           "chart-3": "#d98d6a",
           "chart-4": "#d9a63a",
           "chart-5": "#a57e69",
-          "sidebar": "#f9efe3",
+          "sidebar": "#fffdf9",
           "sidebar-foreground": "#3a2820",
           "sidebar-primary": "#a65a2a",
           "sidebar-primary-foreground": "#fffaf3",
-          "sidebar-accent": "#fffdf9",
+          "sidebar-accent": "#fae8d3",
           "sidebar-accent-foreground": "#3a2820",
           "sidebar-border": "#e9dccb",
           "sidebar-ring": "#dc9357"
@@ -93,7 +93,7 @@
           "sidebar-foreground": "#f6ebdd",
           "sidebar-primary": "#e0a06c",
           "sidebar-primary-foreground": "#2a1a10",
-          "sidebar-accent": "#3d2b20",
+          "sidebar-accent": "#4a3425",
           "sidebar-accent-foreground": "#f6ebdd",
           "sidebar-border": "#44332a",
           "sidebar-ring": "#e0a06c"
