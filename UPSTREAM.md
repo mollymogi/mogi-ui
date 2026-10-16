@@ -19,6 +19,7 @@
 | sonner | 去掉 `next-themes` 依赖，主题改为通过 `theme` 属性传入 |
 | pagination | 文案改为中文（上一页 / 下一页 / 更多页，`aria-label` 同步），`PaginationPrevious` / `PaginationNext` 的 children 可覆盖文案；当前页改为 primary 色描边和文字 |
 | sheet | 新增 `SheetBody`（正文独立滚动，头尾固定）；`SheetContent` 新增 `closeLabel`（默认"关闭"）和 `container`（渲染进局部主题容器）；上下方向限高 `max-h-dvh`；遮罩和内容尊重 `prefers-reduced-motion` |
+| sidebar | 无障碍和提示文案改为中文（触发按钮、边缘拖条 `SidebarRail`、窄屏抽屉标题）；边缘拖条的悬停提示带上快捷键 Ctrl/⌘ + B |
 | slider | 滑块底色由 `bg-white` 改为 `bg-background`，暗色主题下不刺眼 |
 | table | 表头加浅底；选中态（`data-state="selected"` 或 `aria-selected="true"`）改为 `accent/50` 底色加首列左侧 primary 色条；新增 `TableEmpty` 空表行；`Table` 新增 `containerClassName` |
 
