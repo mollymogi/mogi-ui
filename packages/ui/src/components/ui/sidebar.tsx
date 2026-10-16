@@ -40,6 +40,8 @@ type SidebarContextProps = {
   setOpenMobile: (open: boolean) => void
   isMobile: boolean
   toggleSidebar: () => void
+  // mogi: 窄屏抽屉渲染进 SidebarProvider 的外层元素，继承外层的局部主题
+  container: HTMLDivElement | null
 }
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null)
@@ -113,6 +115,17 @@ function SidebarProvider({
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? "expanded" : "collapsed"
 
+  const [container, setContainer] = React.useState<HTMLDivElement | null>(null)
+  const { ref, ...rest } = props
+  const wrapperRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      setContainer(node)
+      if (typeof ref === "function") ref(node)
+      else if (ref) ref.current = node
+    },
+    [ref]
+  )
+
   const contextValue = React.useMemo<SidebarContextProps>(
     () => ({
       state,
@@ -122,8 +135,9 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       toggleSidebar,
+      container,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, container]
   )
 
   return (
@@ -142,7 +156,8 @@ function SidebarProvider({
             "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
             className
           )}
-          {...props}
+          {...rest}
+          ref={wrapperRef}
         >
           {children}
         </div>
@@ -163,7 +178,7 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, state, openMobile, setOpenMobile, container } = useSidebar()
 
   if (collapsible === "none") {
     return (
@@ -182,8 +197,11 @@ function Sidebar({
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+        {/* mogi: 属性（data-*、style、id）落到抽屉本身，并渲染进 SidebarProvider 外层以继承局部主题；className 只用于桌面容器，不转发 */}
         <SheetContent
+          {...props}
+          container={container}
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
@@ -191,6 +209,7 @@ function Sidebar({
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+              ...props.style,
             } as React.CSSProperties
           }
           side={side}
