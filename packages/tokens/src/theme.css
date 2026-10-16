@@ -50,8 +50,8 @@
   --sidebar-foreground: var(--sand-900);
   --sidebar-primary: var(--corgi-600);
   --sidebar-primary-foreground: var(--petal);
-  --sidebar-accent: var(--corgi-100);
-  --sidebar-accent-foreground: var(--corgi-700);
+  --sidebar-accent: #fffdf9; /* 当前项：暖白底 + 深色字，不用橘色底 */
+  --sidebar-accent-foreground: var(--sand-900);
   --sidebar-border: #e9dccb;
   --sidebar-ring: var(--corgi-400);
 }
@@ -96,8 +96,8 @@
   --sidebar-foreground: #f6ebdd;
   --sidebar-primary: #e0a06c;
   --sidebar-primary-foreground: #2a1a10;
-  --sidebar-accent: #4a3425;
-  --sidebar-accent-foreground: var(--corgi-200);
+  --sidebar-accent: #3d2b20;
+  --sidebar-accent-foreground: #f6ebdd;
   --sidebar-border: #44332a;
   --sidebar-ring: #e0a06c;
 }

@@ -29,7 +29,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 表示状态的 Badge（成功、失败、待审核等）前面放一个 lucide 图标，直接写在 children 里，例如 `<Badge variant="success"><CheckCircle2 /> 已完成</Badge>`，不只靠颜色区分。
 - 数据表格用 mogi-ui 的 `Table` 组合组件（自带横向滚动容器）：选中行设 `data-state="selected"`，并在首列放 `Checkbox` 让读屏也能识别；空表用 `TableEmpty`。
 - 列表底部的"已载入 N 条 / 继续加载"用 `LoadMore`；详情页的键值对用 `DescriptionList` + `DescriptionItem`；原始 JSON / 文本用 `CodeBlock`；空、失败、未接入用 `EmptyState`（`variant` 为 `empty` / `error` / `unavailable`），加载中用 `LoadingState`。
-- 应用外框用 `Sidebar`（`SidebarProvider` 包住页面，`SidebarInset` 放主内容），默认 `collapsible="icon"` 并放一个 `SidebarRail`，让用户能点边缘或按 Ctrl/⌘ + B 在图标栏和完整宽度之间切换，每个 `SidebarMenuButton` 都传 `tooltip`；临时面板（筛选、编辑）用 `Sheet`，长内容放 `SheetBody`（正文滚动，`SheetFooter` 里的操作始终可见）；删除等不可撤销操作的确认用 `AlertDialog`，不要用普通 `Dialog`。
+- 应用外框用 `Sidebar`（`SidebarProvider` 包住页面，`SidebarInset` 放主内容），默认 `collapsible="icon"` 并放一个 `SidebarRail`，让用户能点边缘或按 Ctrl/⌘ + B 在图标栏和完整宽度之间切换，每个 `SidebarMenuButton` 都传 `tooltip`；设置、账号等全局入口统一放在 `SidebarFooter`，`SidebarContent` 只放业务导航；当前项的样式由组件提供（暖白底 + 深色字），不要另加橘色底；临时面板（筛选、编辑）用 `Sheet`，长内容放 `SheetBody`（正文滚动，`SheetFooter` 里的操作始终可见）；删除等不可撤销操作的确认用 `AlertDialog`，不要用普通 `Dialog`。
 - 表单校验用 `Form`（react-hook-form）：每个字段用 `FormField` + `FormItem` + `FormLabel` + `FormControl` + `FormMessage`，错误提示交给 `FormMessage`，不自己写红字。
 - 有总页数、需要跳页的列表用 `Pagination`；只需要往下加载的用 `LoadMore`。
 - mogi-ui 只支持 React 19；React 18 项目先升级再接入。
