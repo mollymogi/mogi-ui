@@ -55,6 +55,7 @@ import {
 } from "@mogi-ui/ui/components/select"
 import {
   Sheet,
+  SheetBody,
   SheetClose,
   SheetContent,
   SheetDescription,
@@ -173,35 +174,41 @@ export function FormDemo() {
 
 export function SheetDemo() {
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">
-          <SlidersHorizontal /> 打开抽屉
-        </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>筛选条件</SheetTitle>
-          <SheetDescription>调整后列表会立即刷新。</SheetDescription>
-        </SheetHeader>
-        <div className="grid gap-4 px-4">
-          <div className="grid gap-2">
-            <Label htmlFor="sheet-keyword">关键词</Label>
-            <Input id="sheet-keyword" placeholder="运行 ID 或用例集" />
-          </div>
-          <div className="flex items-center justify-between">
-            <Label htmlFor="sheet-failed">只看失败</Label>
-            <Switch id="sheet-failed" />
-          </div>
-        </div>
-        <SheetFooter>
-          <Button>应用</Button>
-          <SheetClose asChild>
-            <Button variant="outline">取消</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+    <div className="flex flex-wrap gap-2">
+      {(["right", "bottom"] as const).map((side) => (
+        <Sheet key={side}>
+          <SheetTrigger asChild>
+            <Button variant="outline">
+              <SlidersHorizontal /> {side === "right" ? "右侧抽屉" : "底部抽屉"}
+            </Button>
+          </SheetTrigger>
+          <SheetContent side={side} className={side === "bottom" ? "max-h-[70dvh]" : undefined}>
+            <SheetHeader>
+              <SheetTitle>筛选条件</SheetTitle>
+              <SheetDescription>调整后列表会立即刷新。内容过长时正文滚动，底部按钮始终可见。</SheetDescription>
+            </SheetHeader>
+            <SheetBody className="grid content-start gap-4">
+              <div className="flex items-center justify-between">
+                <Label htmlFor={`sheet-${side}-failed`}>只看失败</Label>
+                <Switch id={`sheet-${side}-failed`} />
+              </div>
+              {["关键词", "用例集", "提供方", "开始时间", "结束时间", "运行 ID", "标签", "备注"].map((field, i) => (
+                <div key={field} className="grid gap-2">
+                  <Label htmlFor={`sheet-${side}-${i}`}>{field}</Label>
+                  <Input id={`sheet-${side}-${i}`} placeholder={`输入${field}`} />
+                </div>
+              ))}
+            </SheetBody>
+            <SheetFooter className="border-t">
+              <Button>应用</Button>
+              <SheetClose asChild>
+                <Button variant="outline">取消</Button>
+              </SheetClose>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+      ))}
+    </div>
   )
 }
 
