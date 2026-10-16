@@ -78,6 +78,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarRail,
   SidebarTrigger,
 } from "@mogi-ui/ui/components/sidebar"
 import { Switch } from "@mogi-ui/ui/components/switch"
@@ -371,6 +372,7 @@ export function SidebarDemo() {
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarFooter>
+          <SidebarRail />
         </Sidebar>
         <SidebarInset>
           <header className="flex h-12 items-center gap-2 border-b px-3">
@@ -379,7 +381,7 @@ export function SidebarDemo() {
             <span className="font-bold">{active}</span>
           </header>
           <div className="grid gap-3 p-4 text-sm text-muted-foreground">
-            <p>点左上角按钮或按 Ctrl/⌘ + B 收起侧栏；收起后只显示图标，悬停有提示。</p>
+            <p>点左上角按钮、点侧栏右边缘，或按 Ctrl/⌘ + B，侧栏在图标栏和完整宽度之间切换；收起后悬停图标有提示。</p>
             <div className="flex gap-2">
               <Badge variant="soft">collapsible="icon"</Badge>
               <Badge variant="outline">窄屏变成抽屉</Badge>
