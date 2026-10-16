@@ -487,6 +487,20 @@
       ]
     },
     {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "slider",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "sonner",
       "type": "registry:ui",
       "title": "sonner",
@@ -614,6 +628,7 @@
         "https://mollymogi.github.io/mogi-ui/r/sheet.json",
         "https://mollymogi.github.io/mogi-ui/r/sidebar.json",
         "https://mollymogi.github.io/mogi-ui/r/skeleton.json",
+        "https://mollymogi.github.io/mogi-ui/r/slider.json",
         "https://mollymogi.github.io/mogi-ui/r/sonner.json",
         "https://mollymogi.github.io/mogi-ui/r/switch.json",
         "https://mollymogi.github.io/mogi-ui/r/table.json",
