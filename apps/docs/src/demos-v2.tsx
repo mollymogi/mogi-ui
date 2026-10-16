@@ -314,7 +314,12 @@ const navItems = [
   { label: "概览", icon: House },
   { label: "运行记录", icon: ChartColumn, badge: "12" },
   { label: "收件箱", icon: Inbox, badge: "3" },
+]
+
+// 设置、账号这类全局入口统一放在侧栏底部
+const footerItems = [
   { label: "设置", icon: Settings },
+  { label: "mogi", icon: Flower2 },
 ]
 
 export function SidebarDemo() {
@@ -364,12 +369,18 @@ export function SidebarDemo() {
           </SidebarContent>
           <SidebarFooter>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton tooltip="mogi">
-                  <Flower2 />
-                  <span>mogi</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {footerItems.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    isActive={active === item.label}
+                    tooltip={item.label}
+                    onClick={() => setActive(item.label)}
+                  >
+                    <item.icon />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarFooter>
           <SidebarRail />

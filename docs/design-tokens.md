@@ -1,4 +1,4 @@
-# Mogi 风格 Design Token 方案（v1.1，2026-10-15：亮色主题对比度修正）
+# Mogi 风格 Design Token 方案（v1.2，2026-10-16：侧边栏改为暖白底、浅橘选中）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
@@ -42,6 +42,8 @@
   --input: #e3d4c1;
   --ring: #dc9357;
   --radius: 0.75rem;
+  --sidebar: #fffdf9;         --sidebar-foreground: #3a2820; /* 暖白底 */
+  --sidebar-accent: #fae8d3;  --sidebar-accent-foreground: #3a2820; /* 选中浅橘底 + 深色字，悬停 60% */
   --shadow-sm: 0 1px 2px rgb(58 40 32 / .06);
   --shadow-md: 0 4px 14px rgb(58 40 32 / .10);
 }
@@ -64,6 +66,8 @@
   --border: #44332a;
   --input: #4e3b30;
   --ring: #e0a06c;
+  --sidebar: #2e2017;         --sidebar-foreground: #f6ebdd;
+  --sidebar-accent: #4a3425;  --sidebar-accent-foreground: #f6ebdd;
 }
 ```
 

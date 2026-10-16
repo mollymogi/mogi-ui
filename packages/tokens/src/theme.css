@@ -46,12 +46,12 @@
   --chart-4: var(--honey-500);
   --chart-5: var(--sand-500);
 
-  --sidebar: var(--sand-100);
+  --sidebar: #fffdf9; /* 暖白底 */
   --sidebar-foreground: var(--sand-900);
   --sidebar-primary: var(--corgi-600);
   --sidebar-primary-foreground: var(--petal);
-  --sidebar-accent: var(--corgi-100);
-  --sidebar-accent-foreground: var(--corgi-700);
+  --sidebar-accent: var(--corgi-100); /* 选中浅橘底 + 深色字，悬停用它的 60% */
+  --sidebar-accent-foreground: var(--sand-900);
   --sidebar-border: #e9dccb;
   --sidebar-ring: var(--corgi-400);
 }
@@ -97,7 +97,7 @@
   --sidebar-primary: #e0a06c;
   --sidebar-primary-foreground: #2a1a10;
   --sidebar-accent: #4a3425;
-  --sidebar-accent-foreground: var(--corgi-200);
+  --sidebar-accent-foreground: #f6ebdd;
   --sidebar-border: #44332a;
   --sidebar-ring: #e0a06c;
 }
