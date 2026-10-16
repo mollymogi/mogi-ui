@@ -4,7 +4,7 @@
 
 - 仓库：https://github.com/shadcn-ui/ui
 - 路径：`apps/v4/registry/new-york-v4/ui/`
-- 分支：`main`，拉取日期 2026-10-15（sheet、alert-dialog、pagination、form、sidebar 及 `hooks/use-mobile.ts` 为第二批，同日拉取）
+- 分支：`main`，拉取日期 2026-10-15（sheet、alert-dialog、pagination、form、sidebar 及 `hooks/use-mobile.ts` 为第二批，同日拉取；slider 于 2026-10-16 拉取）
 
 拉取时只做了两处机械替换：
 - `cn` 的导入改为 `@mogi-ui/ui/lib/utils`
@@ -19,6 +19,7 @@
 | sonner | 去掉 `next-themes` 依赖，主题改为通过 `theme` 属性传入 |
 | pagination | 文案改为中文（上一页 / 下一页 / 更多页，`aria-label` 同步），`PaginationPrevious` / `PaginationNext` 的 children 可覆盖文案；当前页改为 primary 色描边和文字 |
 | sheet | 新增 `SheetBody`（正文独立滚动，头尾固定）；`SheetContent` 新增 `closeLabel`（默认"关闭"）和 `container`（渲染进局部主题容器）；上下方向限高 `max-h-dvh`；遮罩和内容尊重 `prefers-reduced-motion` |
+| slider | 滑块底色由 `bg-white` 改为 `bg-background`，暗色主题下不刺眼 |
 | table | 表头加浅底；选中态（`data-state="selected"` 或 `aria-selected="true"`）改为 `accent/50` 底色加首列左侧 primary 色条；新增 `TableEmpty` 空表行；`Table` 新增 `containerClassName` |
 
 其余组件与上游一致，mogi 风格完全来自 `@mogi-ui/tokens` 里的 CSS 变量。

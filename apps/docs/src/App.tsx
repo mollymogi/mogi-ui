@@ -67,6 +67,7 @@ import {
 } from "@mogi-ui/ui/components/select"
 import { Separator } from "@mogi-ui/ui/components/separator"
 import { Skeleton } from "@mogi-ui/ui/components/skeleton"
+import { Slider } from "@mogi-ui/ui/components/slider"
 import { Switch } from "@mogi-ui/ui/components/switch"
 import {
   Table,
@@ -94,6 +95,31 @@ const palettes: { name: string; steps: string[] }[] = [
   { name: "terracotta", steps: ["100", "300", "500", "700"] },
   { name: "jasmine", steps: ["100", "300", "500", "700"] },
 ]
+
+function SliderDemo() {
+  const [volume, setVolume] = useState([60])
+  const [price, setPrice] = useState([200, 800])
+  return (
+    <div className="grid gap-5">
+      <div className="grid gap-3">
+        <div className="flex items-center justify-between">
+          <Label htmlFor="volume">提醒音量</Label>
+          <span className="text-sm text-muted-foreground">{volume[0]}%</span>
+        </div>
+        <Slider id="volume" value={volume} onValueChange={setVolume} max={100} step={1} />
+      </div>
+      <div className="grid gap-3">
+        <div className="flex items-center justify-between">
+          <Label>价格区间</Label>
+          <span className="text-sm text-muted-foreground">
+            ¥{price[0]} – ¥{price[1]}
+          </span>
+        </div>
+        <Slider value={price} onValueChange={setPrice} min={0} max={1000} step={50} aria-label="价格区间" />
+      </div>
+    </div>
+  )
+}
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -393,6 +419,7 @@ export function App() {
                   <Label htmlFor="auto">自动更新</Label>
                   <Switch id="auto" defaultChecked />
                 </div>
+                <SliderDemo />
               </CardContent>
               <CardFooter className="justify-end gap-2">
                 <Button variant="ghost">取消</Button>
@@ -408,7 +435,7 @@ export function App() {
                   <TabsTrigger value="docs">文档</TabsTrigger>
                 </TabsList>
                 <TabsContent value="components" className="pt-2 text-muted-foreground">
-                  30 个组件，来自 shadcn/ui 并套用 mogi 主题，另有几个 mogi 自有组件。
+                  31 个组件，来自 shadcn/ui 并套用 mogi 主题，另有几个 mogi 自有组件。
                 </TabsContent>
                 <TabsContent value="tokens" className="pt-2 text-muted-foreground">
                   基础色板 + 语义变量，变量名与 shadcn 一致。
