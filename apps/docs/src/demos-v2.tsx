@@ -3,14 +3,17 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import {
   ChartColumn,
+  ChevronsUpDown,
   Flower2,
   House,
   Inbox,
+  LogOut,
   PawPrint,
   Settings,
   SlidersHorizontal,
   Trash2,
   TriangleAlert,
+  User,
 } from "lucide-react"
 
 import {
@@ -28,6 +31,15 @@ import {
 import { Avatar, AvatarFallback } from "@mogi-ui/ui/components/avatar"
 import { Badge } from "@mogi-ui/ui/components/badge"
 import { Button } from "@mogi-ui/ui/components/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@mogi-ui/ui/components/dropdown-menu"
 import {
   Form,
   FormControl,
@@ -81,6 +93,7 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
+  useSidebar,
 } from "@mogi-ui/ui/components/sidebar"
 import { Switch } from "@mogi-ui/ui/components/switch"
 import { Label } from "@mogi-ui/ui/components/label"
@@ -311,6 +324,65 @@ function PageLink({
   )
 }
 
+// 侧栏底部只放一个账号按钮，设置、退出等收进向上弹出的菜单
+function NavUser({ onSelect }: { onSelect: (label: string) => void }) {
+  const { isMobile, state } = useSidebar()
+  const avatar = (
+    <Avatar className="size-8">
+      <AvatarFallback className="bg-primary/10 text-primary">
+        <Flower2 className="size-4" />
+      </AvatarFallback>
+    </Avatar>
+  )
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <SidebarMenuButton
+          size="lg"
+          tooltip="mogi"
+          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+        >
+          {avatar}
+          <div className="grid min-w-0 flex-1 text-left leading-tight">
+            <span className="truncate font-bold">mogi</span>
+            <span className="truncate text-xs text-muted-foreground">mogi@example.com</span>
+          </div>
+          <ChevronsUpDown className="ml-auto" />
+        </SidebarMenuButton>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        // 按钮在底部，菜单向上弹；收起成图标栏时往右弹，避免盖住图标
+        side={state === "collapsed" && !isMobile ? "right" : "top"}
+        align={state === "collapsed" && !isMobile ? "end" : "start"}
+        sideOffset={6}
+        className="w-(--radix-dropdown-menu-trigger-width) min-w-56"
+      >
+        <DropdownMenuLabel className="flex items-center gap-2 font-normal">
+          {avatar}
+          <div className="grid min-w-0 leading-tight">
+            <span className="truncate font-bold">mogi</span>
+            <span className="truncate text-xs text-muted-foreground">mogi@example.com</span>
+          </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem onSelect={() => onSelect("账号")}>
+            <User /> 账号
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => onSelect("设置")}>
+            <Settings /> 设置
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive" onSelect={() => toast("已退出登录")}>
+          <LogOut /> 退出登录
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
 const navItems = [
   { label: "概览", icon: House },
   { label: "运行记录", icon: ChartColumn, badge: "12" },
@@ -364,35 +436,11 @@ export function SidebarDemo() {
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>
-            {/* 账号和设置合成一张卡片：左边账号，右边设置；收起成图标栏时上下排 */}
-            <div className="flex items-center gap-1 rounded-lg border border-sidebar-border p-1 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:p-0">
-              <SidebarMenuButton
-                size="lg"
-                tooltip="mogi"
-                isActive={active === "账号"}
-                onClick={() => setActive("账号")}
-                className="min-w-0 flex-1"
-              >
-                <Avatar className="size-8">
-                  <AvatarFallback className="bg-primary/10 text-primary">
-                    <Flower2 className="size-4" />
-                  </AvatarFallback>
-                </Avatar>
-                <div className="grid min-w-0 text-left leading-tight">
-                  <span className="truncate font-bold">mogi</span>
-                  <span className="truncate text-xs text-muted-foreground">mogi@example.com</span>
-                </div>
-              </SidebarMenuButton>
-              <SidebarMenuButton
-                tooltip="设置"
-                aria-label="设置"
-                isActive={active === "设置"}
-                onClick={() => setActive("设置")}
-                className="size-8 shrink-0 justify-center p-0"
-              >
-                <Settings />
-              </SidebarMenuButton>
-            </div>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <NavUser onSelect={setActive} />
+              </SidebarMenuItem>
+            </SidebarMenu>
           </SidebarFooter>
           <SidebarRail />
         </Sidebar>
