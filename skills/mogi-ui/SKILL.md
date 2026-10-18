@@ -17,6 +17,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 
 1. 项目需为 React 19 + Tailwind v4，并已初始化 shadcn（`npx shadcn init`）。
 2. 套用主题：`npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json`
+   主题更新后（例如 2026-10-18 新增了动效 token）要重新执行这条命令，否则新版组件的动效时长和缓动不生效。
    主题不带字体文件：JetBrains Mono 装 `@fontsource-variable/jetbrains-mono`；江城圆体从 https://mollymogi.github.io/mogi-ui/fonts/ 下载 `jiangcheng.css`、`jiangcheng/` 和 `OFL-jiangcheng.txt` 自托管。
 3. 组件通过 registry 安装：`npx shadcn add https://mollymogi.github.io/mogi-ui/r/<组件名>.json`（如 `button`、`table`、`sidebar`；`all` 一次装全部）。可装的条目见 `https://mollymogi.github.io/mogi-ui/r/registry.json`。不要用 `npx shadcn add button` 这类官方短名，会装成 shadcn 原版覆盖 mogi 版本。
 
@@ -25,6 +26,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 颜色只用语义变量（`bg-primary`、`text-muted-foreground`、`bg-success` 等），禁止写死 hex 或用 Tailwind 原生色板（如 `bg-orange-500`）。
 - 字体沿用主题：英文/数字 JetBrains Mono，中文江城圆体，不另引字体。
 - 圆角、阴影、间距使用主题 token，不自定义数值。
+- 动效用主题的动效 token：时长 `duration-(--duration-mogi-fast)` / `duration-(--duration-mogi)` / `duration-(--duration-mogi-slow)`，缓动 `ease-mogi`（进入）、`ease-mogi-spring`（带轻微回弹的进入）、`ease-mogi-in`（退出）。mogi-ui 组件已自带动效，不要再叠加；自己写的过渡只做透明度、小位移和缩放，不超过 320ms，不加动画库。减弱动态效果由主题统一处理，不要绕过（如写死 `animation-duration` 加 `!important`）。
 - 优先用 mogi-ui 已有组件和变体；同一功能不要自己再写一个。
 - 表示状态的 Badge（成功、失败、待审核等）前面放一个 lucide 图标，直接写在 children 里，例如 `<Badge variant="success"><CheckCircle2 /> 已完成</Badge>`，不只靠颜色区分。
 - 数据表格用 mogi-ui 的 `Table` 组合组件（自带横向滚动容器）：选中行设 `data-state="selected"`，并在首列放 `Checkbox` 让读屏也能识别；空表用 `TableEmpty`。
@@ -53,4 +55,5 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 
 - [ ] 没有写死颜色或原生色板
 - [ ] 亮/暗主题都看过
+- [ ] 没有写死动画时长或缓动
 - [ ] 用到的组件都来自 mogi-ui，临时实现都标了 TODO 并已上报

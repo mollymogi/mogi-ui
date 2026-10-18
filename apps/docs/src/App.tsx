@@ -18,6 +18,7 @@ import {
   TriangleAlert,
 } from "lucide-react"
 
+import { MotionDemo } from "./demo-motion"
 import { AlertDialogDemo, FormDemo, PaginationDemo, SheetDemo, SidebarDemo } from "./demos-v2"
 import { Alert, AlertDescription, AlertTitle } from "@mogi-ui/ui/components/alert"
 import { Avatar, AvatarFallback } from "@mogi-ui/ui/components/avatar"
@@ -315,6 +316,10 @@ export function App() {
             </Button>
             <Button disabled>禁用</Button>
           </div>
+        </Section>
+
+        <Section title="动效">
+          <MotionDemo />
         </Section>
 
         <Section title="标签与提示">

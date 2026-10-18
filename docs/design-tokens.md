@@ -1,4 +1,4 @@
-# Mogi 风格 Design Token 方案（v1.2，2026-10-16：侧边栏改为暖白底、浅橘选中）
+# Mogi 风格 Design Token 方案（v1.3，2026-10-18：新增动效 token）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
@@ -80,8 +80,25 @@
 | 字号 | xs 11 · sm 13 · base 14 · lg 16 · xl 18 · 2xl 22 · 3xl 28 |
 | 间距 | 4 的倍数，组件内 8/12/16，区块间 24/32/48 |
 | 阴影 | 只用 sm / md 两档，颜色基于 `sand-900` 带透明度，避免灰色阴影 |
-| 动效 | 150ms 快速反馈、250ms 展开/收起，缓动 `cubic-bezier(.2,.8,.2,1)` |
+| 动效 | 见下方「动效」一节 |
 | 焦点环 | 2px `--ring`，offset 2px |
+
+### 动效
+
+源码在 `packages/tokens/src/motion.css`，主题 registry（`mogi-theme.json`）里也带着同一套值。风格是轻、软、末尾带一点回弹，不做大位移和长动画。
+
+| token | 值 | 用在哪里 |
+|---|---|---|
+| `--duration-mogi-fast` | 120ms | 按下、悬停、颜色变化、所有关闭 |
+| `--duration-mogi` | 200ms | 浮层打开、开关、勾选、侧边栏收起展开 |
+| `--duration-mogi-slow` | 320ms | 抽屉滑入、空态图标弹出 |
+| `ease-mogi` | `cubic-bezier(0.22, 1, 0.36, 1)` | 进入：快起慢停（弹出层、侧边栏、抽屉） |
+| `ease-mogi-spring` | `cubic-bezier(0.34, 1.4, 0.64, 1)` | 进入：末尾轻轻回弹（开关、勾选、对话框、下拉菜单） |
+| `ease-mogi-in` | `cubic-bezier(0.4, 0, 1, 1)` | 退出：干脆收走 |
+| `animate-mogi-pop` | 320ms 从 60% 弹到原大小 | 空态图标 |
+
+写法：`duration-(--duration-mogi) ease-mogi-spring`。时长是普通 CSS 变量，使用方在 `:root` 里改值就能整体调快调慢。
+系统开启"减弱动态效果"（`prefers-reduced-motion: reduce`）时，所有动画和过渡压到 1ms，只保留加载转圈。
 
 ## 五、组件层约定（少量）
 

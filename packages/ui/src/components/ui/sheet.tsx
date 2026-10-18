@@ -35,7 +35,7 @@ function SheetOverlay({
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 motion-reduce:animate-none",
+        "fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 duration-(--duration-mogi) ease-mogi data-[state=closed]:duration-(--duration-mogi-fast) motion-reduce:animate-none",
         className
       )}
       {...props}
@@ -66,7 +66,7 @@ function SheetContent({
         data-slot="sheet-content"
         className={cn(
           // mogi: min-h-0 + overflow-hidden 让 SheetBody 自己滚动，头尾固定；尊重"减少动画"设置
-          "fixed z-50 flex min-h-0 flex-col gap-4 overflow-hidden bg-background shadow-lg transition ease-in-out data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=open]:duration-500 motion-reduce:animate-none",
+          "fixed z-50 flex min-h-0 flex-col gap-4 overflow-hidden bg-background shadow-lg data-[state=closed]:animate-out data-[state=closed]:duration-(--duration-mogi) data-[state=closed]:ease-mogi-in data-[state=open]:animate-in data-[state=open]:duration-(--duration-mogi-slow) data-[state=open]:ease-mogi motion-reduce:animate-none",
           side === "right" &&
             "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
           side === "left" &&
