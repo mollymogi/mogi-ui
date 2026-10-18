@@ -20,7 +20,7 @@ const emptyStateVariants = cva(
 )
 
 const iconVariants = cva(
-  "flex size-10 items-center justify-center rounded-full [&>svg]:size-5",
+  "flex size-10 animate-mogi-pop items-center justify-center rounded-full [&>svg]:size-5",
   {
     variants: {
       variant: {

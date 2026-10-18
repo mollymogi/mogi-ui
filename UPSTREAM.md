@@ -20,8 +20,9 @@
 | pagination | 文案改为中文（上一页 / 下一页 / 更多页，`aria-label` 同步），`PaginationPrevious` / `PaginationNext` 的 children 可覆盖文案；当前页改为 primary 色描边和文字 |
 | sheet | 新增 `SheetBody`（正文独立滚动，头尾固定）；`SheetContent` 新增 `closeLabel`（默认"关闭"）和 `container`（渲染进局部主题容器）；上下方向限高 `max-h-dvh`；遮罩和内容尊重 `prefers-reduced-motion` |
 | sidebar | 无障碍和提示文案改为中文（触发按钮、边缘拖条 `SidebarRail`、窄屏抽屉标题）；边缘拖条的悬停提示带上快捷键 Ctrl/⌘ + B；菜单按钮选中时图标用 primary 色、悬停用 60% 的 accent；窄屏抽屉渲染进 `SidebarProvider` 外层元素（继承局部主题），`Sidebar` 的 data-*、`style`、`id` 落到抽屉本身（上游落在不渲染 DOM 的 Sheet Root 上），`className` 仍只作用于桌面容器 |
-| slider | 滑块底色由 `bg-white` 改为 `bg-background`，暗色主题下不刺眼 |
+| slider | 滑块底色由 `bg-white` 改为 `bg-background`，暗色主题下不刺眼；按住滑块时轻微放大 |
 | table | 表头加浅底；选中态（`data-state="selected"` 或 `aria-selected="true"`）改为 `accent/50` 底色加首列左侧 primary 色条；新增 `TableEmpty` 空表行；`Table` 新增 `containerClassName` |
+| 动效（多个组件） | 时长和缓动统一换成 mogi 动效 token（见 docs/design-tokens.md「动效」）：dialog、alert-dialog、popover、dropdown-menu、select、tooltip 打开用 `ease-mogi-spring`、关闭用更快的 `ease-mogi-in`，dialog 和 alert-dialog 打开时额外从下方升起一点；sheet 滑入改为 `ease-mogi`；sidebar 收起展开由 `ease-linear` 改为 `ease-mogi`；button 按下缩到 97%；switch 滑块回弹；checkbox、radio-group 的勾和圆点弹出；tabs 切换过渡 |
 
 其余组件与上游一致，mogi 风格完全来自 `@mogi-ui/tokens` 里的 CSS 变量。
 

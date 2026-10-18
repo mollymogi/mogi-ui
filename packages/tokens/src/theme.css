@@ -6,6 +6,7 @@
  *   @import "@mogi-ui/tokens/theme.css";
  */
 @import "./primitives.css";
+@import "./motion.css";
 
 @custom-variant dark (&:is(.dark *));
 

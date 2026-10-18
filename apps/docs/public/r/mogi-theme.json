@@ -2,11 +2,15 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "mogi-theme",
   "title": "Mogi Theme",
-  "description": "mogi（茉莉花 + 柯基）配色主题，变量名与 shadcn 一致，可直接套用到任意 shadcn 项目。",
+  "description": "mogi（茉莉花 + 柯基）配色主题，变量名与 shadcn 一致，可直接套用到任意 shadcn 项目。含动效 token（时长、缓动）和减弱动态效果的处理。",
   "cssVars": {
     "theme": {
       "font-sans": "\"JetBrains Mono\", \"Jiangcheng Yuanti\", \"Noto Sans SC\", ui-monospace, monospace",
-      "radius": "0.75rem"
+      "radius": "0.75rem",
+      "ease-mogi": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "ease-mogi-spring": "cubic-bezier(0.34, 1.4, 0.64, 1)",
+      "ease-mogi-in": "cubic-bezier(0.4, 0, 1, 1)",
+      "animate-mogi-pop": "mogi-pop var(--duration-mogi-slow) var(--ease-mogi-spring) both"
     },
     "light": {
       "radius": "0.75rem",
@@ -49,7 +53,10 @@
       "sidebar-accent": "#fae8d3",
       "sidebar-accent-foreground": "#3a2820",
       "sidebar-border": "#e9dccb",
-      "sidebar-ring": "#dc9357"
+      "sidebar-ring": "#dc9357",
+      "duration-mogi-fast": "120ms",
+      "duration-mogi": "200ms",
+      "duration-mogi-slow": "320ms"
     },
     "dark": {
       "background": "#241811",
@@ -92,6 +99,27 @@
       "sidebar-accent-foreground": "#f6ebdd",
       "sidebar-border": "#44332a",
       "sidebar-ring": "#e0a06c"
+    }
+  },
+  "css": {
+    "@keyframes mogi-pop": {
+      "from": {
+        "opacity": "0",
+        "transform": "scale(0.6)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      }
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      "*:not(.animate-spin), *::before, *::after": {
+        "animation-duration": "1ms !important",
+        "animation-delay": "0s !important",
+        "animation-iteration-count": "1 !important",
+        "transition-duration": "1ms !important",
+        "scroll-behavior": "auto !important"
+      }
     }
   },
   "type": "registry:theme"
