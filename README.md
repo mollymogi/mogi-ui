@@ -34,6 +34,10 @@ pnpm registry:build   # 生成 apps/docs/public/r/*.json（主题 + 每个组件
 
 每次推送到 `main` 都会通过 GitHub Actions（`.github/workflows/deploy-docs.yml`）自动构建并发布到 GitHub Pages。
 
+## 布局模式
+
+- [详情看板 DetailLayout](docs/detail-layout.md)：一句话结论、关键指标、主内容与辅助栏；技术细节用 Sheet 按需查看。预览站包含亮/暗主题示例。
+
 ## 在其他项目里使用
 
 **方式一：通过 registry 安装（推荐）。** 任何 React 19 + Tailwind v4 的 shadcn 项目，先套主题，再按需装组件：

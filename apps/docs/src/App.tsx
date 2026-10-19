@@ -18,6 +18,7 @@ import {
   TriangleAlert,
 } from "lucide-react"
 
+import { DetailLayoutDemo } from "./demo-detail-layout"
 import { MotionDemo } from "./demo-motion"
 import { AlertDialogDemo, FormDemo, PaginationDemo, SheetDemo, SidebarDemo } from "./demos-v2"
 import { Alert, AlertDescription, AlertTitle } from "@mogi-ui/ui/components/alert"
@@ -556,6 +557,10 @@ export function App() {
           <div className="rounded-xl border bg-card px-4">
             <LoadMoreDemo />
           </div>
+        </Section>
+
+        <Section title="详情看板：先结论，再证据">
+          <DetailLayoutDemo />
         </Section>
 
         <Section title="详情与原始数据">
