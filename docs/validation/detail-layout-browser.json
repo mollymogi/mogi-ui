@@ -1843,7 +1843,9 @@
     },
     {
       "name": "Escape closes Sheet and restores trigger focus",
-      "passed": true
+      "passed": null,
+      "status": "pending_verification",
+      "note": "PR #24 评审发现原实现未恢复触发按钮焦点，原 passed: true 结论不可靠。现已记录实际触发按钮并在 onCloseAutoFocus 中恢复焦点；本次尚未进行浏览器实测，需分别从两个入口打开并验证 Escape、关闭按钮及返回看板后的焦点。"
     }
   ],
   "measurements": [

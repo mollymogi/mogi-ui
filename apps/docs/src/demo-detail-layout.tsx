@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { ArrowRight, BookOpen, Clock3, FileText, History, Link2, ShieldCheck, TriangleAlert } from "lucide-react"
 import { DetailLayout } from "@mogi-ui/ui/components/detail-layout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@mogi-ui/ui/components/card"
@@ -11,6 +11,7 @@ import { Sheet, SheetBody, SheetContent, SheetDescription, SheetFooter, SheetHea
 /** Static labelled fixture: demonstrates layout, not a live Authority judgement. */
 export function DetailLayoutDemo() {
   const [open, setOpen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
   const [showAside, setShowAside] = useState(true)
   return (
     <div id="detail-layout-demo" className="rounded-xl border bg-background p-4 sm:p-6" data-testid="detail-layout-demo">
@@ -22,7 +23,7 @@ export function DetailLayoutDemo() {
               <h3 className="text-2xl font-semibold tracking-tight">长期记忆引擎的选择</h3>
               <p className="text-sm text-muted-foreground">演示数据 · 首屏结论与关键变化，来源细节按需查看。</p>
             </div>
-            <div className="flex flex-wrap gap-2"><Button variant="ghost" onClick={() => setShowAside(value => !value)}>{showAside ? "隐藏辅助栏" : "显示辅助栏"}</Button><Button variant="outline" onClick={() => setOpen(true)}><FileText /> 查看来源</Button></div>
+            <div className="flex flex-wrap gap-2"><Button variant="ghost" onClick={() => setShowAside(value => !value)}>{showAside ? "隐藏辅助栏" : "显示辅助栏"}</Button><Button variant="outline" onClick={event => { triggerRef.current = event.currentTarget; setOpen(true) }}><FileText /> 查看来源</Button></div>
           </div>
         }
         summary={
@@ -62,7 +63,7 @@ export function DetailLayoutDemo() {
             </Card>
             <Card>
               <CardHeader><CardTitle className="text-sm">下一步</CardTitle><CardDescription>先查看当前规则，再追溯变化。</CardDescription></CardHeader>
-              <CardContent><Button className="w-full" onClick={() => setOpen(true)}><Link2 /> 追溯规则与来源</Button></CardContent>
+              <CardContent><Button className="w-full" onClick={event => { triggerRef.current = event.currentTarget; setOpen(true) }}><Link2 /> 追溯规则与来源</Button></CardContent>
             </Card>
           </>
         ) : undefined}
@@ -85,7 +86,10 @@ export function DetailLayoutDemo() {
         <div className="flex items-center gap-2 text-xs text-muted-foreground"><Clock3 className="size-4 shrink-0" />示例为只读快照，查看详情不会提交修改。</div>
       </DetailLayout>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent className="sm:max-w-xl">
+        <SheetContent className="sm:max-w-xl" onCloseAutoFocus={event => {
+          event.preventDefault()
+          triggerRef.current?.focus()
+        }}>
           <SheetHeader><SheetTitle>规则与来源详情</SheetTitle><SheetDescription>演示记录 · 技术元数据放进辅助面板，不抢占首屏。</SheetDescription></SheetHeader>
           <SheetBody className="grid content-start gap-6">
             <DescriptionList>
