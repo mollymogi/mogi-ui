@@ -254,6 +254,10 @@ export function App() {
     document.documentElement.classList.toggle("dark", dark)
   }, [dark])
 
+  if (new URLSearchParams(window.location.search).get("preview") === "detail-layout") {
+    return <TooltipProvider><main className="mx-auto min-w-0 max-w-7xl p-4 sm:p-8"><DetailLayoutDemo /></main></TooltipProvider>
+  }
+
   return (
     <TooltipProvider>
       <div className="mx-auto grid max-w-5xl gap-12 px-4 py-10 sm:px-6">

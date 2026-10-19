@@ -37,3 +37,5 @@
 
 安装：`npx shadcn add https://mollymogi.github.io/mogi-ui/r/detail-layout.json`。
 主分支发布前请从本 PR 的源码或本地 registry 预览，不把尚未发布的条目当线上已存在。
+
+独立预览：在文档站点 URL 后加 `?preview=detail-layout`，只显示该详情看板示例。
