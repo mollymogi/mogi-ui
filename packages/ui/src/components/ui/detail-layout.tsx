@@ -29,7 +29,7 @@ function DetailLayout({
   }[metricColumns]
 
   return (
-    <div data-slot="detail-layout" className={cn("grid grid-cols-1 min-w-0 gap-6", className)} {...props}>
+    <div data-slot="detail-layout" className={cn("grid grid-cols-1 min-w-0 gap-6 wrap-anywhere", className)} {...props}>
       {header != null && <div data-slot="detail-layout-header" className="min-w-0">{header}</div>}
       {summary != null && <div data-slot="detail-layout-summary" className="min-w-0">{summary}</div>}
       {metrics != null && (

@@ -12,7 +12,7 @@
 - `aside`：来源概况、次级操作；有辅助栏时宽屏采用主区 2/3、辅助栏 1/3。
 
 布局使用 `lg` 断点，窄屏按 header → summary → metrics → 主内容 → 辅助栏的 DOM 顺序排列。
-主区和辅助栏都设 min-width:0；长文字仍由内容组件换行或滚动，不能把整页撑宽。
+主区和辅助栏都设 min-width:0、单列轨道使用 minmax(0,1fr)，根节点继承 overflow-wrap:anywhere，长 ID 和连续文本可换行。CodeBlock 等原始数据组件仍使用自己的滚动，不截断原文。
 不传 aside 时主内容占满，不留下空白列。`metricColumns` 是 2/3/4，默认3；
 四指标在中等宽度排成两列，宽屏再排成四列。
 
