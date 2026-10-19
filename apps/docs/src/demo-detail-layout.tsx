@@ -69,7 +69,7 @@ export function DetailLayoutDemo() {
       >
         <Card>
           <CardHeader><CardTitle>变化对比</CardTitle><CardDescription>历史内容和当前依据并排呈现，避免把旧记忆当成新规则。</CardDescription></CardHeader>
-          <CardContent className="grid gap-4 md:grid-cols-2">
+          <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="grid gap-3 rounded-lg border bg-muted/40 p-4">
               <p className="flex items-center justify-between gap-2 text-sm text-muted-foreground">历史记忆 <Badge variant="outline"><History /> v1</Badge></p>
               <p className="text-lg font-medium">使用引擎 A</p>
