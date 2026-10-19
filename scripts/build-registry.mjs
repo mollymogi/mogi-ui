@@ -28,6 +28,7 @@ const descriptions = {
   checkbox: "复选框",
   "code-block": "原始 JSON / 文本块，可遮罩",
   "description-list": "详情页键值列表",
+  "detail-layout": "详情看板布局：摘要、指标、主区和辅助栏",
   dialog: "对话框",
   "dropdown-menu": "下拉菜单",
   "empty-state": "空态 / 失败 / 未接入，以及加载骨架",

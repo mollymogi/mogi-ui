@@ -29,6 +29,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 动效用主题的动效 token：时长 `duration-(--duration-mogi-fast)` / `duration-(--duration-mogi)` / `duration-(--duration-mogi-slow)`，缓动 `ease-mogi`（进入）、`ease-mogi-spring`（带轻微回弹的进入）、`ease-mogi-in`（退出）。mogi-ui 组件已自带动效，不要再叠加；自己写的过渡只做透明度、小位移和缩放，不超过 320ms，不加动画库。减弱动态效果由主题统一处理，不要绕过（如写死 `animation-duration` 加 `!important`）。
 - 优先用 mogi-ui 已有组件和变体；同一功能不要自己再写一个。
 - 表示状态的 Badge（成功、失败、待审核等）前面放一个 lucide 图标，直接写在 children 里，例如 `<Badge variant="success"><CheckCircle2 /> 已完成</Badge>`，不只靠颜色区分。
+- Dashboard 详情页优先用 `DetailLayout`：`summary` 放一句话结论，`metrics` 仅在有独立价值的指标时使用，主内容放对比/趋势，`aside` 放来源和操作；不要把全部信息堆成纵向手风琴。需要追溯的技术细节用 `Sheet`，同一区域切换用 `Tabs`；异常结论必须在首屏可见。`metricColumns` 支持 2/3/4，窄屏会按阅读顺序排列。
 - 数据表格用 mogi-ui 的 `Table` 组合组件（自带横向滚动容器）：选中行设 `data-state="selected"`，并在首列放 `Checkbox` 让读屏也能识别；空表用 `TableEmpty`。
 - 列表底部的"已载入 N 条 / 继续加载"用 `LoadMore`；详情页的键值对用 `DescriptionList` + `DescriptionItem`；原始 JSON / 文本用 `CodeBlock`；空、失败、未接入用 `EmptyState`（`variant` 为 `empty` / `error` / `unavailable`），加载中用 `LoadingState`。
 - 应用外框用 `Sidebar`（`SidebarProvider` 包住页面，`SidebarInset` 放主内容），默认 `collapsible="icon"` 并放一个 `SidebarRail`，让用户能点边缘或按 Ctrl/⌘ + B 在图标栏和完整宽度之间切换，每个 `SidebarMenuButton` 都传 `tooltip`；`SidebarContent` 只放业务导航；`SidebarFooter` 只放一个账号按钮（头像 + 名字 + 上下箭头图标），点开是 `DropdownMenu`，设置、账号、退出登录都收在菜单里；菜单向上弹（`side="top"`），侧栏收起成图标栏时向右弹（`side="right"`）；局部主题（如只给某块区域加 `.dark`）写在 `SidebarProvider` 或它的祖先上，窄屏抽屉会一起继承；侧栏配色由组件提供（暖白底，悬停和选中浅橘底 + 深色字），不要自己改；临时面板（筛选、编辑）用 `Sheet`，长内容放 `SheetBody`（正文滚动，`SheetFooter` 里的操作始终可见）；删除等不可撤销操作的确认用 `AlertDialog`，不要用普通 `Dialog`。

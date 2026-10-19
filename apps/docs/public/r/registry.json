@@ -264,6 +264,18 @@
       ]
     },
     {
+      "name": "detail-layout",
+      "type": "registry:ui",
+      "title": "detail-layout",
+      "description": "详情看板布局：摘要、指标、主区和辅助栏",
+      "files": [
+        {
+          "path": ".registry/ui/detail-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "dialog",
@@ -641,6 +653,7 @@
         "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
         "https://mollymogi.github.io/mogi-ui/r/code-block.json",
         "https://mollymogi.github.io/mogi-ui/r/description-list.json",
+        "https://mollymogi.github.io/mogi-ui/r/detail-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/dialog.json",
         "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
         "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
