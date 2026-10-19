@@ -11,6 +11,7 @@ import { Sheet, SheetBody, SheetContent, SheetDescription, SheetFooter, SheetHea
 /** Static labelled fixture: demonstrates layout, not a live Authority judgement. */
 export function DetailLayoutDemo() {
   const [open, setOpen] = useState(false)
+  const [showAside, setShowAside] = useState(true)
   return (
     <div id="detail-layout-demo" className="rounded-xl border bg-background p-4 sm:p-6" data-testid="detail-layout-demo">
       <DetailLayout
@@ -21,7 +22,7 @@ export function DetailLayoutDemo() {
               <h3 className="text-2xl font-semibold tracking-tight">长期记忆引擎的选择</h3>
               <p className="text-sm text-muted-foreground">演示数据 · 首屏结论与关键变化，来源细节按需查看。</p>
             </div>
-            <Button variant="outline" onClick={() => setOpen(true)}><FileText /> 查看来源</Button>
+            <div className="flex flex-wrap gap-2"><Button variant="ghost" onClick={() => setShowAside(value => !value)}>{showAside ? "隐藏辅助栏" : "显示辅助栏"}</Button><Button variant="outline" onClick={() => setOpen(true)}><FileText /> 查看来源</Button></div>
           </div>
         }
         summary={
@@ -49,7 +50,7 @@ export function DetailLayoutDemo() {
             </CardContent>
           </Card>
         ))}
-        aside={
+        aside={showAside ? (
           <>
             <Card>
               <CardHeader><CardTitle className="text-sm">来源概况</CardTitle></CardHeader>
@@ -64,7 +65,7 @@ export function DetailLayoutDemo() {
               <CardContent><Button className="w-full" onClick={() => setOpen(true)}><Link2 /> 追溯规则与来源</Button></CardContent>
             </Card>
           </>
-        }
+        ) : undefined}
       >
         <Card>
           <CardHeader><CardTitle>变化对比</CardTitle><CardDescription>历史内容和当前依据并排呈现，避免把旧记忆当成新规则。</CardDescription></CardHeader>
