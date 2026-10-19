@@ -36,7 +36,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 表单校验用 `Form`（react-hook-form）：每个字段用 `FormField` + `FormItem` + `FormLabel` + `FormControl` + `FormMessage`，错误提示交给 `FormMessage`，不自己写红字。
 - 有总页数、需要跳页的列表用 `Pagination`；只需要往下加载的用 `LoadMore`。
 - mogi-ui 只支持 React 19；React 18 项目先升级再接入。
-- 亮/暗两套主题都要检查；文字对比度不低于 4.5:1。
+- 亮/暗两套主题都要检查；文字对比度不低于 4.5:1，交互边框和焦点环不低于 3:1。链接用 `text-link`（亮色 corgi-600、暗色 corgi-400），交互轮廓用 `border-border-strong` 或 `border-input`，装饰卡片保留 `border-border`。主按钮为深橘底白字；不要给焦点环额外叠加透明度。更新主题和组件时一并重新安装 registry 条目。
 - 不修改 mogi-ui 主题文件本身；需要改主题时走第 3 步上报。
 
 ## 3. 缺什么就上报

@@ -61,7 +61,7 @@ function PaginationLink({
         }),
         // mogi: 当前页用 primary 色描边和文字，比上游的纯描边更好认
         isActive &&
-          "border-primary/50 text-primary hover:text-primary dark:border-primary/50",
+          "border-link text-link hover:text-link",
         className
       )}
       {...props}

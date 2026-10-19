@@ -1,10 +1,10 @@
-# Mogi 风格 Design Token 方案（v1.3，2026-10-18：新增动效 token）
+# Mogi 风格 Design Token 方案（v1.4，2026-10-19：对比度检查）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
 ## 一、风格关键词
 
-- **暖、软、圆**：柯基的毛色 + 针织毛衣。整体是暖色调中性色，没有纯黑纯白纯灰。
+- **暖、软、圆**：柯基的毛色 + 针织毛衣。整体是暖色调中性色，以暖色为主，主按钮使用白字；色板标签必要时用黑白保证可读性。
 - **一点清新**：茉莉花的白和叶子的绿，作为点缀和成功态颜色。
 - **圆角偏大、阴影轻**：像毛茸茸的手感，而不是扁平硬边。
 - **字体：英文 JetBrains Mono + 中文江城圆体**：英文数字等宽，带一点开发者/工具感；中文用江城圆体（基于源泉圆体/思源黑体改造，SIL OFL 授权，可免费商用和嵌入网页），圆润的笔画正好呼应柯基的软萌感。
@@ -23,14 +23,15 @@
 
 ## 三、语义层（沿用 shadcn 变量名）
 
-亮色（文字类配对全部达到 WCAG AA 4.5:1：主按钮 4.9、链接 4.9、success 标签 4.8、highlight 标签 4.9、muted 区域文字 5.5、删除按钮 5.9）：
+亮色（正文阈值 4.5:1、交互边框和焦点环阈值 3:1；由 `pnpm contrast:check` 读取源码实测）：
 ```css
 :root {
   --background: #fdfaf5;
   --foreground: #3a2820;
   --card: #fffdf9;            --card-foreground: #3a2820;
   --popover: #fffdf9;         --popover-foreground: #3a2820;
-  --primary: #a65a2a;         --primary-foreground: #fffaf3;
+  --link: #a65a2a;
+  --primary: #a65a2a;         --primary-foreground: #ffffff;
   --secondary: #f9efe3;       --secondary-foreground: #6a4c3c;
   --muted: #f3e8da;           --muted-foreground: #765645;
   --accent: #fae8d3;          --accent-foreground: #8c4f2a;
@@ -39,8 +40,9 @@
   --highlight: #984a28;
   --warning: #d9a63a;         --warning-foreground: #3a2820;
   --border: #e9dccb;
-  --input: #e3d4c1;
-  --ring: #dc9357;
+  --border-strong: #a57e69;
+  --input: #a57e69;
+  --ring: #a65a2a;
   --radius: 0.75rem;
   --sidebar: #fffdf9;         --sidebar-foreground: #3a2820; /* 暖白底 */
   --sidebar-accent: #fae8d3;  --sidebar-accent-foreground: #3a2820; /* 选中浅橘底 + 深色字，悬停 60% */
@@ -49,14 +51,15 @@
 }
 ```
 
-暗色（摩卡底，主色提亮一档）：
+暗色（摩卡底，链接和焦点环提亮；按钮保持深橘底白字）：
 ```css
 .dark {
   --background: #241811;
   --foreground: #f6ebdd;
   --card: #2e2017;            --card-foreground: #f6ebdd;
   --popover: #2e2017;         --popover-foreground: #f6ebdd;
-  --primary: #e0a06c;         --primary-foreground: #2a1a10;
+  --link: #dc9357;
+  --primary: #a65a2a;         --primary-foreground: #ffffff;
   --secondary: #3a2a1f;       --secondary-foreground: #e6d3bf;
   --muted: #3a2a1f;           --muted-foreground: #c4a88f;
   --accent: #4a3425;          --accent-foreground: #f3cfa6;
@@ -64,8 +67,9 @@
   --success: #a3bd6c;         --success-foreground: #1d2410;
   --warning: #e6b94f;         --warning-foreground: #2a1a10;
   --border: #44332a;
-  --input: #4e3b30;
-  --ring: #e0a06c;
+  --border-strong: #a57e69;
+  --input: #a57e69;
+  --ring: #dc9357;
   --sidebar: #2e2017;         --sidebar-foreground: #f6ebdd;
   --sidebar-accent: #4a3425;  --sidebar-accent-foreground: #f6ebdd;
 }
@@ -81,7 +85,7 @@
 | 间距 | 4 的倍数，组件内 8/12/16，区块间 24/32/48 |
 | 阴影 | 只用 sm / md 两档，颜色基于 `sand-900` 带透明度，避免灰色阴影 |
 | 动效 | 见下方「动效」一节 |
-| 焦点环 | 2px `--ring`，offset 2px |
+| 焦点环 | 实色 `--ring`，亮色 corgi-600、暗色 corgi-400；组件保留各自的环宽，不再把焦点环降到 50% 透明度 |
 
 ### 动效
 
@@ -102,12 +106,22 @@
 
 ## 五、组件层约定（少量）
 
-- 按钮：默认 `primary`（亮色为 `corgi-600`），hover 为 primary 的 90% 透明度；`secondary` 用 sand-100 底 + sand-700 字。
+- 按钮：默认 `primary`（亮/暗均为 `corgi-600` + 白字，5.10:1），hover 为 primary 的 95% 透明度；`secondary` 用 sand-100 底 + sand-700 字。
 - 标签 Badge：圆角 full，低饱和底色（corgi-100 / jasmine-100 / terracotta-100）+ 深字。
 - 卡片：petal 底色 + border + shadow-sm，hover 升为 shadow-md。
 - 空状态、加载态插画位可以放 mogi 的简笔形象（耳朵 + 茉莉花图标）。
 
-## 六、下一步
+## 六、对比度验证
+
+- `text-link`：亮色 corgi-600，暗色 corgi-400；链接不要使用按钮底色 `text-primary`。
+- 亮色成功文字用 jasmine-700；terracotta-700 仅作装饰，文字强调用 terracotta-800。
+- `border` 保持装饰卡片边框，亮色仍为 `#e9dccb`；交互轮廓用 `border-strong`，输入控件用 `input`，两套主题均为 sand-500。输入控件不再用 input 的半透明色作为暗色填充，以免冲淡边界。
+- 色板标签根据实际背景计算对比度：优先 sand-950，其次白色；两者都不足 4.5:1 时用黑色。terracotta-700 是需要黑色的例子，不能只按色阶编号判断。
+- `pnpm contrast:check` 检查亮/暗语义文字、链接、成功和强调文字、按钮 hover、输入边框、焦点环、基础色板标签，并核对 registry 与 CSS 一致；采用未四舍五入的比值判定。
+- PR 和 main push 运行 Contrast CI；发布 docs 前也必须通过检查。装饰边框不纳入 3:1 的交互阈值。
+- 辅助文字值保持不变；不同承载背景的比值分别检查，不能把某个背景上的比值当作所有背景的结论。
+
+## 七、下一步
 
 1. 把以上写成 `packages/tokens/tokens.json`，用 Style Dictionary 生成 `globals.css` 和 Tailwind preset。
 2. 在 shadcn 初始化后用这份 CSS 覆盖 `globals.css`，跑一遍 Button / Input / Card / Dialog 看效果，再微调。

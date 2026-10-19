@@ -24,6 +24,8 @@
 | table | 表头加浅底；选中态（`data-state="selected"` 或 `aria-selected="true"`）改为 `accent/50` 底色加首列左侧 primary 色条；新增 `TableEmpty` 空表行；`Table` 新增 `containerClassName` |
 | 动效（多个组件） | 时长和缓动统一换成 mogi 动效 token（见 docs/design-tokens.md「动效」）：dialog、alert-dialog、popover、dropdown-menu、select、tooltip 打开用 `ease-mogi-spring`、关闭用更快的 `ease-mogi-in`，dialog 和 alert-dialog 打开时额外从下方升起一点；sheet 滑入改为 `ease-mogi`；sidebar 收起展开由 `ease-linear` 改为 `ease-mogi`；button 按下缩到 97%；switch 滑块回弹；checkbox、radio-group 的勾和圆点弹出；tabs 切换过渡 |
 
+2026-10-19 对比度修复：button / badge 的 link 变体与 pagination 使用 `text-link`；主按钮 hover 改为 95%；outline 按钮用 `border-strong`。input / textarea / select / radio-group 不再叠加暗色 input 填充；tabs 激活态保持 background。各组件的 `ring-ring/50` 改为实色 `ring-ring`，保留原环宽；slider 同步。
+
 其余组件与上游一致，mogi 风格完全来自 `@mogi-ui/tokens` 里的 CSS 变量。
 
 ## mogi 自有组件

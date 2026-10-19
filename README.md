@@ -23,6 +23,7 @@ scripts/       build-registry.mjs：扫描 ui 包生成每个组件的 registry 
 ```bash
 pnpm install
 pnpm dev          # 启动预览站
+pnpm contrast:check # 检查亮/暗文字、交互边框、焦点环及色板标签
 pnpm typecheck
 pnpm build
 pnpm registry:build   # 生成 apps/docs/public/r/*.json（主题 + 每个组件一份）
