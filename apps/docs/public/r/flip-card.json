@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "flip-card",
+  "title": "flip-card",
+  "description": "点击翻转卡片：正反面内容、键盘与触屏支持、减弱动态效果",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/button.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/flip-card.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { RotateCcw } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\ntype FlipCardProps = React.ComponentProps<\"div\"> & {\n  front: React.ReactNode\n  back: React.ReactNode\n  showBackLabel?: string\n  showFrontLabel?: string\n}\n\n// mogi: click-driven so touch and keyboard users get the same interaction.\n// Only the visible face is accessible or interactive; the toggle keeps focus.\nfunction FlipCard({ front, back, showBackLabel = \"查看背面\", showFrontLabel = \"返回正面\", className, ...props }: FlipCardProps) {\n  const [flipped, setFlipped] = React.useState(false)\n  const id = React.useId()\n\n  return (\n    <div data-slot=\"flip-card\" data-flipped={flipped} className={cn(\"min-w-0 [perspective:1200px]\", className)} {...props}>\n      <div id={id} data-slot=\"flip-card-inner\" className={cn(\n        \"grid min-w-0 transition-transform duration-(--duration-mogi-slow) ease-mogi [transform-style:preserve-3d] motion-reduce:transform-none motion-reduce:transition-none\",\n        flipped && \"[transform:rotateY(180deg)]\"\n      )}>\n        <div data-slot=\"flip-card-front\" aria-hidden={flipped} inert={flipped} className={cn(\n          \"min-w-0 [grid-area:1/1] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]\",\n          flipped && \"motion-reduce:invisible\"\n        )}>{front}</div>\n        <div data-slot=\"flip-card-back\" aria-hidden={!flipped} inert={!flipped} className={cn(\n          \"min-w-0 [grid-area:1/1] [transform:rotateY(180deg)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden] motion-reduce:transform-none\",\n          !flipped && \"motion-reduce:invisible\"\n        )}>{back}</div>\n      </div>\n      <Button type=\"button\" data-slot=\"flip-card-toggle\" variant=\"ghost\" size=\"sm\" className=\"mt-3 w-full\" aria-controls={id} aria-pressed={flipped} onClick={() => setFlipped(value => !value)}>\n        <RotateCcw />{flipped ? showFrontLabel : showBackLabel}\n      </Button>\n    </div>\n  )\n}\n\nexport { FlipCard }\nexport type { FlipCardProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

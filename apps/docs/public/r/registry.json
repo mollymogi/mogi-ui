@@ -258,6 +258,18 @@
       ]
     },
     {
+      "name": "dashboard-layout",
+      "type": "registry:ui",
+      "title": "dashboard-layout",
+      "description": "工作台布局：导航、页头、主内容与可选辅助区",
+      "files": [
+        {
+          "path": ".registry/ui/dashboard-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "description-list",
       "type": "registry:ui",
       "title": "description-list",
@@ -330,6 +342,24 @@
       "files": [
         {
           "path": ".registry/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "flip-card",
+      "type": "registry:ui",
+      "title": "flip-card",
+      "description": "点击翻转卡片：正反面内容、键盘与触屏支持、减弱动态效果",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/flip-card.tsx",
           "type": "registry:ui"
         }
       ]
@@ -658,11 +688,13 @@
         "https://mollymogi.github.io/mogi-ui/r/card.json",
         "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
         "https://mollymogi.github.io/mogi-ui/r/code-block.json",
+        "https://mollymogi.github.io/mogi-ui/r/dashboard-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/description-list.json",
         "https://mollymogi.github.io/mogi-ui/r/detail-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/dialog.json",
         "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
         "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
+        "https://mollymogi.github.io/mogi-ui/r/flip-card.json",
         "https://mollymogi.github.io/mogi-ui/r/form.json",
         "https://mollymogi.github.io/mogi-ui/r/input.json",
         "https://mollymogi.github.io/mogi-ui/r/label.json",

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-layout",
+  "title": "dashboard-layout",
+  "description": "工作台布局：导航、页头、主内容与可选辅助区",
+  "files": [
+    {
+      "path": ".registry/ui/dashboard-layout.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ntype DashboardLayoutProps = React.ComponentProps<\"div\"> & {\n  navigation: React.ReactNode\n  header?: React.ReactNode\n  aside?: React.ReactNode\n}\n\n/** Workspace shell. Navigation, data, and responsive menu state belong to the caller. */\nfunction DashboardLayout({ navigation, header, aside, children, className, ...props }: DashboardLayoutProps) {\n  const hasAside = aside != null && aside !== false\n  return (\n    <div data-slot=\"dashboard-layout\" className={cn(\"min-h-dvh min-w-0 bg-background text-foreground lg:grid lg:grid-cols-[224px_minmax(0,1fr)]\", className)} {...props}>\n      <div data-slot=\"dashboard-layout-navigation\" className=\"min-w-0 border-b bg-sidebar text-sidebar-foreground lg:border-r lg:border-b-0\">{navigation}</div>\n      <div className=\"min-w-0\">\n        {header != null && <div data-slot=\"dashboard-layout-header\" className=\"min-w-0 border-b\">{header}</div>}\n        <div className={cn(\"grid min-w-0 grid-cols-1 items-start gap-8 p-5 sm:p-8 xl:p-10\", hasAside && \"xl:grid-cols-[minmax(0,1fr)_280px]\")}>\n          <main id=\"dashboard-main\" data-slot=\"dashboard-layout-main\" className=\"min-w-0 wrap-anywhere\">{children}</main>\n          {hasAside && <aside data-slot=\"dashboard-layout-aside\" className=\"min-w-0 wrap-anywhere\">{aside}</aside>}\n        </div>\n      </div>\n    </div>\n  )\n}\n\nexport { DashboardLayout }\nexport type { DashboardLayoutProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

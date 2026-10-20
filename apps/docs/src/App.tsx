@@ -19,6 +19,7 @@ import {
   TriangleAlert,
 } from "lucide-react"
 
+import { DashboardDemo } from "./demo-dashboard"
 import { DetailLayoutDemo } from "./demo-detail-layout"
 import { MotionDemo } from "./demo-motion"
 import { AlertDialogDemo, FormDemo, PaginationDemo, SheetDemo, SidebarDemo } from "./demos-v2"
@@ -276,6 +277,10 @@ export function App() {
     return <TooltipProvider><main className="mx-auto min-w-0 max-w-7xl p-4 sm:p-8"><DetailLayoutDemo /></main></TooltipProvider>
   }
 
+  if (new URLSearchParams(window.location.search).get("preview") !== "components") {
+    return <DashboardDemo dark={dark} onThemeChange={() => setDark(value => !value)} />
+  }
+
   return (
     <TooltipProvider>
       <div className="mx-auto grid max-w-5xl gap-12 px-4 py-10 sm:px-6">
@@ -294,6 +299,8 @@ export function App() {
             {dark ? "亮色" : "暗色"}
           </Button>
         </header>
+
+        <a href="?preview=dashboard" className="text-sm text-link underline underline-offset-4">← 返回工作台示例</a>
 
         <Section title="色板">
           <div className="grid gap-3">
