@@ -1,5 +1,8 @@
+"use client"
+
 import * as React from "react"
 import { cn } from "@mogi-ui/ui/lib/utils"
+import { highlightCode, syntaxToneClass } from "@mogi-ui/ui/components/code-highlighter"
 import { Badge } from "@mogi-ui/ui/components/badge"
 
 type BadgeVariant = NonNullable<React.ComponentProps<typeof Badge>["variant"]>
@@ -14,6 +17,8 @@ function CodeBlock({
   actions,
   masked = false,
   maskedLabel = "已遮罩",
+  language,
+  fileName,
   numbered = false,
   startLine = 1,
   bodyClassName,
@@ -26,6 +31,10 @@ function CodeBlock({
   actions?: React.ReactNode
   masked?: boolean
   maskedLabel?: React.ReactNode
+  /** 语法高亮；未知语言回退为纯文本，显式语言优先于文件名。 */
+  language?: string
+  /** 未指定 language 时按文件名识别。 */
+  fileName?: string
   /** 显示行号；children 为字符串时生效 */
   numbered?: boolean
   /** 起始行号，默认 1 */
@@ -34,7 +43,7 @@ function CodeBlock({
   bodyClassName?: string
 }) {
   const hasHeader = label != null || masked || (tags?.length ?? 0) > 0 || actions != null
-  const lines = numbered && typeof children === "string" ? children.split("\n") : null
+  const lines = React.useMemo(() => typeof children === "string" && (numbered || language != null || fileName != null) ? highlightCode(children, language, fileName) : null, [children, numbered, language, fileName])
 
   return (
     <figure
@@ -42,7 +51,7 @@ function CodeBlock({
       data-masked={masked || undefined}
       data-numbered={numbered || undefined}
       className={cn(
-        "overflow-hidden rounded-lg border bg-card text-card-foreground",
+        "min-w-0 max-w-full overflow-hidden rounded-lg border bg-card text-card-foreground",
         masked && "shadow-[inset_3px_0_0_var(--warning)]",
         className
       )}
@@ -66,6 +75,15 @@ function CodeBlock({
       <pre
         data-slot="code-block-body"
         // 可滚动区域需要能用键盘聚焦
+        onCopy={event => {
+          const selection = event.currentTarget.ownerDocument.getSelection()
+          if (!selection || selection.isCollapsed) return
+          const holder = event.currentTarget.ownerDocument.createElement("div")
+          for (let i = 0; i < selection.rangeCount; i++) holder.append(selection.getRangeAt(i).cloneContents())
+          holder.querySelectorAll('[data-slot="code-block-line-number"]').forEach(node => node.remove())
+          event.clipboardData.setData("text/plain", holder.textContent ?? "")
+          event.preventDefault()
+        }}
         tabIndex={0}
         className={cn(
           "max-h-80 overflow-auto p-3 font-mono text-xs leading-relaxed whitespace-pre text-foreground outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
@@ -73,18 +91,18 @@ function CodeBlock({
         )}
       >
         {lines ? (
-          <code data-slot="code-block-lines" className="block">
+          <code data-slot="code-block-lines" className="block min-w-max">
             {lines.map((line, i) => (
-              <span key={i} data-slot="code-block-line" className="flex">
-                <span
-                  data-slot="code-block-line-number"
-                  aria-hidden
-                  className="w-10 shrink-0 select-none pr-3 text-right text-muted-foreground"
-                >
-                  {startLine + i}
+              <React.Fragment key={i}>
+                <span data-slot="code-block-line" className={cn("relative block min-h-[1lh]", numbered && "pl-10")}>
+                  {numbered && <span
+                    data-slot="code-block-line-number"
+                    aria-hidden="true"
+                    className="absolute left-0 w-10 select-none pr-3 text-right text-muted-foreground"
+                  >{startLine + i}</span>}
+                  <span data-slot="code-block-line-content">{line.segments.map((segment, j) => <span key={j} data-token={segment.tone} className={syntaxToneClass[segment.tone]}>{segment.text}</span>)}</span>{line.ending}
                 </span>
-                <span className="whitespace-pre">{line || " "}</span>
-              </span>
+              </React.Fragment>
             ))}
           </code>
         ) : (

@@ -26,6 +26,8 @@ const descriptions = {
   button: "按钮",
   card: "卡片",
   checkbox: "复选框",
+  "file-type-icon": "文件类型映射与语义色图标，支持目录、链接、二进制和覆盖",
+  "code-highlighter": "语义 token 语法高亮与文件名语言识别",
   "code-block": "原始 JSON / 文本块，可遮罩、可带行号",
   "description-list": "详情页键值列表",
   "dashboard-layout": "工作台布局：导航、页头、主内容与可选辅助区",

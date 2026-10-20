@@ -42,3 +42,8 @@
 | DetailLayout | `detail-layout.tsx` | 详情看板布局：可选 header/summary/metrics/aside，宽屏主区与辅助栏 2:1，窄屏按 DOM 顺序排列；不负责业务判断、取数或展开状态 |
 | DashboardLayout | `dashboard-layout.tsx` | mogi 自有工作台壳：navigation/header/children/aside，桌面侧栏、窄屏顶部导航，可选辅助区；不管理数据和导航状态 |
 | FlipCard | `flip-card.tsx` | mogi React 自有实现；借鉴 Inspira UI 翻转交互思路，声明客户端边界、非提交按钮切换、正反面自适应高度、隐藏面 inert、减弱动态效果直接切换；没有复制 Vue 代码 |
+
+| FileTypeIcon / fileTypeOf | `file-type-icon.tsx` | mogi 自有文件名映射与语义图标，显式 kind、扩展名/文件名覆盖；不读取文件或跟随链接 |
+| CodeHighlighter | `code-highlighter.tsx` | lowlight / highlight.js 语法树转 React 语义 token；保留原文换行、未知语言回退，不注入 HTML |
+
+CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；补充客户端边界。高亮语法来自 lowlight 与 highlight.js，使用各自包许可证；没有复制来源项目的临时实现。
