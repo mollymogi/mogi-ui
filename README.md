@@ -35,6 +35,12 @@ pnpm registry:build   # 生成 apps/docs/public/r/*.json（主题 + 每个组件
 
 每次推送到 `main` 都会通过 GitHub Actions（`.github/workflows/deploy-docs.yml`）自动构建并发布到 GitHub Pages。
 
+## 工作台预览
+
+预览站默认展示暖色工作台，支持总览、任务列表与任务详情；搜索、状态筛选、完成任务和清单勾选均为当前页面内演示。所有记录均为示例数据，刷新恢复，不连接真实服务。原组件展览通过 `?preview=components` 访问。
+
+工作台壳使用 `DashboardLayout`，见 [工作台布局](docs/dashboard-layout.md)。
+
 ## 布局模式
 
 - [详情看板 DetailLayout](docs/detail-layout.md)：一句话结论、关键指标、主内容与辅助栏；技术细节用 Sheet 按需查看。预览站包含亮/暗主题示例。

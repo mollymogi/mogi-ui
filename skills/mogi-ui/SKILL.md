@@ -29,6 +29,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 动效用主题的动效 token：时长 `duration-(--duration-mogi-fast)` / `duration-(--duration-mogi)` / `duration-(--duration-mogi-slow)`，缓动 `ease-mogi`（进入）、`ease-mogi-spring`（带轻微回弹的进入）、`ease-mogi-in`（退出）。mogi-ui 组件已自带动效，不要再叠加；自己写的过渡只做透明度、小位移和缩放，不超过 320ms，不加动画库。减弱动态效果由主题统一处理，不要绕过（如写死 `animation-duration` 加 `!important`）。
 - 优先用 mogi-ui 已有组件和变体；同一功能不要自己再写一个。
 - 表示状态的 Badge（成功、失败、待审核等）前面放一个 lucide 图标，直接写在 children 里，例如 `<Badge variant="success"><CheckCircle2 /> 已完成</Badge>`，不只靠颜色区分。
+- 工作台页面可用 `DashboardLayout`：`navigation` 放有名称的导航，`header` 放位置与全局操作，`children` 为主内容，`aside` 放辅助信息。窄屏导航在上方，辅助区在主内容后；移动导航的展开状态由使用方管理。总览用任务与项目建立中心，列表保持紧凑，详情给正文留空间，避免所有内容都放成同等强调的卡片。
 - Dashboard 详情页优先用 `DetailLayout`：`summary` 放一句话结论，`metrics` 仅在有独立价值的指标时使用，主内容放对比/趋势，`aside` 放来源和操作；不要把全部信息堆成纵向手风琴。需要追溯的技术细节用 `Sheet`，同一区域切换用 `Tabs`；异常结论必须在首屏可见。`metricColumns` 支持 2/3/4，窄屏会按阅读顺序排列。
 - 数据表格用 mogi-ui 的 `Table` 组合组件（自带横向滚动容器）：选中行设 `data-state="selected"`，并在首列放 `Checkbox` 让读屏也能识别；空表用 `TableEmpty`。
 - 列表底部的"已载入 N 条 / 继续加载"用 `LoadMore`；详情页的键值对用 `DescriptionList` + `DescriptionItem`；原始 JSON / 文本用 `CodeBlock`（代码加 `numbered` 显示行号，行号使用实色 muted-foreground，不要降低透明度）；统一 diff 用 `Diff`（`content` 传 unified diff，`truncated` 标截断；所有行共享按内容撑宽且不窄于可视区的容器，横向滚动时增删/hunk 背景覆盖整行；仅首个 `@@` 之前的 `+++` / `---` 视为文件头，之后按增删行显示；删除行使用 `bg-destructive/10 text-destructive`，暗色对比度修复依赖新版主题 `destructive` token，更新时需同时重装主题）；空、失败、未接入用 `EmptyState`（`variant` 为 `empty` / `error` / `unavailable`），加载中用 `LoadingState`。
@@ -58,3 +59,4 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - [ ] 亮/暗主题都看过
 - [ ] 没有写死动画时长或缓动
 - [ ] 用到的组件都来自 mogi-ui，临时实现都标了 TODO 并已上报
+- 动态卡片可用 `FlipCard`：传 `front` / `back`，组件自带客户端边界，通过独立的 `type="button"` 按钮翻面，支持键盘和触屏，放入表单不会触发提交。不要把必要操作或异常只藏在背面；隐藏面的内容会 inert，系统减弱动态效果时直接切换。项目卡片 hover 只对精确指针启用，避免触屏粘滞；不要让无意义动画持续循环。

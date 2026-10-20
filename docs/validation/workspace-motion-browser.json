@@ -1,0 +1,82 @@
+{
+  "browser": "155.0.8059.85",
+  "checks": [
+    {
+      "name": "Hidden back is inert and not exposed as controls",
+      "passed": true
+    },
+    {
+      "name": "Keyboard flips with focus retained on toggle",
+      "passed": true
+    },
+    {
+      "name": "Front actions unavailable when back shown",
+      "passed": true
+    },
+    {
+      "name": "Flipped card checklist synchronized to detail",
+      "passed": true
+    },
+    {
+      "name": "Completion feedback shown after actual status change",
+      "passed": true
+    },
+    {
+      "name": "Feedback cleared after delay",
+      "passed": true
+    },
+    {
+      "name": "Precise pointer hover lifts project card",
+      "passed": true
+    },
+    {
+      "name": "Reduced motion disables hover transform",
+      "passed": true
+    },
+    {
+      "name": "Reduced motion shows only active face without 3D rotation",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 320px light",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 390px light",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 768px light",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 1440px light",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 320px dark",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 390px dark",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 768px dark",
+      "passed": true
+    },
+    {
+      "name": "Stable card height and no overflow: 1440px dark",
+      "passed": true
+    },
+    {
+      "name": "Reusable flip component in gallery works",
+      "passed": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

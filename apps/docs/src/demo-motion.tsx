@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Inbox, Play, RotateCcw } from "lucide-react"
+import { FlipCard } from "@mogi-ui/ui/components/flip-card"
 import { Button } from "@mogi-ui/ui/components/button"
 import { Checkbox } from "@mogi-ui/ui/components/checkbox"
 import {
@@ -69,6 +70,14 @@ export function MotionDemo() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <FlipCard
+          front={<div className="grid h-full min-h-48 content-center gap-3 rounded-xl border bg-accent p-6 text-accent-foreground"><strong className="text-xl">一个想法，两面展开。</strong><p>点击下方按钮，翻看行动清单。</p></div>}
+          back={<div className="grid h-full min-h-48 content-center gap-3 rounded-xl border bg-card p-6"><strong className="text-xl">从一小步开始</strong><p>整理想法 → 选定重点 → 开始行动</p><a href="?preview=dashboard" className="text-link underline underline-offset-4">到工作台体验动态卡片</a></div>}
+        />
+        <p className="self-center text-sm text-muted-foreground">翻面按钮支持鼠标、触屏和键盘。隐藏面不可聚焦或点击；开启“减弱动态效果”时直接切换内容。必要操作始终保留在正面。</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
