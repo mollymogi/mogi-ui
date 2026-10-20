@@ -52,6 +52,7 @@ for (const [mode, vars] of Object.entries({ light, dark })) {
     check(`${mode} slider thumb border/${bg}`, color("slider-range"), color(bg), 3)
     check(`${mode} primary hover/${bg}`, color("primary-foreground"), composite(color("primary"), color(bg), .95), 4.5)
   }
+  check(`${mode} diff deletion text/background`, color("destructive"), composite(color("destructive"), color("card"), .1), 4.5)
   check(`${mode} slider selected range/track`, color("slider-range"), color("muted"), 3)
   check(`${mode} sidebar-ring`, color("sidebar-ring"), color("sidebar"), 3)
   for (const [fg, bg] of pairs) check(`${mode} ${fg}/${bg}`, color(fg), color(bg), 4.5)
