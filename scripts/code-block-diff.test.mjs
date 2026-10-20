@@ -49,6 +49,23 @@ test("input without a hunk keeps file headers and ordinary lines", () => {
   assert.deepEqual(kinds("--- a/a\n+++ b/a\n-old\n+new\n same"), ["hunk", "hunk", "del", "add", "context"])
   assert.deepEqual(kinds(""), ["context"])
 })
+test("diff rows share a content-width container so backgrounds cover horizontal overflow", () => {
+  const content = `@@ -1 +1 @@\n-${"removed".repeat(100)}\n+added\n context\n`
+  const html = renderToStaticMarkup(createElement(Diff, { content }))
+  const container = html.match(/<code data-slot="diff-lines" class="([^"]+)">([\s\S]*?)<\/code>/)
+  assert.ok(container, "all diff rows have a shared width container")
+  const classes = container[1].split(" ")
+  for (const cls of ["block", "w-max", "min-w-full"]) {
+    assert.ok(classes.includes(cls), `shared container has ${cls}`)
+  }
+  assert.equal((container[2].match(/data-slot="diff-line"/g) ?? []).length, content.split("\n").length)
+  for (const [kind, background] of [["hunk", "bg-highlight-soft"], ["del", "bg-destructive/10"], ["add", "bg-success-soft"]]) {
+    const row = container[2].match(new RegExp(`data-line="${kind}" class="([^"]+)"`))
+    assert.ok(row, `renders ${kind} inside the shared container`)
+    for (const cls of ["block", "px-3", background]) assert.ok(row[1].split(" ").includes(cls))
+  }
+  assert.match(html, /data-slot="diff-body"[^>]*class="[^"]*\boverflow-auto\b/)
+})
 test("numbered code uses opaque muted text with >=4.5:1 contrast in both themes", () => {
   const html = renderToStaticMarkup(createElement(CodeBlock, { numbered: true, startLine: 9 }, "first\nsecond"))
   const numbers = [...html.matchAll(/data-slot="code-block-line-number"[^>]*class="([^"]+)"[^>]*>(\d+)<\/span>/g)]

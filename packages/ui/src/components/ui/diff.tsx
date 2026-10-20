@@ -88,18 +88,21 @@ function Diff({
           bodyClassName
         )}
       >
-        {lines.map(({ line, kind }, i) => {
-          return (
-            <span
-              key={i}
-              data-slot="diff-line"
-              data-line={kind}
-              className={cn("block px-3", lineClass[kind])}
-            >
-              {line || " "}
-            </span>
-          )
-        })}
+        {/* mogi: 所有行共享最长行的宽度，横向滚动时背景仍覆盖整行。 */}
+        <code data-slot="diff-lines" className="block w-max min-w-full">
+          {lines.map(({ line, kind }, i) => {
+            return (
+              <span
+                key={i}
+                data-slot="diff-line"
+                data-line={kind}
+                className={cn("block px-3", lineClass[kind])}
+              >
+                {line || " "}
+              </span>
+            )
+          })}
+        </code>
       </pre>
     </figure>
   )
