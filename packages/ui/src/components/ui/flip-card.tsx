@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { RotateCcw } from "lucide-react"
 import { Button } from "@mogi-ui/ui/components/button"
@@ -31,7 +33,7 @@ function FlipCard({ front, back, showBackLabel = "查看背面", showFrontLabel 
           !flipped && "motion-reduce:invisible"
         )}>{back}</div>
       </div>
-      <Button data-slot="flip-card-toggle" variant="ghost" size="sm" className="mt-3 w-full" aria-controls={id} aria-pressed={flipped} onClick={() => setFlipped(value => !value)}>
+      <Button type="button" data-slot="flip-card-toggle" variant="ghost" size="sm" className="mt-3 w-full" aria-controls={id} aria-pressed={flipped} onClick={() => setFlipped(value => !value)}>
         <RotateCcw />{flipped ? showFrontLabel : showBackLabel}
       </Button>
     </div>

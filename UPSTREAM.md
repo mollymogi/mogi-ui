@@ -40,4 +40,4 @@
 | EmptyState / LoadingState | `empty-state.tsx` | 空态、失败、未接入三种状态（`variant`）和骨架加载态 |
 | DetailLayout | `detail-layout.tsx` | 详情看板布局：可选 header/summary/metrics/aside，宽屏主区与辅助栏 2:1，窄屏按 DOM 顺序排列；不负责业务判断、取数或展开状态 |
 | DashboardLayout | `dashboard-layout.tsx` | mogi 自有工作台壳：navigation/header/children/aside，桌面侧栏、窄屏顶部导航，可选辅助区；不管理数据和导航状态 |
-| FlipCard | `flip-card.tsx` | mogi React 自有实现；借鉴 Inspira UI 翻转交互思路，按钮切换、正反面自适应高度、隐藏面 inert、减弱动态效果直接切换；没有复制 Vue 代码 |
+| FlipCard | `flip-card.tsx` | mogi React 自有实现；借鉴 Inspira UI 翻转交互思路，声明客户端边界、非提交按钮切换、正反面自适应高度、隐藏面 inert、减弱动态效果直接切换；没有复制 Vue 代码 |

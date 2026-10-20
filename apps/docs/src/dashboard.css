@@ -10,7 +10,7 @@
 .ws-brand-sub { display: block; margin-top: 5px; font-size: 8px; letter-spacing: -.2px; font-weight: 400; color: var(--muted-foreground); }
 .ws-workspace-name { margin: 37px 0 29px; display: flex; align-items: center; gap: 9px; padding: 11px 8px; background: var(--background); border: 1px solid var(--border); border-radius: 10px; }
 .ws-workspace-name strong, .ws-workspace-name span:not(.ws-avatar) { display: block; font-size: 11px; }
-.ws-workspace-name div > span { margin-top: 2px; color: var(--muted-foreground); font-size: 10px !important; }
+.ws-workspace-name div > span:not(.ws-avatar) { margin-top: 2px; color: var(--muted-foreground); font-size: 10px; }
 .ws-workspace-name > svg { margin-left: auto; color: var(--muted-foreground); }
 .ws-avatar { display: inline-flex; align-items: center; justify-content: center; width: 31px; height: 31px; flex-shrink: 0; background: var(--accent); color: var(--accent-foreground); border-radius: 50%; font-size: 11px; font-weight: 600; }
 .ws-eyebrow { color: var(--muted-foreground); font-size: 9px; letter-spacing: 1.7px; font-weight: 500; }
@@ -70,7 +70,7 @@
 .ws-status.is-done { color: var(--success); }
 .ws-row-arrow { color: var(--muted-foreground); }
 .ws-project-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
-.ws-project-card { text-align: left; padding: 23px; border: 1px solid var(--border); border-radius: 14px; background: var(--card); transition: border-color .15s; }
+.ws-project-card { text-align: left; padding: 23px; border: 1px solid var(--border); border-radius: 14px; background: var(--card); transition: border-color var(--duration-mogi-fast) var(--ease-mogi); }
 .ws-project-card:hover { border-color: var(--ring); }
 .ws-project-card > div { display: flex; align-items: center; justify-content: space-between; color: var(--muted-foreground); }
 .ws-project-icon { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; background: var(--accent); color: var(--accent-foreground); border-radius: 12px; }
@@ -150,7 +150,6 @@
 @media (max-width: 1279px) { .ws-aside { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; } .ws-focus { padding: 24px; } .ws-flower { position: absolute; right: 25px; top: 35px; } .ws-flower svg { width: 60px; height: 60px; } .ws-focus h2 { font-size: 24px; } .ws-aside-section { margin-top: 0; } .ws-aside-footnote { grid-column: 1 / -1; } .ws-detail-grid { gap: 30px; grid-template-columns: minmax(0,1fr) 220px; } }
 @media (max-width: 1023px) { .ws-navigation { min-height: auto; padding: 18px 24px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 20px; } .ws-brand { font-size: 24px; } .ws-workspace-name, .ws-nav-bottom, .ws-nav-items > .ws-eyebrow, .ws-nav-items a { display: none; } .ws-nav-items { flex-direction: row; justify-content: flex-end; } .ws-nav-items button { padding: 9px 12px; font-size: 12px; } .ws-nav-dot, .ws-nav-count { display: none; } .ws-topbar { height: 58px; padding: 0 24px; } }
 @media (max-width: 639px) { .ws-navigation { padding: 16px 20px; gap: 10px; } .ws-brand-sub { display: none; } .ws-nav-items { gap: 2px; } .ws-nav-items button { gap: 6px; padding: 8px; font-size: 11px; } .ws-brand { font-size: 22px; gap: 7px; } .ws-topbar { padding: 0 20px; } .ws-page-heading { margin-bottom: 25px; flex-wrap: wrap; } .ws-page-heading h1 { font-size: 27px; } .ws-eyebrow { font-size: 8px; letter-spacing: 1px; } .ws-date { text-align: left; margin-top: 0; display: flex; gap: 9px; align-items: baseline; } .ws-metrics { padding: 20px 0; } .ws-metrics > div { padding-inline: 13px; } .ws-metrics strong { font-size: 29px; gap: 0; } .ws-metric-note { display: block; width: 100%; font-size: 9px; } .ws-section-heading h2 > span { display: none; } .ws-priority-row { gap: 10px; padding: 17px 13px; flex-wrap: wrap; } .ws-task-copy strong { font-size: 13px; } .ws-task-copy small { font-size: 8px; } .ws-row-arrow { display: none; } .ws-priority-row .ws-status { font-size: 9px; } .ws-row-number { display: none; } .ws-project-grid { grid-template-columns: 1fr; } .ws-project-card { padding: 20px; } .ws-project-card h3 { margin-top: 13px; } .ws-page-footer { flex-direction: column; gap: 5px; } .ws-aside { grid-template-columns: 1fr; } .ws-focus h2 { font-size: 28px; } .ws-aside-section { margin-top: 8px; } .ws-search { width: 100%; } .ws-table-footer { flex-direction: column; gap: 5px; } .ws-detail-grid { grid-template-columns: 1fr; gap: 30px; } .ws-detail-aside { border-left: 0; border-top: 1px solid var(--border); padding: 25px 0 0; } .ws-detail-summary h2 { font-size: 23px; } }
-@media (prefers-reduced-motion: reduce) { .mogi-workspace *, .mogi-workspace *::before, .mogi-workspace *::after { transition: none !important; animation: none !important; } }
 
 @media (max-width: 1023px) { .ws-nav-items { flex-wrap: wrap; } .ws-nav-items a { display: flex; padding: 6px 8px; font-size: 10px; } .ws-nav-items a svg { width: 13px; height: 13px; } }
 @media (max-width: 639px) { .ws-navigation { grid-template-columns: 1fr; gap: 15px; } .ws-nav-items { justify-content: flex-start; } .ws-nav-items a > svg:last-child { display: none; } }
@@ -174,22 +173,20 @@
 .ws-project-card:active { transform: translateY(-1px) scale(.985); }
 .ws-nav-items button:active, .ws-filters button:active { transform: scale(.96); }
 .ws-project-card:focus-visible, .ws-priority-row:focus-visible { box-shadow: 0 5px 20px color-mix(in srgb, var(--foreground) 7%, transparent); }
-.ws-metric-track i { transform-origin: left; animation: ws-progress-in 520ms var(--ease-mogi) both; transition: width var(--duration-mogi-slow) var(--ease-mogi); }
+.ws-metric-track i { transform-origin: left; animation: ws-progress-in var(--duration-mogi-slow) var(--ease-mogi) both; transition: width var(--duration-mogi-slow) var(--ease-mogi); }
 .ws-count { display: inline-block; animation: ws-count-in var(--duration-mogi-slow) var(--ease-mogi-spring) both; }
 .ws-project-progress { display: block; height: 3px; border-radius: 10px; background: var(--muted); margin-top: 20px; overflow: hidden; }
-.ws-project-progress i { display: block; height: 100%; background: var(--primary); transform-origin: left; animation: ws-progress-in 520ms var(--ease-mogi) both; transition: width var(--duration-mogi-slow) var(--ease-mogi); }
+.ws-project-progress i { display: block; height: 100%; background: var(--primary); transform-origin: left; animation: ws-progress-in var(--duration-mogi-slow) var(--ease-mogi) both; transition: width var(--duration-mogi-slow) var(--ease-mogi); }
 .ws-project-card:has(.ws-project-progress) footer { margin-top: 17px; }
 .ws-view { animation: ws-content-in var(--duration-mogi-slow) var(--ease-mogi) both; }
-.ws-view .ws-project-card:nth-child(2) { animation: ws-content-in 420ms var(--ease-mogi) both; }
+.ws-view .ws-project-card:nth-child(2) { animation: ws-content-in var(--duration-mogi-slow) var(--ease-mogi) both; }
 .ws-table tbody tr { animation: ws-content-in var(--duration-mogi-slow) var(--ease-mogi) both; }
-.ws-table tbody tr:nth-child(2) { animation-duration: 370ms; }
-.ws-table tbody tr:nth-child(3) { animation-duration: 420ms; }
 .ws-detail-summary:has(.is-done) .ws-status svg { animation: ws-check-in var(--duration-mogi-slow) var(--ease-mogi-spring) both; }
 .ws-checklist label, .ws-focus-checklist label { transition: background-color var(--duration-mogi) var(--ease-mogi); }
 .ws-checklist label:has(input:checked) { background: var(--success-soft); }
 .ws-checklist input { flex-shrink: 0; }
 .ws-feedback { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 30; width: max-content; max-width: calc(100% - 32px); pointer-events: none; }
-.ws-feedback-message { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); color: var(--foreground); padding: 13px 18px; box-shadow: 0 8px 25px color-mix(in srgb, var(--foreground) 10%, transparent); font-size: 12px; animation: ws-feedback-in 4s var(--ease-mogi) both; }
+.ws-feedback-message { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); color: var(--foreground); padding: 13px 18px; box-shadow: 0 8px 25px color-mix(in srgb, var(--foreground) 10%, transparent); font-size: 12px; animation: ws-feedback-in var(--duration-mogi-slow) var(--ease-mogi) both, ws-feedback-out var(--duration-mogi-slow) var(--ease-mogi-in) calc(4200ms - var(--duration-mogi-slow)) forwards; }
 .ws-feedback-message svg { flex-shrink: 0; color: var(--success); }
 .ws-focus-flip [data-slot="flip-card-front"] > section,
 .ws-focus-flip [data-slot="flip-card-back"] > section { height: 100%; }
@@ -211,7 +208,7 @@
   .ws-priority-row:hover { transform: translateX(3px); }
   .ws-reference:hover > svg { transform: translate(2px,-2px); }
   .ws-nav-items button:hover > svg { transform: translateY(-2px); }
-  .ws-focus:hover .ws-flower svg { animation: ws-flower-wave 700ms var(--ease-mogi) both; }
+  .ws-focus:hover .ws-flower svg { animation: ws-flower-wave var(--duration-mogi-slow) var(--ease-mogi) both; }
   .ws-project-card:active { transform: translateY(-1px) scale(.985); }
   .ws-priority-row:active { transform: scale(.992); }
 }
@@ -220,9 +217,10 @@
 @keyframes ws-count-in { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes ws-check-in { from { transform: scale(.5) rotate(-25deg); } to { transform: scale(1) rotate(0); } }
 @keyframes ws-flower-wave { 0%,100% { transform: rotate(-18deg); } 35% { transform: rotate(-6deg); } 70% { transform: rotate(-23deg); } }
-@keyframes ws-feedback-in { 0% { opacity: 0; transform: translateY(10px); } 8%,88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes ws-feedback-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ws-feedback-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) {
-  .mogi-workspace *, .mogi-workspace *::before, .mogi-workspace *::after { animation: none !important; transition: none !important; }
+  .ws-feedback-message { animation: none; }
   .ws-project-card:hover, .ws-project-card:active, .ws-priority-row:hover, .ws-priority-row:active,
   .ws-project-card:hover .ws-project-icon, .ws-project-card:hover > div > svg,
   .ws-priority-row:hover .ws-row-arrow, .ws-reference:hover > svg, .ws-focus > button:hover svg,
