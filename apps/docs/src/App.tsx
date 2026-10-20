@@ -54,6 +54,7 @@ import {
   DropdownMenuTrigger,
 } from "@mogi-ui/ui/components/dropdown-menu"
 import { CodeBlock } from "@mogi-ui/ui/components/code-block"
+import { Diff } from "@mogi-ui/ui/components/diff"
 import { DescriptionItem, DescriptionList } from "@mogi-ui/ui/components/description-list"
 import { EmptyState, LoadingState } from "@mogi-ui/ui/components/empty-state"
 import { Input } from "@mogi-ui/ui/components/input"
@@ -264,6 +265,21 @@ const samplePayload = `{
     "token": "••••••••"
   }
 }`
+
+const sampleScript = `#!/usr/bin/env bash
+set -euo pipefail
+
+BASE=/data/mercury.liu/build-board-preflight/code-service
+"$BASE/adapter/run-code-service.sh" start
+curl --noproxy '*' -sS http://127.0.0.1:8090/healthz`
+
+const sampleDiff = `@@ -5,7 +5,8 @@ void Dispatcher::OnFrame(const Frame& frame) {
+     for (auto* sub : subscribers_) {
+-        sub->Handle(frame);
++        if (!sub) continue;
++        sub->Handle(frame);
+     }
+ }`
 
 export function App() {
   const [dark, setDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches)
@@ -604,6 +620,20 @@ export function App() {
             >
               {samplePayload}
             </CodeBlock>
+          </div>
+        </Section>
+
+        <Section title="代码与差异">
+          <div className="grid gap-6 md:grid-cols-2">
+            <CodeBlock label="release 脚本" numbered>
+              {sampleScript}
+            </CodeBlock>
+            <Diff
+              label="Dispatcher.cpp"
+              truncated
+              tags={[{ label: "unified diff" }]}
+              content={sampleDiff}
+            />
           </div>
         </Section>
 

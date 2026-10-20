@@ -246,7 +246,7 @@
       "name": "code-block",
       "type": "registry:ui",
       "title": "code-block",
-      "description": "原始 JSON / 文本块，可遮罩",
+      "description": "原始 JSON / 文本块，可遮罩、可带行号",
       "registryDependencies": [
         "https://mollymogi.github.io/mogi-ui/r/badge.json"
       ],
@@ -296,6 +296,21 @@
       "files": [
         {
           "path": ".registry/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "diff",
+      "type": "registry:ui",
+      "title": "diff",
+      "description": "统一 diff 视图，增删行与 hunk 语义着色",
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/badge.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/diff.tsx",
           "type": "registry:ui"
         }
       ]
@@ -661,6 +676,7 @@
         "https://mollymogi.github.io/mogi-ui/r/description-list.json",
         "https://mollymogi.github.io/mogi-ui/r/detail-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/dialog.json",
+        "https://mollymogi.github.io/mogi-ui/r/diff.json",
         "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
         "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
         "https://mollymogi.github.io/mogi-ui/r/form.json",
