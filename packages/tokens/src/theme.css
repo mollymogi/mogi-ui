@@ -19,8 +19,10 @@
   --card-foreground: var(--sand-900);
   --popover: #fffdf9;
   --popover-foreground: var(--sand-900);
+  --link: var(--corgi-600);
   --primary: var(--corgi-600);
-  --primary-foreground: var(--petal);
+  --primary-foreground: #ffffff;
+  --slider-range: var(--primary);
   --secondary: var(--sand-100);
   --secondary-foreground: var(--sand-700);
   --muted: #f3e8da;
@@ -38,8 +40,9 @@
   --highlight: var(--terracotta-800);
   --highlight-soft: var(--terracotta-100);
   --border: #e9dccb;
-  --input: #e3d4c1;
-  --ring: var(--corgi-400);
+  --border-strong: var(--sand-500);
+  --input: var(--border-strong);
+  --ring: var(--corgi-600);
 
   --chart-1: var(--corgi-500);
   --chart-2: var(--jasmine-500);
@@ -54,19 +57,21 @@
   --sidebar-accent: var(--corgi-100); /* 选中浅橘底 + 深色字，悬停用它的 60% */
   --sidebar-accent-foreground: var(--sand-900);
   --sidebar-border: #e9dccb;
-  --sidebar-ring: var(--corgi-400);
+  --sidebar-ring: var(--corgi-600);
 }
 
-/* 暗色：摩卡底，主色提亮一档 */
+/* 暗色：摩卡底，链接与焦点环提亮，按钮保持白字深橘底。 */
 .dark {
+  --link: var(--corgi-400);
   --background: #241811;
   --foreground: #f6ebdd;
   --card: #2e2017;
   --card-foreground: #f6ebdd;
   --popover: #2e2017;
   --popover-foreground: #f6ebdd;
-  --primary: #e0a06c;
-  --primary-foreground: #2a1a10;
+  --primary: var(--corgi-600);
+  --primary-foreground: #ffffff;
+  --slider-range: var(--corgi-400);
   --secondary: #3a2a1f;
   --secondary-foreground: #e6d3bf;
   --muted: #3a2a1f;
@@ -84,8 +89,9 @@
   --highlight: #e3a082;
   --highlight-soft: #4a2e22;
   --border: #44332a;
-  --input: #4e3b30;
-  --ring: #e0a06c;
+  --border-strong: var(--sand-500);
+  --input: var(--border-strong);
+  --ring: var(--corgi-400);
 
   --chart-1: #e0a06c;
   --chart-2: #a3bd6c;
@@ -100,7 +106,7 @@
   --sidebar-accent: #4a3425;
   --sidebar-accent-foreground: #f6ebdd;
   --sidebar-border: #44332a;
-  --sidebar-ring: #e0a06c;
+  --sidebar-ring: var(--corgi-400);
 }
 
 @theme inline {
@@ -118,8 +124,10 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+  --color-link: var(--link);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-slider-range: var(--slider-range);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -137,6 +145,7 @@
   --color-highlight: var(--highlight);
   --color-highlight-soft: var(--highlight-soft);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
@@ -189,7 +198,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
   }
   body {
     @apply bg-background text-foreground font-sans;

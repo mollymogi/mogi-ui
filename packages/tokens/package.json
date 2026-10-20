@@ -14,7 +14,11 @@
     "./primitives.css": "./src/primitives.css",
     "./fonts.css": "./src/fonts.css",
     "./motion.css": "./src/motion.css",
-    "./fonts/*": "./fonts/*"
+    "./fonts/*": "./fonts/*",
+    "./contrast": {
+      "types": "./src/contrast.d.ts",
+      "default": "./src/contrast.js"
+    }
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.2.0"

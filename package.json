@@ -7,7 +7,8 @@
     "dev": "pnpm --filter docs dev",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
-    "registry:build": "node scripts/build-registry.mjs"
+    "registry:build": "node scripts/build-registry.mjs",
+    "contrast:check": "node scripts/check-contrast.mjs"
   },
   "devDependencies": {
     "shadcn": "4.21.5",

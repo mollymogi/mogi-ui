@@ -329,7 +329,7 @@ function NavUser({ onSelect }: { onSelect: (label: string) => void }) {
   const { isMobile, state } = useSidebar()
   const avatar = (
     <Avatar className="size-8">
-      <AvatarFallback className="bg-primary/10 text-primary">
+      <AvatarFallback className="bg-primary/10 text-link">
         <Flower2 className="size-4" />
       </AvatarFallback>
     </Avatar>

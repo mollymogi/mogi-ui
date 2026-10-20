@@ -59,7 +59,7 @@ function CodeBlock({
         // 可滚动区域需要能用键盘聚焦
         tabIndex={0}
         className={cn(
-          "max-h-80 overflow-auto p-3 font-mono text-xs leading-relaxed whitespace-pre text-foreground outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
+          "max-h-80 overflow-auto p-3 font-mono text-xs leading-relaxed whitespace-pre text-foreground outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
           bodyClassName
         )}
       >

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { labelColor } from "@mogi-ui/tokens/contrast"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import {
   CheckCircle2,
@@ -93,10 +94,27 @@ import {
 
 const palettes: { name: string; steps: string[] }[] = [
   { name: "corgi", steps: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"] },
-  { name: "sand", steps: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"] },
-  { name: "terracotta", steps: ["100", "300", "500", "700"] },
+  { name: "sand", steps: ["50", "100", "200", "300", "400", "500", "600", "650", "700", "800", "900", "950"] },
+  { name: "terracotta", steps: ["100", "300", "500", "700", "800"] },
   { name: "jasmine", steps: ["100", "300", "500", "700"] },
 ]
+
+function PaletteSwatch({ token, label }: { token: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [color, setColor] = useState("var(--sand-950)")
+  useLayoutEffect(() => {
+    if (ref.current) {
+      const style = getComputedStyle(ref.current)
+      setColor(labelColor(style.backgroundColor, style.getPropertyValue("--sand-950").trim()))
+    }
+  }, [token])
+  return (
+    <div ref={ref} className="flex h-14 items-end rounded-md border p-1.5 text-[10px] font-medium"
+      data-palette={token} style={{ background: `var(--${token})`, color }}>
+      {label}
+    </div>
+  )
+}
 
 function SliderDemo() {
   const [volume, setVolume] = useState([60])
@@ -284,16 +302,7 @@ export function App() {
                 <span className="text-xs text-muted-foreground">{p.name}</span>
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1.5">
                   {p.steps.map((s) => (
-                    <div
-                      key={s}
-                      className="flex h-14 items-end rounded-md border p-1.5 text-[10px] font-medium"
-                      style={{
-                        background: `var(--${p.name}-${s})`,
-                        color: Number(s) >= 500 ? "var(--petal)" : "var(--sand-900)",
-                      }}
-                    >
-                      {s}
-                    </div>
+                    <PaletteSwatch key={s} token={`${p.name}-${s}`} label={s} />
                   ))}
                 </div>
               </div>
