@@ -22,6 +22,7 @@
   --link: var(--corgi-600);
   --primary: var(--corgi-600);
   --primary-foreground: #ffffff;
+  --slider-range: var(--primary);
   --secondary: var(--sand-100);
   --secondary-foreground: var(--sand-700);
   --muted: #f3e8da;
@@ -70,6 +71,7 @@
   --popover-foreground: #f6ebdd;
   --primary: var(--corgi-600);
   --primary-foreground: #ffffff;
+  --slider-range: var(--corgi-400);
   --secondary: #3a2a1f;
   --secondary-foreground: #e6d3bf;
   --muted: #3a2a1f;
@@ -125,6 +127,7 @@
   --color-link: var(--link);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-slider-range: var(--slider-range);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);

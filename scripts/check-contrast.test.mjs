@@ -52,3 +52,23 @@ test("cyclic aliases fail closed", (t) => {
   assert.equal(result.status, 1)
   assert.match(result.stderr, /Invalid token reference: input/)
 })
+
+test("low slider range contrast fails when registry matches", (t) => {
+  const result = fixture(t, (change) => {
+    change("packages/tokens/src/theme.css", "--slider-range: var(--corgi-400);", "--slider-range: var(--primary);")
+    change("registry.json", '"slider-range": "#dc9357"', '"slider-range": "#a65a2a"')
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /FAIL dark slider selected range\/track/)
+})
+test("low slider thumb border contrast fails independently of track", (t) => {
+  const result = fixture(t, (change) => {
+    change("packages/tokens/src/theme.css", "--slider-range: var(--corgi-400);", "--slider-range: #241811;")
+    change("registry.json", '"slider-range": "#dc9357"', '"slider-range": "#241811"')
+    change("packages/tokens/src/theme.css", "--muted: #3a2a1f;", "--muted: #ffffff;")
+    change("registry.json", '"muted": "#3a2a1f"', '"muted": "#ffffff"')
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /FAIL dark slider thumb border\/background/)
+  assert.doesNotMatch(result.stderr, /FAIL dark slider selected range\/track/)
+})

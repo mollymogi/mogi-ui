@@ -1,4 +1,4 @@
-# Mogi 风格 Design Token 方案（v1.4，2026-10-19：对比度检查）
+# Mogi 风格 Design Token 方案（v1.5，2026-10-19：滑块对比度）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
@@ -32,6 +32,7 @@
   --popover: #fffdf9;         --popover-foreground: #3a2820;
   --link: #a65a2a;
   --primary: #a65a2a;         --primary-foreground: #ffffff;
+  --slider-range: #a65a2a;
   --secondary: #f9efe3;       --secondary-foreground: #6a4c3c;
   --muted: #f3e8da;           --muted-foreground: #765645;
   --accent: #fae8d3;          --accent-foreground: #8c4f2a;
@@ -60,6 +61,7 @@
   --popover: #2e2017;         --popover-foreground: #f6ebdd;
   --link: #dc9357;
   --primary: #a65a2a;         --primary-foreground: #ffffff;
+  --slider-range: #dc9357;
   --secondary: #3a2a1f;       --secondary-foreground: #e6d3bf;
   --muted: #3a2a1f;           --muted-foreground: #c4a88f;
   --accent: #4a3425;          --accent-foreground: #f3cfa6;
@@ -107,6 +109,7 @@
 ## 五、组件层约定（少量）
 
 - 按钮：默认 `primary`（亮/暗均为 `corgi-600` + 白字，5.10:1），hover 为 primary 的 95% 透明度；`secondary` 用 sand-100 底 + sand-700 字。
+- 滑块：已选区段 `bg-slider-range`、圆钮边框 `border-slider-range` 共用专用 token；亮色沿用 primary（`#a65a2a`），暗色用 corgi-400（`#dc9357`）。对 muted 轨道分别为 4.218:1、5.457:1，对 background 圆钮底色分别为 4.899:1、6.883:1，均达到 3:1；该 token 用于控件图形，不用于文字。
 - 标签 Badge：圆角 full，低饱和底色（corgi-100 / jasmine-100 / terracotta-100）+ 深字。
 - 卡片：petal 底色 + border + shadow-sm，hover 升为 shadow-md。
 - 空状态、加载态插画位可以放 mogi 的简笔形象（耳朵 + 茉莉花图标）。
@@ -117,7 +120,7 @@
 - 亮色成功文字用 jasmine-700；terracotta-700 仅作装饰，文字强调用 terracotta-800。
 - `border` 保持装饰卡片边框，亮色仍为 `#e9dccb`；交互轮廓用 `border-strong`，输入控件用 `input`，两套主题均为 sand-500。输入控件不再用 input 的半透明色作为暗色填充，以免冲淡边界。
 - 色板标签根据实际背景计算对比度：优先 sand-950，其次白色；两者都不足 4.5:1 时用黑色。terracotta-700 是需要黑色的例子，不能只按色阶编号判断。
-- `pnpm contrast:check` 检查亮/暗语义文字、链接、成功和强调文字、按钮 hover、输入边框、焦点环、基础色板标签，并核对 registry 与 CSS 一致；采用未四舍五入的比值判定。
+- `pnpm contrast:check` 检查亮/暗语义文字、链接、成功和强调文字、按钮 hover、输入边框、焦点环、滑块已选区段对轨道、圆钮边框对背景/卡片/浮层、基础色板标签，并核对 registry 与 CSS 一致；采用未四舍五入的比值判定。
 - PR 和 main push 运行 Contrast CI；发布 docs 前也必须通过检查。装饰边框不纳入 3:1 的交互阈值。
 - 辅助文字值保持不变；不同承载背景的比值分别检查，不能把某个背景上的比值当作所有背景的结论。
 
