@@ -54,6 +54,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@mogi-ui/ui/components/dropdown-menu"
+import { FileTypeIcon, fileTypeOf } from "@mogi-ui/ui/components/file-type-icon"
 import { CodeBlock } from "@mogi-ui/ui/components/code-block"
 import { Diff } from "@mogi-ui/ui/components/diff"
 import { DescriptionItem, DescriptionList } from "@mogi-ui/ui/components/description-list"
@@ -145,7 +146,7 @@ function SliderDemo() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="grid gap-4">
+    <section className="grid min-w-0 grid-cols-1 gap-4">
       <h2 className="text-lg font-bold">{title}</h2>
       {children}
     </section>
@@ -162,7 +163,7 @@ function TableDemo() {
   const [selected, setSelected] = useState<string>(runs[0].id)
 
   return (
-    <div className="grid gap-6">
+    <div className="grid min-w-0 grid-cols-1 gap-6">
       <div className="rounded-xl border bg-card">
         <Table>
           <TableCaption className="mb-4">点击行或勾选框选中；选中行有底色和左侧色条</TableCaption>
@@ -299,7 +300,7 @@ export function App() {
 
   return (
     <TooltipProvider>
-      <div className="mx-auto grid max-w-5xl gap-12 px-4 py-10 sm:px-6">
+      <div className="mx-auto grid min-w-0 max-w-5xl grid-cols-1 gap-12 px-4 py-10 sm:px-6">
         <header className="flex flex-wrap items-end justify-between gap-4">
           <div className="grid gap-2">
             <span className="flex items-center gap-2 text-xs font-bold tracking-widest text-muted-foreground uppercase">
@@ -627,6 +628,24 @@ export function App() {
             >
               {samplePayload}
             </CodeBlock>
+          </div>
+        </Section>
+
+        <Section title="文件类型与语法高亮">
+          <p className="text-sm text-muted-foreground">按文件名识别图标与语言；目录、符号链接与二进制使用显式类型。以下为示例内容。</p>
+          <div className="grid min-w-0 gap-6 md:grid-cols-2 [&>*]:min-w-0">
+            <div className="rounded-xl border bg-card p-4">
+              {[{name: "src", kind: "directory"}, {name: "Dispatcher.cpp"}, {name: "Dispatcher.hpp"}, {name: "build.sh"}, {name: "CMakeLists.txt"}, {name: "config.json"}, {name: "README.md"}, {name: "logo.png"}, {name: "source.tar.gz"}, {name: "app.bin"}, {name: "current", kind: "symlink"}].map(file => {
+                const kind = file.kind as "directory" | "symlink" | undefined
+                const type = fileTypeOf(file.name, { kind })
+                return <div key={file.name} className="flex items-center gap-3 border-b py-2 last:border-0"><FileTypeIcon name={file.name} kind={kind} /><span className="min-w-0 flex-1 break-all text-sm">{file.name}</span><span className="text-xs text-muted-foreground">{type.label}</span></div>
+              })}
+            </div>
+            <div className="grid min-w-0 content-start gap-4 [&>*]:min-w-0">
+              <CodeBlock label="Dispatcher.cpp · 自动识别 C++" fileName="Dispatcher.cpp" numbered>{'#include <iostream>\n/* 多行注释\n   保留语义与换行 */\nint main() {\n  const char* message = "Hello, mogi";\n  std::cout << message << 42;\n  return 0;\n}\n'}</CodeBlock>
+              <CodeBlock label="config.json · 从第 20 行开始" language="json" numbered startLine={20}>{'{\n  "project": "mogi-ui",\n  "enabled": true,\n  "count": 42\n}'}</CodeBlock>
+              <CodeBlock label="未知语言回退纯文本" language="unknown" numbered>{'unknown <source> & unchanged'}</CodeBlock>
+            </div>
           </div>
         </Section>
 

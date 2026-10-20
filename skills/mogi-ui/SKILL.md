@@ -60,3 +60,6 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - [ ] 没有写死动画时长或缓动
 - [ ] 用到的组件都来自 mogi-ui，临时实现都标了 TODO 并已上报
 - 动态卡片可用 `FlipCard`：传 `front` / `back`，组件自带客户端边界，通过独立的 `type="button"` 按钮翻面，支持键盘和触屏，放入表单不会触发提交。不要把必要操作或异常只藏在背面；隐藏面的内容会 inert，系统减弱动态效果时直接切换。项目卡片 hover 只对精确指针启用，避免触屏粘滞；不要让无意义动画持续循环。
+
+- 文件列表使用 `FileTypeIcon` / `fileTypeOf(name, { kind, overrides })`，kind 为 `file` / `directory` / `symlink` / `binary`。这是纯文件名分类，不读取文件、不解析或跟随符号链接；调用方自行禁用不可读链接的操作。overrides 用小写扩展名（不含点）或完整小写文件名作为键，可覆盖 icon/tone/label；显式 kind 优先。tone 仅为 primary/success/warning/highlight/muted，用 `fileToneClass` 映射可读文本语义色。
+- `CodeBlock` 可传 `language` 或 `fileName`，兼容 `numbered` / `startLine`，支持 C/C++、CMake、Shell、Python、JSON、Markdown、YAML、JS、TS；未知语言回退纯文本，显式 language 优先。`CodeHighlighter` 可单独用在 pre 内；只输出 React 文本节点，不注入 HTML。语法高亮按完整源码解析后拆行，保留多行 token、空行和换行；复制排除行号。依赖 lowlight/highlight.js 由 registry 自动安装，使用其内置语法，未使用外部主题 CSS。数字和 warning 图标在亮主题用 warning-foreground，暗主题用 warning；primary 文本用 link，避免直接使用按钮填充色作小字。

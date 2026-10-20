@@ -248,11 +248,28 @@
       "title": "code-block",
       "description": "原始 JSON / 文本块，可遮罩、可带行号",
       "registryDependencies": [
-        "https://mollymogi.github.io/mogi-ui/r/badge.json"
+        "https://mollymogi.github.io/mogi-ui/r/badge.json",
+        "https://mollymogi.github.io/mogi-ui/r/code-highlighter.json"
       ],
       "files": [
         {
           "path": ".registry/ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-highlighter",
+      "type": "registry:ui",
+      "title": "code-highlighter",
+      "description": "语义 token 语法高亮与文件名语言识别",
+      "dependencies": [
+        "highlight.js",
+        "lowlight"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/code-highlighter.tsx",
           "type": "registry:ui"
         }
       ]
@@ -357,6 +374,21 @@
       "files": [
         {
           "path": ".registry/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-type-icon",
+      "type": "registry:ui",
+      "title": "file-type-icon",
+      "description": "文件类型映射与语义色图标，支持目录、链接、二进制和覆盖",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/file-type-icon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -703,6 +735,7 @@
         "https://mollymogi.github.io/mogi-ui/r/card.json",
         "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
         "https://mollymogi.github.io/mogi-ui/r/code-block.json",
+        "https://mollymogi.github.io/mogi-ui/r/code-highlighter.json",
         "https://mollymogi.github.io/mogi-ui/r/dashboard-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/description-list.json",
         "https://mollymogi.github.io/mogi-ui/r/detail-layout.json",
@@ -710,6 +743,7 @@
         "https://mollymogi.github.io/mogi-ui/r/diff.json",
         "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
         "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
+        "https://mollymogi.github.io/mogi-ui/r/file-type-icon.json",
         "https://mollymogi.github.io/mogi-ui/r/flip-card.json",
         "https://mollymogi.github.io/mogi-ui/r/form.json",
         "https://mollymogi.github.io/mogi-ui/r/input.json",

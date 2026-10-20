@@ -126,3 +126,7 @@ curl -fsSL https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-
 ## 上游同步
 
 组件来源和 mogi 改动记录在 [UPSTREAM.md](./UPSTREAM.md)。
+
+## 文件列表与源码查看
+
+`FileTypeIcon` 提供文件名与类型映射；`CodeBlock` 支持按 `language` / `fileName` 的语义色高亮并兼容行号。API、安装依赖和复制行为见 [文件类型与源码高亮](docs/file-viewer.md)。组件展览包含亮暗主题示例。

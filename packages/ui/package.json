@@ -4,7 +4,9 @@
   "description": "Mogi UI components (shadcn/ui based)",
   "license": "MIT",
   "type": "module",
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     "./styles.css": "./src/styles.css",
     "./lib/*": "./src/lib/*.ts",
@@ -18,6 +20,8 @@
     "@mogi-ui/tokens": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "highlight.js": "^11.11.2",
+    "lowlight": "^3.3.0",
     "lucide-react": "^1.57.0",
     "radix-ui": "^1.8.1",
     "react-hook-form": "^7.90.0",

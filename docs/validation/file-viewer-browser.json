@@ -1,0 +1,42 @@
+{
+  "browser": "155.0.8059.85",
+  "checks": [
+    {
+      "name": "All eleven file-kind examples render",
+      "passed": true
+    },
+    {
+      "name": "Native browser clipboard copies exact source, indentation, empty trailing line and no line numbers",
+      "passed": true
+    },
+    {
+      "name": "Partial-line copy preserves indentation",
+      "passed": true
+    },
+    {
+      "name": "Each numbered source line occupies one visual line",
+      "passed": true
+    },
+    {
+      "name": "390px light: no page overflow",
+      "passed": true
+    },
+    {
+      "name": "1440px light: no page overflow",
+      "passed": true
+    },
+    {
+      "name": "390px dark: no page overflow",
+      "passed": true
+    },
+    {
+      "name": "1440px dark: no page overflow",
+      "passed": true
+    },
+    {
+      "name": "No browser runtime exceptions",
+      "passed": true
+    }
+  ],
+  "errors": []
+}
