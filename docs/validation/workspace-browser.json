@@ -1,0 +1,107 @@
+{
+  "url": "http://127.0.0.1:5186/",
+  "browser": "155.0.8059.85",
+  "checks": [
+    {
+      "name": "Single main landmark",
+      "passed": true
+    },
+    {
+      "name": "All tasks: six records",
+      "passed": true
+    },
+    {
+      "name": "Status filtering",
+      "passed": true
+    },
+    {
+      "name": "Combined filter and search empty state",
+      "passed": true
+    },
+    {
+      "name": "Reset filters",
+      "passed": true
+    },
+    {
+      "name": "Task completion updates detail",
+      "passed": true
+    },
+    {
+      "name": "Task completion updates list",
+      "passed": true
+    },
+    {
+      "name": "Checklists isolated by task",
+      "passed": true
+    },
+    {
+      "name": "Task-specific detail text",
+      "passed": true
+    },
+    {
+      "name": "Checklist retained between navigation",
+      "passed": true
+    },
+    {
+      "name": "Overview counts derived from task records",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 320px light",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 390px light",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 768px light",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 1024px light",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 1440px light",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 320px dark",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 390px dark",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 768px dark",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 1024px dark",
+      "passed": true
+    },
+    {
+      "name": "Three views without page overflow: 1440px dark",
+      "passed": true
+    },
+    {
+      "name": "Original components gallery retained",
+      "passed": true
+    },
+    {
+      "name": "Original rule detail retained",
+      "passed": true
+    },
+    {
+      "name": "Keyboard skip link is first",
+      "passed": true
+    },
+    {
+      "name": "No browser runtime exceptions",
+      "passed": true
+    }
+  ],
+  "errors": []
+}
