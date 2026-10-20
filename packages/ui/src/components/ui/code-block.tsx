@@ -79,7 +79,7 @@ function CodeBlock({
                 <span
                   data-slot="code-block-line-number"
                   aria-hidden
-                  className="w-10 shrink-0 select-none pr-3 text-right text-muted-foreground/70"
+                  className="w-10 shrink-0 select-none pr-3 text-right text-muted-foreground"
                 >
                   {startLine + i}
                 </span>

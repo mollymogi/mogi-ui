@@ -6,8 +6,9 @@ type BadgeVariant = NonNullable<React.ComponentProps<typeof Badge>["variant"]>
 
 // mogi: 统一 diff 视图。接收 unified diff 文本，按 + / - / @@ 着色，
 // 不只靠颜色区分（行首本身就是 + / - / 空格）。
-function diffLineKind(line: string): "hunk" | "add" | "del" | "context" {
-  if (line.startsWith("@@") || line.startsWith("+++") || line.startsWith("---")) return "hunk"
+function diffLineKind(line: string, beforeFirstHunk: boolean): "hunk" | "add" | "del" | "context" {
+  if (line.startsWith("@@")) return "hunk"
+  if (beforeFirstHunk && (line.startsWith("+++") || line.startsWith("---"))) return "hunk"
   if (line.startsWith("+")) return "add"
   if (line.startsWith("-")) return "del"
   return "context"
@@ -43,7 +44,14 @@ function Diff({
   /** 内容区类名，默认最大高度 max-h-80，可用它覆盖 */
   bodyClassName?: string
 }) {
-  const lines = React.useMemo(() => content.split("\n"), [content])
+  const lines = React.useMemo(() => {
+    let beforeFirstHunk = true
+    return content.split("\n").map((line) => {
+      const kind = diffLineKind(line, beforeFirstHunk)
+      if (line.startsWith("@@")) beforeFirstHunk = false
+      return { line, kind }
+    })
+  }, [content])
   const hasHeader = label != null || truncated || (tags?.length ?? 0) > 0 || actions != null
 
   return (
@@ -80,8 +88,7 @@ function Diff({
           bodyClassName
         )}
       >
-        {lines.map((line, i) => {
-          const kind = diffLineKind(line)
+        {lines.map(({ line, kind }, i) => {
           return (
             <span
               key={i}

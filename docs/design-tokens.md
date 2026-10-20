@@ -110,6 +110,7 @@
 
 - 按钮：默认 `primary`（亮/暗均为 `corgi-600` + 白字，5.10:1），hover 为 primary 的 95% 透明度；`secondary` 用 sand-100 底 + sand-700 字。
 - 滑块：已选区段 `bg-slider-range`、圆钮边框 `border-slider-range` 共用专用 token；亮色沿用 primary（`#a65a2a`），暗色用 corgi-400（`#dc9357`）。对 muted 轨道分别为 4.218:1、5.457:1，对 background 圆钮底色分别为 4.899:1、6.883:1，均达到 3:1；该 token 用于控件图形，不用于文字。
+- CodeBlock 行号：使用不带透明度的 `text-muted-foreground`，在默认 `bg-card` 上亮/暗主题均达到 4.5:1；不要给行号额外降低透明度。
 - 标签 Badge：圆角 full，低饱和底色（corgi-100 / jasmine-100 / terracotta-100）+ 深字。
 - 卡片：petal 底色 + border + shadow-sm，hover 升为 shadow-md。
 - 空状态、加载态插画位可以放 mogi 的简笔形象（耳朵 + 茉莉花图标）。
