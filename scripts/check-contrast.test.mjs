@@ -72,3 +72,12 @@ test("low slider thumb border contrast fails independently of track", (t) => {
   assert.match(result.stderr, /FAIL dark slider thumb border\/background/)
   assert.doesNotMatch(result.stderr, /FAIL dark slider selected range\/track/)
 })
+
+test("dark diff deletion contrast fails for the previous destructive token", (t) => {
+  const result = fixture(t, (change) => {
+    change("packages/tokens/src/theme.css", "--destructive: #e87960;", "--destructive: #e0735a;")
+    change("registry.json", '"destructive": "#e87960"', '"destructive": "#e0735a"')
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /FAIL dark diff deletion text\/background: .* = 4\.395 < 4\.5/)
+})

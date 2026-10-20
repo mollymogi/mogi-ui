@@ -3,7 +3,7 @@ import assert from "node:assert/strict"
 import fs from "node:fs"
 import { createRequire } from "node:module"
 import ts from "typescript"
-import { contrast } from "../packages/tokens/src/contrast.js"
+import { contrast, composite } from "../packages/tokens/src/contrast.js"
 
 // Render the actual TSX components with the workspace's React dependencies.
 const require = createRequire(new URL("../packages/ui/package.json", import.meta.url))
@@ -62,5 +62,24 @@ test("numbered code uses opaque muted text with >=4.5:1 contrast in both themes"
     const ratio = contrast(cssVars[mode]["muted-foreground"], cssVars[mode].card)
     assert.ok(ratio >= 4.5, `${mode} line numbers: ${ratio}:1`)
     console.log(`${mode} line numbers: ${ratio.toFixed(3)}:1`)
+  }
+})
+
+test("diff deletion text has >=4.5:1 contrast on its composited background in both themes", () => {
+  const html = renderToStaticMarkup(createElement(Diff, { content: "@@ -1 +1 @@\n-removed\n+added" }))
+  assert.match(html, /data-slot="diff"[^>]*class="[^"]*\bbg-card\b/)
+  const deletion = html.match(/data-line="del"[^>]*class="([^"]+)"/)
+  assert.ok(deletion, "renders a deletion line")
+  const classes = deletion[1].split(" ")
+  assert.ok(classes.includes("text-destructive"))
+  assert.ok(classes.includes("bg-destructive/10"))
+  assert.doesNotMatch(deletion[1], /(?:text-destructive\/|opacity-|!)/)
+  const { cssVars } = JSON.parse(fs.readFileSync(new URL("../registry.json", import.meta.url), "utf8")).items.find((item) => item.name === "mogi-theme")
+  for (const mode of ["light", "dark"]) {
+    const { destructive, card } = cssVars[mode]
+    const background = composite(destructive, card, .1)
+    const ratio = contrast(destructive, background)
+    assert.ok(ratio >= 4.5, `${mode} diff deletion: ${ratio}:1`)
+    console.log(`${mode} diff deletion: ${ratio.toFixed(3)}:1 (${destructive} on ${background})`)
   }
 })
