@@ -96,3 +96,9 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 黑白浅色沿用相同组件 API、字体与动效。源码包已包含作用域主题；registry 使用方需额外安装 mogi-theme-monochrome（依赖 mogi-theme）。新条目需随本分支发布后才可通过线上地址安装。
 - 在 html 上设置 data-palette="monochrome" 并移除 dark；portal 弹窗/下拉框自动继承。移除 data-palette 恢复暖色浅色；dark 存在时继续使用原深色主题，不叠加浅色覆盖。
 - 中性背景与黑色主按钮不改变成功/警告/错误的颜色意义；不要用 grayscale 滤镜模拟主题。图表灰阶需配套文字/图例，不能只靠灰度区分类别。
+
+### 奶油纸感主题
+
+- 设置 html 的 data-palette="paper" 并移除 dark，或安装独立 registry 主题 mogi-theme-paper（依赖 mogi-theme；本分支发布后线上条目才可用）。沿用现有组件与字体。
+- 黄色主按钮配深墨文字与硬阴影；按钮按压位移只作用于 default 变体。主要 Card / GlassSurface 短硬阴影，MetricCard 更轻，普通输入/表格保持轻边框。不要再叠加相同 translate/scale 动画。
+- 减少动态效果会关闭按钮位移；状态色不变。可选 data-slot="paper-note" 用于粉色便签提示，它不自带拖拽或编辑行为。主题仅浅色生效，切换深色不会保留纸感硬阴影。

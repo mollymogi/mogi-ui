@@ -27,3 +27,7 @@ TabsList 的 animated 默认为 true，支持 false 回退；支持 default/line
 ## 黑白浅色
 
 入口 `?preview=motion-trio&theme=monochrome`；页头「配色主题」可切换三种配色。可选的黑白主题为独立 registry 条目 `mogi-theme-monochrome`，使用方式见 design-tokens.md。黑白浅色背景/面板/主按钮使用中性色，状态色保留。
+
+## 奶油纸感
+
+入口 `?preview=motion-trio&theme=paper`；选择器可切换「奶油纸感」。主按钮黄底深墨描边，硬阴影随悬停/按压变化；主要面板短硬阴影、内部指标卡轻阴影，欢迎区有粉色便签。来源是用户截图的纸张/贴纸质感参考，没有复制其插画、品牌标识或内容。

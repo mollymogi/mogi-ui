@@ -94,3 +94,10 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - Added the independent mogi-theme-monochrome registry theme with a mogi-theme dependency, so consumers can opt in without replacing components.
 - Preview theme selector switches warm light / monochrome light / dark glass. Root application ensures portal components receive the same palette.
 - Extended contrast and registry checks to the new palette, plus a negative regression for monochrome text contrast.
+
+### Optional cream paper theme
+
+- Added paper light palette: cream backgrounds, ink foregrounds/outlines, yellow primary actions, pink highlight surfaces and subdued neutral supporting fills. Existing semantic status colors remain recognizable.
+- Primary buttons use directional hard shadows with hover lift / pressed displacement; major panels use shorter offset shadows, and nested metrics keep lighter shadows. Checked controls retain ink boundaries; switch thumbs use ink for contrast against yellow tracks.
+- Effects are scoped to html data-palette="paper" and excluded in dark mode. Reduced motion suppresses physical translation. Added independent mogi-theme-paper registry theme depending on the base theme, plus preview picker and a small paper-note example.
+- Extended contrast and source/registry checks to paper; added negative regression for yellow-primary text contrast.
