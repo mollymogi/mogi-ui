@@ -1,0 +1,94 @@
+{
+  "browser": "156.0.8078.47",
+  "checks": [
+    {
+      "name": "Explicit and FormItem-provided IDs reach actual inputs",
+      "passed": true
+    },
+    {
+      "name": "Clicking each label focuses its matching input",
+      "passed": true
+    },
+    {
+      "name": "Description ARIA IDs exist and are unique",
+      "passed": true
+    },
+    {
+      "name": "Error messages and invalid ARIA association work",
+      "passed": true
+    },
+    {
+      "name": "Password reveal retains value, exposes pressed state and does not submit",
+      "passed": true
+    },
+    {
+      "name": "Keyboard conceal retains value",
+      "passed": true
+    },
+    {
+      "name": "Disabled password also disables reveal",
+      "passed": true
+    },
+    {
+      "name": "Form submit and RHF forwarding remain functional",
+      "passed": true
+    },
+    {
+      "name": "Metric tones and null/unknown/prototype status fallback render",
+      "passed": true
+    },
+    {
+      "name": "Copy writes full 64-character digest without triggering row click",
+      "passed": true
+    },
+    {
+      "name": "Description truncate retains full title and DOM value",
+      "passed": true
+    },
+    {
+      "name": "Compact density reduces measured row height: 40.5 to 32.5",
+      "passed": true
+    },
+    {
+      "name": "Clipboard failure is reported instead of claiming success",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 320px light",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 390px light",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 768px light",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 1440px light",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 320px dark",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 390px dark",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 768px dark",
+      "passed": true
+    },
+    {
+      "name": "No page overflow: 1440px dark",
+      "passed": true
+    },
+    {
+      "name": "No browser runtime exceptions",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

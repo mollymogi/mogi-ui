@@ -25,9 +25,11 @@ function DescriptionList({
 function DescriptionItem({
   className,
   term,
+  valueVariant = "default",
+  valueClassName,
   children,
   ...props
-}: React.ComponentProps<"div"> & { term: React.ReactNode }) {
+}: React.ComponentProps<"div"> & { term: React.ReactNode; valueVariant?: "default" | "mono" | "truncate"; valueClassName?: string }) {
   return (
     <div
       data-slot="description-item"
@@ -37,7 +39,7 @@ function DescriptionItem({
       <dt data-slot="description-term" className="text-muted-foreground">
         {term}
       </dt>
-      <dd data-slot="description-details" className="min-w-0 break-words text-foreground">
+      <dd data-slot="description-details" data-value-variant={valueVariant} title={valueVariant === "truncate" && (typeof children === "string" || typeof children === "number") ? String(children) : undefined} className={cn("min-w-0 break-words text-foreground", valueVariant === "mono" && "font-mono wrap-anywhere", valueVariant === "truncate" && "truncate", valueClassName)}>
         {children}
       </dd>
     </div>

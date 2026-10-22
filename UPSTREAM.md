@@ -47,3 +47,12 @@
 | CodeHighlighter | `code-highlighter.tsx` | lowlight / highlight.js 语法树转 React 语义 token；保留原文换行、未知语言回退，不注入 HTML |
 
 CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；补充客户端边界。高亮语法来自 lowlight 与 highlight.js，使用各自包许可证；没有复制来源项目的临时实现。
+
+## #33 看板接入反馈
+
+- form：新增 FormItem.itemId，渲染时统一显式/自动 control ID，FormLabel 与 FormControl 配对，描述/错误 ID 保持独立。直接子控件 ID 可自动识别，不透明包装需 itemId。
+- badge：新增 historical（去饱和底色、虚线边框）。
+- table：新增 density=default/compact，仅作用于本表直接行。
+- DescriptionItem：新增 valueVariant 与 valueClassName；CodeHighlighter 改用 currentLine 引用，UI 包开启 noUncheckedIndexedAccess。
+- mogi 自有组件：MetricCard（metric-card.tsx）、StatusBadge（status-badge.tsx）、TableCellTruncate（table-cell-truncate.tsx）、PasswordInput（password-input.tsx），组合现有 Card/Badge/TableCell/Input/Button，未新增运行依赖。
+- use-mobile 仍保留上游 registry:hook 安装约定，只补别名配置说明，不移动用户目录。

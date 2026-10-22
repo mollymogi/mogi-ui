@@ -23,6 +23,7 @@ const badgeVariants = cva(
         warning:
           "bg-warning-soft text-warning-foreground dark:text-warning [a&]:hover:bg-warning-soft/80",
         highlight: "bg-highlight-soft text-highlight [a&]:hover:bg-highlight-soft/80",
+        historical: "border-dashed border-border-strong bg-muted text-muted-foreground",
         link: "text-link underline-offset-4 [a&]:hover:underline",
       },
     },

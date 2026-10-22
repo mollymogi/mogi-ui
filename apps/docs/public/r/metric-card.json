@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "metric-card",
+  "title": "metric-card",
+  "description": "指标卡：标签、等宽值、单位、提示与状态色",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/card.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/metric-card.tsx",
+      "content": "import * as React from \"react\"\nimport type { LucideIcon } from \"lucide-react\"\nimport { Card } from \"@/components/ui/card\"\nimport { cn } from \"@/lib/utils\"\n\nconst metricTones = {\n  default: \"text-foreground\",\n  success: \"text-success\",\n  warning: \"text-warning-foreground dark:text-warning\",\n  destructive: \"text-destructive\",\n}\n\ntype MetricCardProps = Omit<React.ComponentProps<typeof Card>, \"children\"> & {\n  label: React.ReactNode\n  value: React.ReactNode\n  unit?: React.ReactNode\n  hint?: React.ReactNode\n  icon?: LucideIcon\n  tone?: keyof typeof metricTones\n}\n\nfunction MetricCard({ label, value, unit, hint, icon: Icon, tone = \"default\", className, ...props }: MetricCardProps) {\n  return <Card data-slot=\"metric-card\" data-tone={tone} className={cn(\"min-w-0 gap-3 px-5 py-5\", className)} {...props}>\n    <dl className=\"min-w-0\">\n      <dt className=\"flex items-center justify-between gap-3 text-sm text-muted-foreground\">{label}{Icon && <Icon className=\"size-4 shrink-0\" aria-hidden=\"true\" />}</dt>\n      <dd className={cn(\"mt-3 flex flex-wrap items-baseline gap-2 wrap-anywhere font-mono text-3xl font-semibold tabular-nums\", metricTones[tone])}>{value}{unit != null && <span className=\"text-sm font-normal text-muted-foreground\">{unit}</span>}</dd>\n    </dl>\n    {hint != null && <p className=\"text-xs text-muted-foreground\">{hint}</p>}\n  </Card>\n}\n\nexport { MetricCard }\nexport type { MetricCardProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

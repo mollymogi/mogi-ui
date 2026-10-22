@@ -20,7 +20,7 @@ export function codeLanguage(language?: string, fileName?: string): string | und
   // An explicit but unknown language intentionally suppresses filename inference.
   if (language != null) {
     const key = language.trim().toLowerCase()
-    const resolved = Object.hasOwn(aliases, key) ? aliases[key] : key
+    const resolved = Object.hasOwn(aliases, key) ? aliases[key] ?? key : key
     return Object.hasOwn(aliases, key) || syntax.listLanguages().includes(resolved) ? resolved : undefined
   }
   const name = fileName?.split(/[\\/]/).at(-1)?.toLowerCase()
@@ -41,13 +41,15 @@ export type HighlightedLine = { segments: CodeSegment[]; ending: string }
 
 /** Tokenize the complete source first to preserve multiline comments/strings. Never emit HTML. */
 export function highlightCode(content: string, language?: string, fileName?: string): HighlightedLine[] {
-  const lines: HighlightedLine[] = [{ segments: [], ending: "" }]
+  let currentLine: HighlightedLine = { segments: [], ending: "" }
+  const lines: HighlightedLine[] = [currentLine]
   function append(text: string, tone: TokenTone) {
     for (const part of text.split(/(\r\n|\n|\r)/)) {
       if (/^(?:\r\n|\n|\r)$/.test(part)) {
-        lines[lines.length - 1].ending = part
-        lines.push({ segments: [], ending: "" })
-      } else if (part) lines[lines.length - 1].segments.push({ text: part, tone })
+        currentLine.ending = part
+        currentLine = { segments: [], ending: "" }
+        lines.push(currentLine)
+      } else if (part) currentLine.segments.push({ text: part, tone })
     }
   }
   const resolved = codeLanguage(language, fileName)

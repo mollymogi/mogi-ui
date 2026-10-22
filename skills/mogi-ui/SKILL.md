@@ -63,3 +63,10 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 
 - 文件列表使用 `FileTypeIcon` / `fileTypeOf(name, { kind, overrides })`，kind 为 `file` / `directory` / `symlink` / `binary`。这是纯文件名分类，不读取文件、不解析或跟随符号链接；调用方自行禁用不可读链接的操作。overrides 用小写扩展名（不含点）或完整小写文件名作为键，可覆盖 icon/tone/label；显式 kind 优先。tone 仅为 primary/success/warning/highlight/muted，用 `fileToneClass` 映射可读文本语义色。
 - `CodeBlock` 可传 `language` 或 `fileName`，兼容 `numbered` / `startLine`，支持 C/C++、CMake、Shell、Python、JSON、Markdown、YAML、JS、TS；未知语言回退纯文本，显式 language 优先。`CodeHighlighter` 可单独用在 pre 内；只输出 React 文本节点，不注入 HTML。语法高亮按完整源码解析后拆行，保留多行 token、空行和换行；复制排除行号。依赖 lowlight/highlight.js 由 registry 自动安装，使用其内置语法，未使用外部主题 CSS。数字和 warning 图标在亮主题用 warning-foreground，暗主题用 warning；primary 文本用 link，避免直接使用按钮填充色作小字。
+
+- 表单需要稳定 DOM ID 时用 `FormItem itemId="login-password"`，标签/控件共用它；常见直接子控件的显式 id 也会自动配对。ID 优先级 itemId > FormControl.id > 子控件 id > 自动 ID。FormItem.id 仍是容器 ID；自定义不透明包装应明确传 itemId。每个 FormItem 对应一个 FormControl。
+- `MetricCard` 提供 label/value/unit/hint/icon/tone（default/success/warning/destructive），可组合进 DetailLayout.metrics；不要为填满栅格而捏造数据，普通信息仍可用 Card 组合或 DescriptionList。
+- `StatusBadge value map unknownLabel` 由调用方提供状态映射（label/variant/icon）；空值与未识别值会兜底。历史状态使用 `Badge variant="historical"` 或对应 StatusBadge 映射，并在文案中写清“上次报告”，不沿用 success 表达当前已就绪。
+- 长摘要单元格用 `TableCellTruncate value maxChars mono copyable`，完整文本保留在 DOM/title，复制使用原文且失败明确提示；maxChars 是 ch 视觉宽度，不截断数据。技术表可用 `Table density="compact"`。
+- DescriptionItem.valueVariant 支持 default/mono/truncate，valueClassName 可叠加 font-mono；PasswordInput 保留 Input 表单属性并提供可访问的显隐按钮，使用 autoComplete 指明登录或新口令场景。
+- use-mobile 仍为 registry:hook，安装位置由 components.json 的 aliases.hooks 控制；希望放在 lib 可配置为 @/lib，不需要库统一改目录。详见 docs/console-feedback.md。
