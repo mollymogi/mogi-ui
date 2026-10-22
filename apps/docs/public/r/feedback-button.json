@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "feedback-button",
+  "title": "feedback-button",
+  "description": "异步操作反馈按钮：处理中、成功与失败重试",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/button.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/feedback-button.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Check, CircleAlert, LoaderCircle, type LucideIcon } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\ntype FeedbackButtonProps = Omit<React.ComponentProps<typeof Button>, \"asChild\" | \"onClick\" | \"children\" | \"type\" | \"aria-label\"> & {\n  children: string\n  onAction: () => Promise<unknown> | unknown\n  icon?: LucideIcon\n  pendingLabel?: string\n  successLabel?: string\n  errorLabel?: string\n  animated?: boolean\n}\n\nfunction FeedbackButton({ children, onAction, icon: Icon, pendingLabel = \"处理中\", successLabel = \"已完成\", errorLabel = \"失败，重试\", animated = true, disabled, className, ...props }: FeedbackButtonProps) {\n  const [state, setState] = React.useState<\"idle\" | \"pending\" | \"success\" | \"error\">(\"idle\")\n  const busy = React.useRef(false)\n  const mounted = React.useRef(true)\n  const content = React.useRef<HTMLSpanElement>(null)\n  React.useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])\n  React.useEffect(() => {\n    if (state !== \"success\") return\n    const timer = window.setTimeout(() => setState(\"idle\"), 2200)\n    return () => window.clearTimeout(timer)\n  }, [state])\n  React.useLayoutEffect(() => {\n    if (!animated || state === \"idle\" || window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) return\n    const animation = content.current?.animate([{ opacity: 0, transform: \"translateY(4px)\" }, { opacity: 1, transform: \"translateY(0)\" }], { duration: 160, easing: \"ease-out\" })\n    const preference = window.matchMedia(\"(prefers-reduced-motion: reduce)\")\n    const stop = () => animation?.cancel()\n    preference.addEventListener(\"change\", stop)\n    return () => { stop(); preference.removeEventListener(\"change\", stop) }\n  }, [state, animated])\n  async function run() {\n    if (busy.current || disabled) return\n    busy.current = true\n    setState(\"pending\")\n    try { await onAction(); if (mounted.current) setState(\"success\") }\n    catch { if (mounted.current) setState(\"error\") }\n    finally { busy.current = false }\n  }\n  const label = { idle: children, pending: pendingLabel, success: successLabel, error: errorLabel }[state]\n  const StateIcon = state === \"pending\" ? LoaderCircle : state === \"success\" ? Check : state === \"error\" ? CircleAlert : Icon\n  return <span className=\"inline-grid\">\n    <Button {...props} type=\"button\" className={cn(\"relative\", className)} disabled={disabled} aria-disabled={disabled || state === \"pending\"} aria-busy={state === \"pending\"} aria-label={label} data-feedback={state} onClick={() => { void run() }}>\n      <span aria-hidden=\"true\" className=\"invisible grid items-center pl-6\">{[children, pendingLabel, successLabel, errorLabel].map((text, i) => <span key={i} className=\"[grid-area:1/1]\">{text}</span>)}</span>\n      <span ref={content} aria-hidden=\"true\" className=\"absolute inset-0 flex items-center justify-center gap-2\">{StateIcon && <StateIcon className={cn(\"size-4 shrink-0\", animated && state === \"pending\" && \"animate-spin motion-reduce:animate-none\")} />}{label}</span>\n    </Button>\n    <span role=\"status\" className=\"sr-only\">{state === \"idle\" ? \"\" : label}</span>\n  </span>\n}\n\nexport { FeedbackButton }\nexport type { FeedbackButtonProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "title": "copy-button",
+  "description": "真实剪贴板复制、动态图标与可见失败反馈",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/button.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/copy-button.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Check, CircleAlert, Copy, LoaderCircle } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\ntype CopyButtonProps = Omit<React.ComponentProps<typeof Button>, \"onClick\" | \"children\" | \"asChild\" | \"type\"> & {\n  value: string\n  label?: string\n  animated?: boolean\n}\n\nfunction CopyButton({ value, label = \"复制完整内容\", animated = true, variant = \"ghost\", size = \"icon-xs\", disabled, ...props }: CopyButtonProps) {\n  const [status, setStatus] = React.useState<\"idle\" | \"pending\" | \"copied\" | \"error\">(\"idle\")\n  const request = React.useRef(0)\n  const busy = React.useRef(false)\n  const icon = React.useRef<HTMLSpanElement>(null)\n  React.useEffect(() => {\n    request.current++\n    busy.current = false\n    setStatus(\"idle\")\n    return () => { request.current++ }\n  }, [value])\n  React.useEffect(() => {\n    if (status !== \"copied\") return\n    const timeout = window.setTimeout(() => setStatus(\"idle\"), 2200)\n    return () => window.clearTimeout(timeout)\n  }, [status])\n  React.useLayoutEffect(() => {\n    if (!animated || status === \"idle\" || window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) return\n    const animation = icon.current?.animate([{ opacity: 0, transform: \"scale(.8)\" }, { opacity: 1, transform: \"scale(1)\" }], { duration: 160, easing: \"ease-out\" })\n    const preference = window.matchMedia(\"(prefers-reduced-motion: reduce)\")\n    const stop = () => animation?.cancel()\n    preference.addEventListener(\"change\", stop)\n    return () => { stop(); preference.removeEventListener(\"change\", stop) }\n  }, [status, animated])\n  async function copy() {\n    if (busy.current || disabled) return\n    const current = ++request.current\n    busy.current = true\n    setStatus(\"pending\")\n    try { await navigator.clipboard.writeText(value); if (current === request.current) setStatus(\"copied\") }\n    catch { if (current === request.current) setStatus(\"error\") }\n    finally { if (current === request.current) busy.current = false }\n  }\n  const Icon = status === \"copied\" ? Check : status === \"error\" ? CircleAlert : status === \"pending\" ? LoaderCircle : Copy\n  return <span data-slot=\"copy-button\" className=\"inline-grid justify-items-start align-middle\">\n    <Button {...props} type=\"button\" variant={variant} size={size} disabled={disabled} aria-label={label} aria-busy={status === \"pending\"} aria-disabled={disabled || status === \"pending\"} title={status === \"copied\" ? \"已复制\" : status === \"error\" ? \"复制失败，点击重试\" : label} onClick={event => { event.stopPropagation(); void copy() }}>\n      <span ref={icon} aria-hidden=\"true\" className=\"inline-flex\"><Icon className={cn(\"size-3.5\", status === \"error\" && \"text-destructive\", animated && status === \"pending\" && \"animate-spin motion-reduce:animate-none\")} /></span>\n    </Button>\n    <span role=\"status\" className={status === \"error\" ? \"mt-1 block max-w-52 text-xs whitespace-normal text-destructive\" : \"sr-only\"}>{status === \"copied\" ? \"已复制\" : status === \"error\" ? \"复制失败，请选择完整内容复制\" : \"\"}</span>\n  </span>\n}\n\nexport { CopyButton }\nexport type { CopyButtonProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

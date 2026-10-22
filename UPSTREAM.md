@@ -57,3 +57,32 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - mogi 自有组件：MetricCard（metric-card.tsx）、StatusBadge（status-badge.tsx）、TableCellTruncate（table-cell-truncate.tsx）、PasswordInput（password-input.tsx），组合现有 Card/Badge/TableCell/Input/Button，未新增运行依赖。
 - use-mobile 仍保留上游 registry:hook 安装约定，只补别名配置说明，不移动用户目录。
 - TableCellTruncate：复制失败时显示错误图标与可换行的文字提示，保留 role=status 读屏通知；成功和错误状态仍在 2.5 秒后复位。
+
+### Motion trio preview
+
+- TabsList adds a shared sliding indicator (default and line, horizontal and vertical), interruptible on repeated selection, with `animated={false}` opt-out. Radix continues to manage selection, keyboard navigation and focus.
+- AnimatedNumber shows the actual formatted value on first render and animates only subsequent changed digits. MetricCard exposes opt-in `animated` for numeric values; text values keep their existing rendering.
+- FeedbackButton handles async pending/success/error states, duplicate submission protection, accessible status, stable label width and failure retry. Success only follows a resolved action; no automatic retries.
+- Animation uses the browser Web Animations API and follows reduced-motion preferences, including changes while running. No added runtime packages or theme colors.
+- Dedicated local showcase: `?preview=motion-trio`. Copy uses the real clipboard; save and metrics are explicitly local demos.
+
+### Motion controls follow-up
+
+- Checkbox now renders a minus for indeterminate state and draws newly checked strokes without replaying on first render; native Radix controlled/uncontrolled and form behavior are preserved.
+- Switch uses scoped color/position transitions with a slight thumb press response. Checkbox/Switch accept `animated={false}`.
+- Added Collapsible: Radix manages state and trigger semantics, a separate inner grid animates height without conflicting with Radix's layout measurements. Content stays mounted, but is inert and hidden from accessibility when collapsed.
+- Added reusable CopyButton; TableCellTruncate composes it while retaining visible failure text. Copy shows success only after a real clipboard write, cancels stale feedback on value change/unmount and allows retry after failure.
+- DialogContent/PopoverContent accept `animated={false}`, and constrain scrolling to the available viewport. The preview's motion toggle propagates through portals.
+- Expanded motion-trio preview with interactive notification selection, persistent collapsible form, config copy, local dialog edits and popover density control. No new dependencies or colors.
+- Portal motion opt-out uses an effectively instant animation rather than removing animation names during exit, so Radix Presence still receives completion events when the motion setting changes mid-close.
+
+### Optional ambient background / dark glass
+
+- Added AmbientBackground and GlassSurface, with separately switchable preview controls. Existing base card/background/popover tokens retain opaque defaults.
+- Added light/dark ambient stops, glass tint and border tokens to CSS and registry. Dark major panels and portals use glass; nested data cards and inputs retain opaque fills. Unsupported blur and reduced-transparency preferences use opaque surfaces.
+- Contrast validation now covers gradient endpoints, conservative RGB bounds and alpha-composited glass text. Docs and consumer SKILL describe the opt-in usage and limits.
+
+### Clear glass panel refinement
+
+- Replaced dark glass's 72% brown fill with a neutral white tint at 4% opacity and a translucent white rim; increased backdrop blur to 40px. The panel now reveals the actual ambient backdrop instead of reading as an opaque brown card.
+- Nested metric/code panels in the glass preview use transparent fills without additional blur; inputs retain their control surface. Base card tokens and the glass-off fallback stay opaque.

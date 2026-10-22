@@ -19,6 +19,7 @@ import {
   TriangleAlert,
 } from "lucide-react"
 
+import { MotionTrioDemo } from "./demo-motion-trio"
 import { ConsoleFeedbackDemo } from "./demo-console-feedback"
 import { DashboardDemo } from "./demo-dashboard"
 import { DetailLayoutDemo } from "./demo-detail-layout"
@@ -285,11 +286,18 @@ const sampleDiff = `@@ -5,7 +5,8 @@ void Dispatcher::OnFrame(const Frame& frame)
  }`
 
 export function App() {
-  const [dark, setDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches)
+  const [dark, setDark] = useState(() => {
+    const theme = new URLSearchParams(window.location.search).get("theme")
+    return theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+  })
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
   }, [dark])
+
+  if (new URLSearchParams(window.location.search).get("preview") === "motion-trio") {
+    return <TooltipProvider><MotionTrioDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></TooltipProvider>
+  }
 
   if (new URLSearchParams(window.location.search).get("preview") === "detail-layout") {
     return <TooltipProvider><main className="mx-auto min-w-0 max-w-7xl p-4 sm:p-8"><DetailLayoutDemo /></main></TooltipProvider>

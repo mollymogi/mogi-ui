@@ -32,14 +32,15 @@ function DialogClose({
 }
 
 function DialogOverlay({
-  className,
+  className, animated = true,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+}: React.ComponentProps<typeof DialogPrimitive.Overlay> & { animated?: boolean }) {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
         "fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 duration-(--duration-mogi) ease-mogi data-[state=closed]:duration-(--duration-mogi-fast)",
+        !animated && "[animation-duration:1ms]!",
         className
       )}
       {...props}
@@ -51,17 +52,21 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  animated = true,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
+  animated?: boolean
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
+      <DialogOverlay animated={animated} />
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
           "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg duration-(--duration-mogi) ease-mogi-spring data-[state=closed]:duration-(--duration-mogi-fast) data-[state=closed]:ease-mogi-in outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-2 sm:max-w-lg",
+          "max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain motion-reduce:[animation-duration:1ms]!",
+          !animated && "[animation-duration:1ms]!",
           className
         )}
         {...props}
