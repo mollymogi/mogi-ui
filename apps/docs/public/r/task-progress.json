@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "task-progress",
+  "title": "task-progress",
+  "description": "真实事件驱动的进度、成功、失败与取消反馈",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/button.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/task-progress.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { CheckCircle2, CircleX, LoaderCircle, PauseCircle } from \"lucide-react\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\n\ntype TaskProgressProps = Omit<React.ComponentProps<\"div\">, \"children\"> & {\n  label: string\n  state?: \"running\" | \"success\" | \"error\" | \"cancelled\"\n  value?: number\n  detail?: React.ReactNode\n  onCancel?: () => void\n  cancelLabel?: string\n}\n// mogi: Missing/invalid value is indeterminate; status and progress come only from the caller.\nfunction TaskProgress({label, state = \"running\", value, detail, onCancel, cancelLabel = \"取消\", className, ...props}: TaskProgressProps) {\n  const numeric = value != null && Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : undefined\n  const Icon = state === \"success\" ? CheckCircle2 : state === \"error\" ? CircleX : state === \"cancelled\" ? PauseCircle : LoaderCircle\n  return <div {...props} data-slot=\"task-progress\" data-state={state} className={cn(\"grid min-w-0 gap-3 rounded-lg border bg-card p-4 text-card-foreground\", className)}>\n    <div className=\"flex min-w-0 items-start justify-between gap-3\">\n      <div role={state === \"error\" ? \"alert\" : \"status\"} className=\"flex min-w-0 items-center gap-2 text-sm font-medium wrap-anywhere\">\n        <Icon aria-hidden className={cn(\"size-4 shrink-0\", state === \"error\" ? \"text-destructive\" : state === \"success\" ? \"text-success\" : \"text-link\", state === \"running\" && \"animate-spin motion-reduce:animate-none\")} />{label}\n      </div>\n      {state === \"running\" && onCancel && <Button type=\"button\" size=\"sm\" variant=\"outline\" onClick={onCancel}>{cancelLabel}</Button>}\n    </div>\n    {state === \"running\" && <progress aria-label={label} max={100} value={numeric} className=\"h-2 w-full min-w-0 accent-link [color-scheme:light] dark:[color-scheme:dark]\" />}\n    {detail != null && <div className=\"text-sm text-muted-foreground wrap-anywhere\">{detail}</div>}\n  </div>\n}\nexport { TaskProgress }\nexport type { TaskProgressProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

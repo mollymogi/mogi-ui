@@ -70,3 +70,7 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 长摘要单元格用 `TableCellTruncate value maxChars mono copyable`，完整文本保留在 DOM/title，复制使用原文；失败显示错误图标与可见文字，并通知读屏，状态在 2.5 秒后复位。maxChars 是 ch 视觉宽度，不截断数据。技术表可用 `Table density="compact"`。
 - DescriptionItem.valueVariant 支持 default/mono/truncate，valueClassName 可叠加 font-mono；PasswordInput 保留 Input 表单属性并提供可访问的显隐按钮，使用 autoComplete 指明登录或新口令场景。
 - use-mobile 仍为 registry:hook，安装位置由 components.json 的 aliases.hooks 控制；希望放在 lib 可配置为 @/lib，不需要库统一改目录。详见 docs/console-feedback.md。
+
+- 单文件入口用 `FileDropzone`（value/onFileChange/accept/maxSize/validateFile）。键盘和拖放共用校验，客户端校验不能代替服务端验证。试听用 `AudioPreview`，调用方创建并在更换文件或卸载时释放 object URL，组件不自动播放。
+- 互斥处理方式用 `ChoiceCards`（legend/options/value/onValueChange），保留原生 radio 箭头键和表单语义。任务用 `TaskProgress`（state/value/label/detail/onCancel），value 为 0–100，未知时不传；仅由真实事件更新，不用计时器伪造成功。
+- 公开工具站用 `ToolPageLayout`（navigation/hero/aside/after/footer）；指南、关于、隐私等长文用 `ContentPageLayout`（navigation/eyebrow/title/description/footer）。两者组织完整页面，不应嵌套在已有 main 中；不提供账号连接、上传、法律文案或广告脚本。示例见 `?preview=audio-studio` 和 `docs/audio-studio.md`。

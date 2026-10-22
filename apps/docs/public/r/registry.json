@@ -168,6 +168,18 @@
       ]
     },
     {
+      "name": "audio-preview",
+      "type": "registry:ui",
+      "title": "audio-preview",
+      "description": "有名称的原生音频试听，不自动播放；地址生命周期由使用方管理",
+      "files": [
+        {
+          "path": ".registry/ui/audio-preview.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:ui",
       "title": "avatar",
@@ -238,6 +250,18 @@
       "files": [
         {
           "path": ".registry/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "choice-cards",
+      "type": "registry:ui",
+      "title": "choice-cards",
+      "description": "可描述的单选卡片组，原生键盘和表单语义",
+      "files": [
+        {
+          "path": ".registry/ui/choice-cards.tsx",
           "type": "registry:ui"
         }
       ]
@@ -374,6 +398,21 @@
       "files": [
         {
           "path": ".registry/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-dropzone",
+      "type": "registry:ui",
+      "title": "file-dropzone",
+      "description": "可键盘选择与拖放的受控文件入口，含大小/格式校验提示",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/file-dropzone.tsx",
           "type": "registry:ui"
         }
       ]
@@ -757,6 +796,24 @@
       ]
     },
     {
+      "name": "task-progress",
+      "type": "registry:ui",
+      "title": "task-progress",
+      "description": "真实事件驱动的进度、成功、失败与取消反馈",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/task-progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "textarea",
       "type": "registry:ui",
       "title": "textarea",
@@ -764,6 +821,18 @@
       "files": [
         {
           "path": ".registry/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tool-page-layout",
+      "type": "registry:ui",
+      "title": "tool-page-layout",
+      "description": "公开工具页与说明页布局：导航、首屏、主区、辅助区、页脚",
+      "files": [
+        {
+          "path": ".registry/ui/tool-page-layout.tsx",
           "type": "registry:ui"
         }
       ]
@@ -803,11 +872,13 @@
       "registryDependencies": [
         "https://mollymogi.github.io/mogi-ui/r/alert-dialog.json",
         "https://mollymogi.github.io/mogi-ui/r/alert.json",
+        "https://mollymogi.github.io/mogi-ui/r/audio-preview.json",
         "https://mollymogi.github.io/mogi-ui/r/avatar.json",
         "https://mollymogi.github.io/mogi-ui/r/badge.json",
         "https://mollymogi.github.io/mogi-ui/r/button.json",
         "https://mollymogi.github.io/mogi-ui/r/card.json",
         "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
+        "https://mollymogi.github.io/mogi-ui/r/choice-cards.json",
         "https://mollymogi.github.io/mogi-ui/r/code-block.json",
         "https://mollymogi.github.io/mogi-ui/r/code-highlighter.json",
         "https://mollymogi.github.io/mogi-ui/r/dashboard-layout.json",
@@ -817,6 +888,7 @@
         "https://mollymogi.github.io/mogi-ui/r/diff.json",
         "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
         "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
+        "https://mollymogi.github.io/mogi-ui/r/file-dropzone.json",
         "https://mollymogi.github.io/mogi-ui/r/file-type-icon.json",
         "https://mollymogi.github.io/mogi-ui/r/flip-card.json",
         "https://mollymogi.github.io/mogi-ui/r/form.json",
@@ -840,7 +912,9 @@
         "https://mollymogi.github.io/mogi-ui/r/table-cell-truncate.json",
         "https://mollymogi.github.io/mogi-ui/r/table.json",
         "https://mollymogi.github.io/mogi-ui/r/tabs.json",
+        "https://mollymogi.github.io/mogi-ui/r/task-progress.json",
         "https://mollymogi.github.io/mogi-ui/r/textarea.json",
+        "https://mollymogi.github.io/mogi-ui/r/tool-page-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/tooltip.json"
       ]
     }

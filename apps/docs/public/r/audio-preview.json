@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "audio-preview",
+  "title": "audio-preview",
+  "description": "有名称的原生音频试听，不自动播放；地址生命周期由使用方管理",
+  "files": [
+    {
+      "path": ".registry/ui/audio-preview.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ntype AudioPreviewProps = Omit<React.ComponentProps<\"audio\">, \"controls\" | \"autoPlay\"> & {\n  label: string\n  description?: React.ReactNode\n  containerClassName?: string\n}\n// mogi: The caller owns src/object URL lifetime. Never autoplay or fetch audio in component code.\nfunction AudioPreview({label, description, containerClassName, className, id, preload = \"metadata\", ...props}: AudioPreviewProps) {\n  const generatedId = React.useId()\n  const audioId = id ?? generatedId\n  return <div data-slot=\"audio-preview\" className={cn(\"grid min-w-0 gap-2\", containerClassName)}>\n    <p id={`${audioId}-label`} className=\"text-sm font-medium text-foreground\">{label}</p>\n    <audio {...props} id={audioId} aria-labelledby={props[\"aria-label\"] ? undefined : `${audioId}-label`} controls autoPlay={false} preload={preload}\n      className={cn(\"w-full min-w-0 [color-scheme:light] dark:[color-scheme:dark]\", className)}>你的浏览器不支持音频试听。</audio>\n    {description != null && <div className=\"text-sm text-muted-foreground\">{description}</div>}\n  </div>\n}\nexport { AudioPreview }\nexport type { AudioPreviewProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

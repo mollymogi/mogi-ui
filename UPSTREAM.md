@@ -1,5 +1,19 @@
 # 上游来源记录
 
+## 2026-10-21 · Mogi Suno 网页组件回流
+
+来源：Mogi Suno 网页 `rea/sites/mogi-suno-web`。以下为重新适配语义 token 的 mogi 自有组件，没有复制业务处理器、Chrome 扩展、Suno 接口或凭据。
+
+| 组件 | 文件 | 说明 |
+|---|---|---|
+| FileDropzone | `file-dropzone.tsx` | 单文件拖放与键盘选择、大小和格式提示、可选自定义校验 |
+| AudioPreview | `audio-preview.tsx` | 有名称的原生音频试听；不自动播放，使用方管理 URL |
+| ChoiceCards | `choice-cards.tsx` | 原生 radio 卡片组、描述、禁用与受控选择 |
+| TaskProgress | `task-progress.tsx` | 事件驱动的进度与不定进度、成功、失败和取消 |
+| ToolPageLayout / ContentPageLayout | `tool-page-layout.tsx` | 公开工具页和说明页插槽布局 |
+
+完整页面示例为 `apps/docs/src/demo-audio-studio.tsx`，通过 `?preview=audio-studio` 查看。支持真实本地试听；进度状态展览明确标注为演示。
+
 `packages/ui/src/components/ui/` 下的组件复制自 shadcn/ui：
 
 - 仓库：https://github.com/shadcn-ui/ui
