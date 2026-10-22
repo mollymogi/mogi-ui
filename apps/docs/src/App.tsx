@@ -286,17 +286,20 @@ const sampleDiff = `@@ -5,7 +5,8 @@ void Dispatcher::OnFrame(const Frame& frame)
  }`
 
 export function App() {
+  const [palette, setPalette] = useState<"warm" | "monochrome">(() => new URLSearchParams(window.location.search).get("theme") === "monochrome" ? "monochrome" : "warm")
   const [dark, setDark] = useState(() => {
     const theme = new URLSearchParams(window.location.search).get("theme")
-    return theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    return theme === "dark" || (theme !== "light" && theme !== "monochrome" && window.matchMedia("(prefers-color-scheme: dark)").matches)
   })
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
-  }, [dark])
+    if (palette === "monochrome") document.documentElement.dataset.palette = "monochrome"
+    else delete document.documentElement.dataset.palette
+  }, [dark, palette])
 
   if (new URLSearchParams(window.location.search).get("preview") === "motion-trio") {
-    return <TooltipProvider><MotionTrioDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></TooltipProvider>
+    return <TooltipProvider><MotionTrioDemo dark={dark} palette={palette} onPaletteChange={value => { setDark(value === "dark"); if (value !== "dark") setPalette(value) }} onThemeChange={() => setDark(value => !value)} /></TooltipProvider>
   }
 
   if (new URLSearchParams(window.location.search).get("preview") === "detail-layout") {

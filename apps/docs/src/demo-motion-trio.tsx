@@ -8,6 +8,7 @@ import { MetricCard } from "@mogi-ui/ui/components/metric-card"
 import { FeedbackButton } from "@mogi-ui/ui/components/feedback-button"
 import { Button } from "@mogi-ui/ui/components/button"
 import { Badge } from "@mogi-ui/ui/components/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@mogi-ui/ui/components/select"
 import { Switch } from "@mogi-ui/ui/components/switch"
 
 const snapshots = [
@@ -22,7 +23,7 @@ const projects = [
   { name: "Design tokens", note: "主题与可访问性规范", progress: 100, status: "已完成" },
 ]
 
-export function MotionTrioDemo({ dark, onThemeChange }: { dark: boolean; onThemeChange: () => void }) {
+export function MotionTrioDemo({ dark, palette, onPaletteChange, onThemeChange }: { dark: boolean; palette: "warm" | "monochrome"; onPaletteChange: (value: "warm" | "monochrome" | "dark") => void; onThemeChange: () => void }) {
   const [ambient, setAmbient] = useState(true)
   const [glass, setGlass] = useState(true)
   const [step, setStep] = useState(0)
@@ -34,7 +35,7 @@ export function MotionTrioDemo({ dark, onThemeChange }: { dark: boolean; onTheme
   return <AmbientBackground enabled={ambient}><div className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-12" data-testid="motion-trio">
     <header className="flex flex-wrap items-center justify-between gap-5 border-b pb-7">
       <a href="?preview=components" className="flex items-center gap-3 font-semibold"><span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground"><Sparkles className="size-5" /></span><span>Mogi UI <span className="ml-2 font-normal text-muted-foreground">/ Motion lab</span></span></a>
-      <div className="flex flex-wrap items-center gap-4"><label className="flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={ambient} onCheckedChange={setAmbient} animated={animated} aria-label="渐变背景" />渐变</label><label className="flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={glass} onCheckedChange={setGlass} animated={animated} disabled={!dark} aria-label="深色毛玻璃" />毛玻璃</label><label className="flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={animated} onCheckedChange={setAnimated} animated={animated} aria-label="启用动效" />启用动效</label><Button variant="outline" size="icon" onClick={onThemeChange} aria-label={dark ? "切换亮色" : "切换暗色"}>{dark ? <Sun /> : <Moon />}</Button></div>
+      <div className="flex flex-wrap items-center gap-4"><Select value={dark ? "dark" : palette} onValueChange={value => { if (value === "warm" || value === "monochrome" || value === "dark") onPaletteChange(value) }}><SelectTrigger className="w-36" aria-label="配色主题"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="warm">暖色浅色</SelectItem><SelectItem value="monochrome">黑白浅色</SelectItem><SelectItem value="dark">深色玻璃</SelectItem></SelectContent></Select><label className="flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={ambient} onCheckedChange={setAmbient} animated={animated} aria-label="渐变背景" />渐变</label><label className="flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={glass} onCheckedChange={setGlass} animated={animated} disabled={!dark} aria-label="深色毛玻璃" />毛玻璃</label><label className="flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={animated} onCheckedChange={setAnimated} animated={animated} aria-label="启用动效" />启用动效</label><Button variant="outline" size="icon" onClick={onThemeChange} aria-label={dark ? "切换亮色" : "切换暗色"}>{dark ? <Sun /> : <Moon />}</Button></div>
     </header>
     <div className="mt-10 mb-9 max-w-2xl"><p className="mb-3 text-xs font-semibold tracking-[.18em] text-link">INTERACTION STUDIES / 01—03</p><h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">让变化，有迹可循。</h1><p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base">在熟悉的界面里，加一点恰到好处的运动。切换视图、更新数字，再完成一次操作，感受每一步的回应。</p></div>
     <GlassSurface enabled={glass} asChild><section className="overflow-hidden rounded-2xl border bg-card shadow-sm">

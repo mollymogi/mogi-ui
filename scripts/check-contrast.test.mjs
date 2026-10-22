@@ -81,3 +81,12 @@ test("dark diff deletion contrast fails for the previous destructive token", (t)
   assert.equal(result.status, 1)
   assert.match(result.stderr, /FAIL dark diff deletion text\/background: .* = 4\.395 < 4\.5/)
 })
+
+test("monochrome light text contrast is enforced even when registry matches", (t) => {
+  const result = fixture(t, (change) => {
+    change("packages/tokens/src/theme.css", "--foreground: #171717;", "--foreground: #fafafa;")
+    change("registry.json", '"--foreground": "#171717"', '"--foreground": "#fafafa"')
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /FAIL monochrome foreground\/background/)
+})

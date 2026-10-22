@@ -23,3 +23,7 @@ TabsList 的 animated 默认为 true，支持 false 回退；支持 default/line
 ## 渐变与深色玻璃预览
 
 页头新增「渐变」与「毛玻璃」开关（毛玻璃仅深色可用）。浅色使用奶油／暖灰渐变；深色用摩卡／灰绿静态层次，主要面板和弹层使用半透明毛玻璃。玻璃模式下嵌套指标卡与代码背景也透明，输入维持实色。可以独立关闭两种效果，直接比较；系统减少透明度偏好优先于玻璃开关。
+
+## 黑白浅色
+
+入口 `?preview=motion-trio&theme=monochrome`；页头「配色主题」可切换三种配色。可选的黑白主题为独立 registry 条目 `mogi-theme-monochrome`，使用方式见 design-tokens.md。黑白浅色背景/面板/主按钮使用中性色，状态色保留。

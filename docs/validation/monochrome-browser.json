@@ -1,0 +1,21 @@
+{
+  "browser": "156.0.8078.47",
+  "checks": [
+    "Monochrome URL explicitly selects light palette even with dark system preference",
+    "Neutral background, foreground and card tokens are active",
+    "Primary button is black with white text",
+    "Real card and input use neutral surfaces and accessible borders",
+    "Success semantics retain recognizable status color",
+    "Portal dialog inherits monochrome palette",
+    "Dark selection overrides monochrome without leaking light tokens",
+    "Warm selection removes monochrome scope and restores existing palette",
+    "Switching back to monochrome retains functional dynamic metrics",
+    "Popover uses monochrome fill and keyboard dismissal",
+    "No overflow at 320px",
+    "No overflow at 390px",
+    "No overflow at 768px",
+    "No overflow at 1440px",
+    "No browser runtime exceptions"
+  ],
+  "errors": []
+}
