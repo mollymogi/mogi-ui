@@ -53,12 +53,12 @@ const useFormField = () => {
     throw new Error("useFormField should be used within <FormField>")
   }
 
-  const { id } = itemContext
+  const { id, controlId } = itemContext
 
   return {
     id,
     name: fieldContext.name,
-    formItemId: `${id}-form-item`,
+    formItemId: controlId,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
@@ -67,22 +67,36 @@ const useFormField = () => {
 
 type FormItemContextValue = {
   id: string
+  controlId: string
 }
 
 const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue
 )
 
-function FormItem({ className, ...props }: React.ComponentProps<"div">) {
-  const id = React.useId()
+// mogi: resolve IDs during render so labels also work before effects/hydration.
+// Custom opaque wrappers should provide FormItem.itemId explicitly.
+function explicitControlId(children: React.ReactNode): string | undefined {
+  for (const child of React.Children.toArray(children)) {
+    if (!React.isValidElement<{ id?: string; children?: React.ReactNode }>(child)) continue
+    if (child.type === FormControl) {
+      const control = child.props.children
+      return child.props.id ?? (React.isValidElement<{ id?: string }>(control) ? control.props.id : undefined)
+    }
+    const nested = explicitControlId(child.props.children)
+    if (nested != null) return nested
+  }
+}
 
+function FormItem({ className, itemId, children, ...props }: React.ComponentProps<"div"> & {
+  /** Stable control ID shared by FormLabel and FormControl; not the wrapper ID. */
+  itemId?: string
+}) {
+  const id = React.useId()
+  const controlId = itemId ?? explicitControlId(children) ?? `${id}-form-item`
   return (
-    <FormItemContext.Provider value={{ id }}>
-      <div
-        data-slot="form-item"
-        className={cn("grid gap-2", className)}
-        {...props}
-      />
+    <FormItemContext.Provider value={{ id, controlId }}>
+      <div data-slot="form-item" className={cn("grid gap-2", className)} {...props}>{children}</div>
     </FormItemContext.Provider>
   )
 }
@@ -104,7 +118,7 @@ function FormLabel({
   )
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot.Root>) {
+function FormControl({ children, id: _id, ...props }: React.ComponentProps<typeof Slot.Root>) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
   return (
@@ -118,7 +132,9 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot.Root>) {
       }
       aria-invalid={!!error}
       {...props}
-    />
+    >
+      {React.isValidElement<{ id?: string }>(children) ? React.cloneElement(children, { id: formItemId }) : children}
+    </Slot.Root>
   )
 }
 

@@ -130,3 +130,7 @@ curl -fsSL https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-
 ## 文件列表与源码查看
 
 `FileTypeIcon` 提供文件名与类型映射；`CodeBlock` 支持按 `language` / `fileName` 的语义色高亮并兼容行号。API、安装依赖和复制行为见 [文件类型与源码高亮](docs/file-viewer.md)。组件展览包含亮暗主题示例。
+
+## 看板接入组件
+
+新增 MetricCard、StatusBadge、TableCellTruncate、PasswordInput，配套历史状态、紧凑表格与描述值变体；表单支持稳定 ID 配对。详见 [看板接入反馈与 API](docs/console-feedback.md)，独立预览 `?preview=console-feedback`。

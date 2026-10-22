@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-badge",
+  "title": "status-badge",
+  "description": "封闭枚举映射到标签、图标与变体，含未知值兜底",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://mollymogi.github.io/mogi-ui/r/badge.json"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/status-badge.tsx",
+      "content": "import * as React from \"react\"\nimport { CircleHelp, type LucideIcon } from \"lucide-react\"\nimport { Badge } from \"@/components/ui/badge\"\n\ntype StatusEntry = { label: React.ReactNode; icon?: LucideIcon; variant?: React.ComponentProps<typeof Badge>[\"variant\"] }\ntype StatusMap<T extends string = string> = Readonly<Partial<Record<T, StatusEntry>>>\ntype StatusBadgeProps<T extends string = string> = Omit<React.ComponentProps<typeof Badge>, \"children\" | \"variant\" | \"asChild\"> & {\n  value: string | null | undefined\n  map: StatusMap<T>\n  unknownLabel?: React.ReactNode\n}\n\nfunction StatusBadge<T extends string = string>({ value, map, unknownLabel = \"未识别\", ...props }: StatusBadgeProps<T>) {\n  const entries: Readonly<Partial<Record<string, StatusEntry>>> = map\n  const entry = value != null && Object.hasOwn(entries, value) ? entries[value] : undefined\n  const Icon = entry?.icon ?? CircleHelp\n  return <Badge data-slot=\"status-badge\" variant={entry?.variant ?? \"secondary\"} {...props}><Icon aria-hidden=\"true\" />{entry?.label ?? unknownLabel}</Badge>\n}\n\nexport { StatusBadge }\nexport type { StatusEntry, StatusMap, StatusBadgeProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

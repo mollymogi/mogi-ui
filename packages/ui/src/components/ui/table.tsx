@@ -8,8 +8,9 @@ import { cn } from "@mogi-ui/ui/lib/utils"
 function Table({
   className,
   containerClassName,
+  density = "default",
   ...props
-}: React.ComponentProps<"table"> & { containerClassName?: string }) {
+}: React.ComponentProps<"table"> & { containerClassName?: string; density?: "default" | "compact" }) {
   return (
     <div
       data-slot="table-container"
@@ -17,7 +18,8 @@ function Table({
     >
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
+        data-density={density}
+        className={cn("w-full caption-bottom text-sm", density === "compact" && "[&>thead>tr>th]:h-8 [&>thead>tr>th]:py-1 [&>tbody>tr>td]:py-1 [&>tfoot>tr>td]:py-1", className)}
         {...props}
       />
     </div>

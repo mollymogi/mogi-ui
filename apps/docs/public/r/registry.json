@@ -476,6 +476,24 @@
       ]
     },
     {
+      "name": "metric-card",
+      "type": "registry:ui",
+      "title": "metric-card",
+      "description": "指标卡：标签、等宽值、单位、提示与状态色",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/card.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/metric-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "pagination",
       "type": "registry:ui",
       "title": "pagination",
@@ -489,6 +507,25 @@
       "files": [
         {
           "path": ".registry/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:ui",
+      "title": "password-input",
+      "description": "口令输入与可访问的显隐切换",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json",
+        "https://mollymogi.github.io/mogi-ui/r/input.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/password-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -640,6 +677,24 @@
       ]
     },
     {
+      "name": "status-badge",
+      "type": "registry:ui",
+      "title": "status-badge",
+      "description": "封闭枚举映射到标签、图标与变体，含未知值兜底",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/badge.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/status-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:ui",
       "title": "switch",
@@ -650,6 +705,25 @@
       "files": [
         {
           "path": ".registry/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table-cell-truncate",
+      "type": "registry:ui",
+      "title": "table-cell-truncate",
+      "description": "保留完整长值的截断单元格，含可选复制",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json",
+        "https://mollymogi.github.io/mogi-ui/r/table.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/table-cell-truncate.tsx",
           "type": "registry:ui"
         }
       ]
@@ -749,7 +823,9 @@
         "https://mollymogi.github.io/mogi-ui/r/input.json",
         "https://mollymogi.github.io/mogi-ui/r/label.json",
         "https://mollymogi.github.io/mogi-ui/r/load-more.json",
+        "https://mollymogi.github.io/mogi-ui/r/metric-card.json",
         "https://mollymogi.github.io/mogi-ui/r/pagination.json",
+        "https://mollymogi.github.io/mogi-ui/r/password-input.json",
         "https://mollymogi.github.io/mogi-ui/r/popover.json",
         "https://mollymogi.github.io/mogi-ui/r/radio-group.json",
         "https://mollymogi.github.io/mogi-ui/r/select.json",
@@ -759,7 +835,9 @@
         "https://mollymogi.github.io/mogi-ui/r/skeleton.json",
         "https://mollymogi.github.io/mogi-ui/r/slider.json",
         "https://mollymogi.github.io/mogi-ui/r/sonner.json",
+        "https://mollymogi.github.io/mogi-ui/r/status-badge.json",
         "https://mollymogi.github.io/mogi-ui/r/switch.json",
+        "https://mollymogi.github.io/mogi-ui/r/table-cell-truncate.json",
         "https://mollymogi.github.io/mogi-ui/r/table.json",
         "https://mollymogi.github.io/mogi-ui/r/tabs.json",
         "https://mollymogi.github.io/mogi-ui/r/textarea.json",

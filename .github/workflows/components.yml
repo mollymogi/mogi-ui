@@ -22,6 +22,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
-      - run: node --test scripts/code-block-diff.test.mjs
+      - run: node --test scripts/code-block-diff.test.mjs scripts/console-feedback.test.mjs
       - run: pnpm registry:build
       - run: git diff --exit-code -- apps/docs/public/r
