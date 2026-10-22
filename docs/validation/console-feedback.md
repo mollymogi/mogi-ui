@@ -13,4 +13,10 @@ Browser checks cover real label focus for explicit/generated IDs, description/er
 
 The copy test checks that a click does not escape React's event boundary; it does not guarantee suppression of native DOM listeners already executed before React's delegated handler. Browser clipboard permission is required. `maxChars` is a CSS ch width, not a string slice. Opaque custom form wrappers need `FormItem.itemId`; the library does not evaluate arbitrary component functions to discover internal IDs.
 
+## Copy failure visibility fix — 2026-10-21
+
+Validated the local fix on top of `5c0386885b1d40f676953f16e6a6633ba7289573` in installed headless Chrome. All 30 browser checks passed across light/dark themes and 320/390/1440px viewports: simulated permission denial and missing clipboard API show a visible, unclipped status message and error icon; error timeout restores the original row height; keyboard retry copies the full 64-character digest and clears the visible error; success timeout restores the copy icon. No runtime exceptions or page overflow occurred. Clipboard outcomes were controlled simulations and did not change the OS clipboard. Mobile and desktop screenshots were visually inspected.
+
+The existing 31 Node regression tests, UI/docs type checks, 131 contrast checks, registry rebuild and docs production build passed. The build retains the existing large-chunk warning.
+
 These are isolated library/demo checks. The external `onsite-console` application was not changed or tested. Hooks retain the shadcn registry convention; `aliases.hooks` configuration is documented rather than silently relocating consumer files.

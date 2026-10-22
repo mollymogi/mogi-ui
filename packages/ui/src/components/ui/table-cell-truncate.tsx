@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, Copy } from "lucide-react"
+import { Check, CircleAlert, Copy } from "lucide-react"
 import { TableCell } from "@mogi-ui/ui/components/table"
 import { Button } from "@mogi-ui/ui/components/button"
 import { cn } from "@mogi-ui/ui/lib/utils"
@@ -31,9 +31,9 @@ function TableCellTruncate({ value, maxChars = 32, mono = false, copyable = fals
   return <TableCell data-slot="table-cell-truncate" className={cn("min-w-0", className)} {...props}>
     <div className="flex min-w-0 items-center gap-2">
       <span title={text} className={cn("block truncate", mono && "font-mono")} style={{ maxWidth: `${chars}ch` }}>{text}</span>
-      {copyable && <Button type="button" variant="ghost" size="icon-xs" aria-label={copyLabel} onClick={event => { event.stopPropagation(); void copy() }}>{status === "copied" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}</Button>}
-      <span className="sr-only" role="status">{status === "copied" ? "已复制" : status === "error" ? "复制失败，请选择完整内容复制" : ""}</span>
+      {copyable && <Button type="button" variant="ghost" size="icon-xs" aria-label={copyLabel} onClick={event => { event.stopPropagation(); void copy() }}>{status === "copied" ? <Check aria-hidden="true" /> : status === "error" ? <CircleAlert aria-hidden="true" className="text-destructive" /> : <Copy aria-hidden="true" />}</Button>}
     </div>
+    <span className={status === "error" ? "mt-1 block text-xs whitespace-normal text-destructive" : "sr-only"} role="status">{status === "copied" ? "已复制" : status === "error" ? "复制失败，请选择完整内容复制" : ""}</span>
   </TableCell>
 }
 

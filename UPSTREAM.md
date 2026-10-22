@@ -56,3 +56,4 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - DescriptionItem：新增 valueVariant 与 valueClassName；CodeHighlighter 改用 currentLine 引用，UI 包开启 noUncheckedIndexedAccess。
 - mogi 自有组件：MetricCard（metric-card.tsx）、StatusBadge（status-badge.tsx）、TableCellTruncate（table-cell-truncate.tsx）、PasswordInput（password-input.tsx），组合现有 Card/Badge/TableCell/Input/Button，未新增运行依赖。
 - use-mobile 仍保留上游 registry:hook 安装约定，只补别名配置说明，不移动用户目录。
+- TableCellTruncate：复制失败时显示错误图标与可换行的文字提示，保留 role=status 读屏通知；成功和错误状态仍在 2.5 秒后复位。

@@ -49,7 +49,7 @@ const states = {
 </Table>
 ```
 
-value 支持 string/number，maxChars 默认 32，以 ch 作为视觉最大宽度（不切割原字符串，非等宽文字不保证精确字符数）。完整文本始终在 DOM 和 title 中，读屏、选择和复制都可取得全文。copyable 默认 false；开启后显示“复制完整内容”按钮，写入原始 value，失败会给出明确反馈。复制按钮为 type=button，不触发表单提交，并阻止点击向外冒泡。
+value 支持 string/number，maxChars 默认 32，以 ch 作为视觉最大宽度（不切割原字符串，非等宽文字不保证精确字符数）。完整文本始终在 DOM 和 title 中，读屏、选择和复制都可取得全文。copyable 默认 false；开启后显示“复制完整内容”按钮，写入原始 value。失败时显示错误图标，并在单元格内显示可换行的“复制失败，请选择完整内容复制”，同时保留 role=status 读屏通知；可再次点击重试，成功/错误状态在 2.5 秒后复位。复制按钮为 type=button，不触发表单提交，并阻止点击向外冒泡。
 
 Table.density 默认为 default，compact 收紧本表直接行的单元格纵向 padding 和表头高度，不修改嵌套表。其他 Table API 保持兼容。
 
