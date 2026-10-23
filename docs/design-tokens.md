@@ -147,3 +147,20 @@
 AmbientBackground 用静态线性与径向渐变提供低对比度的空间层次。GlassSurface 在浅色保持实色；深色、支持 backdrop-filter 且 enabled 时使用半透明填充、40px 模糊及轻微内高光。不支持模糊、关闭玻璃或系统要求减少透明度时回退到 card 实色。主要面板和弹层可用玻璃，嵌套指标卡与代码面板在玻璃模式下透明，不叠加额外模糊；输入保持实色，避免多层透明叠加。
 
 contrast:check 新增渐变端点、逐通道保守边界和玻璃 alpha 合成的正文检查，覆盖 foreground / muted-foreground / link / success / highlight / destructive / warning；这不是对任意图片背景的保证。新的表面仅应用在受控渐变上，勿直接放在任意高对比图片或视频上。首个预览位于 `?preview=motion-trio`，页头可分别切换渐变与深色毛玻璃。
+
+## 黑白浅色主题（Monochrome Light）
+
+可选主题以中性灰替换暖色背景、品牌色与辅助表面：背景 #fafafa、卡片/弹层 #ffffff、正文与主按钮 #171717、次要文字 #525252、边框 #e5e5e5、交互边框 #858585。渐变为 #ffffff → #f8f8f8 → #f1f1f1，图表色板使用五级灰。成功、警告、错误保留原来的语义色与图标，不使用全页灰度滤镜。
+
+源码方式导入现有 tokens/theme.css 即包含可选样式；设置在 html 根节点以覆盖 portal：
+
+```js
+document.documentElement.classList.remove("dark")
+document.documentElement.dataset.palette = "monochrome"
+```
+
+移除 data-palette 恢复默认暖色。添加 dark 时仍使用原深色主题，黑白浅色规则不会覆盖深色；再次移除 dark 会恢复当前选择的浅色配色。不要只设置在组件内层容器，否则弹窗 portal 无法继承。
+
+Registry 使用方安装 `https://mollymogi.github.io/mogi-ui/r/mogi-theme-monochrome.json`，其依赖 mogi-theme，输出相同的 `:root[data-palette="monochrome"]:not(.dark)` 作用域，不全局覆盖现有默认配色。该地址需在本分支合入并完成站点发布后才可用；本地生成的条目已可验证。
+
+contrast:check 同时验证暖色浅色、深色与黑白浅色，校验可选主题的源码/registry 一致性、正文 4.5:1、交互边框/焦点环 3:1、渐变与合成背景。新主题无需更换组件、字体或动效。

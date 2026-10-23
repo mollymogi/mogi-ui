@@ -90,3 +90,9 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 在受控页面外层使用 AmbientBackground，enabled=false 回到实色背景；它使用 ambient-start/middle/end 主题 token 的静态渐变，不做持续背景动画。
 - GlassSurface 默认 div，也可 asChild 包裹 section、DialogContent、PopoverContent；enabled=false 回到 card 实色。浅色保持实色，深色开启支持检测后的半透明与模糊；不支持 backdrop-filter 或系统减少透明度时回退实色。
 - 玻璃用于主要面板，玻璃模式下嵌套指标卡可透明，输入保留实色。不直接覆盖任意图片/视频；内置对比度验证仅针对受控渐变和对应 alpha 合成。单独安装这两个组件时也需要最新 mogi-theme token。
+
+### 黑白浅色主题
+
+- 黑白浅色沿用相同组件 API、字体与动效。源码包已包含作用域主题；registry 使用方需额外安装 mogi-theme-monochrome（依赖 mogi-theme）。新条目需随本分支发布后才可通过线上地址安装。
+- 在 html 上设置 data-palette="monochrome" 并移除 dark；portal 弹窗/下拉框自动继承。移除 data-palette 恢复暖色浅色；dark 存在时继续使用原深色主题，不叠加浅色覆盖。
+- 中性背景与黑色主按钮不改变成功/警告/错误的颜色意义；不要用 grayscale 滤镜模拟主题。图表灰阶需配套文字/图例，不能只靠灰度区分类别。

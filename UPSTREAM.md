@@ -86,3 +86,11 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 
 - Replaced dark glass's 72% brown fill with a neutral white tint at 4% opacity and a translucent white rim; increased backdrop blur to 40px. The panel now reveals the actual ambient backdrop instead of reading as an opaque brown card.
 - Nested metric/code panels in the glass preview use transparent fills without additional blur; inputs retain their control surface. Base card tokens and the glass-off fallback stay opaque.
+
+### Optional monochrome light palette
+
+- Added a scoped black/white/neutral-gray light palette, activated with html data-palette="monochrome"; dark mode retains its existing palette.
+- White/gray backgrounds, black primary controls, neutral links/borders/sidebar/chart colors; success/warning/error keep their existing semantic colors.
+- Added the independent mogi-theme-monochrome registry theme with a mogi-theme dependency, so consumers can opt in without replacing components.
+- Preview theme selector switches warm light / monochrome light / dark glass. Root application ensures portal components receive the same palette.
+- Extended contrast and registry checks to the new palette, plus a negative regression for monochrome text contrast.

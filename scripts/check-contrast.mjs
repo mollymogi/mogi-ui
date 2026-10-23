@@ -9,7 +9,11 @@ const css = read("packages/tokens/src/theme.css").replace(/\/\*[\s\S]*?\*\//g, "
 const block = (selector) => declarations(css.match(new RegExp(`${selector}\\s*\\{([^}]+)\\}`))[1])
 const light = { ...primitives, ...block(":root") }
 const dark = { ...light, ...block("\\.dark") }
-const registry = JSON.parse(read("registry.json")).items.find((item) => item.name === "mogi-theme").cssVars
+const registryItems = JSON.parse(read("registry.json")).items
+const registry = registryItems.find((item) => item.name === "mogi-theme").cssVars
+const monochromeSelector = ':root[data-palette="monochrome"]:not(.dark)'
+const monochromeTokens = declarations(css.match(/:root\[data-palette="monochrome"\]:not\(\.dark\)\s*\{([^}]+)\}/)[1])
+const monochromeRegistry = registryItems.find(item => item.name === "mogi-theme-monochrome").css[monochromeSelector]
 const resolve = (name, vars, seen = new Set()) => {
   if (seen.has(name) || !vars[name]) throw new Error(`Invalid token reference: ${name}`)
   seen.add(name)
@@ -30,11 +34,12 @@ assert.equal(contrast("#ffffff", "#000000"), 21)
 assert.equal(contrast("#a65a2a", "#a65a2a"), 1)
 assert.throws(() => contrast("unknown", "#ffffff"))
 assert.ok(contrast("#777777", "#ffffff") < 4.5) // 4.478 must not round up to PASS
-for (const [mode, vars] of Object.entries({ light, dark })) {
+for (const [mode, vars] of Object.entries({ light, dark, monochrome: { ...light, ...monochromeTokens } })) {
   const color = (name) => resolve(name, vars)
   // Every published semantic token must match the workspace CSS.
-  for (const name of Object.keys(block(mode === "light" ? ":root" : "\\.dark"))) {
-    assert.equal(registry[mode][name], color(name), `${mode} registry drift: ${name}`)
+  for (const name of Object.keys(mode === "monochrome" ? monochromeTokens : block(mode === "light" ? ":root" : "\\.dark"))) {
+    const published = mode === "monochrome" ? monochromeRegistry[`--${name}`] : registry[mode][name]
+    assert.equal(published, color(name), `${mode} registry drift: ${name}`)
   }
   const pairs = [
     ["foreground", "background"], ["card-foreground", "card"], ["popover-foreground", "popover"],
