@@ -19,6 +19,12 @@ const baseUrl = (
 
 // 安装列表里显示的说明，没写的组件只显示名字
 const descriptions = {
+  "file-dropzone": "可键盘选择与拖放的受控文件入口，含大小/格式校验提示",
+  "audio-preview": "有名称的原生音频试听，不自动播放；地址生命周期由使用方管理",
+  "choice-cards": "可描述的单选卡片组，原生键盘和表单语义",
+  "task-progress": "真实事件驱动的进度、成功、失败与取消反馈",
+  "tool-page-layout": "公开工具页与说明页布局：导航、首屏、主区、辅助区、页脚",
+
   "collapsible": "保留表单状态的平滑折叠区，含键盘、inert 与减少动态效果支持",
   "copy-button": "真实剪贴板复制、动态图标与可见失败反馈",
   "animated-number": "仅在数值变化时按位滚动，首屏直出与减少动态效果支持",

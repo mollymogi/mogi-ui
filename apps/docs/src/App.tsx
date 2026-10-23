@@ -22,6 +22,7 @@ import {
 import { MotionTrioDemo } from "./demo-motion-trio"
 import { ConsoleFeedbackDemo } from "./demo-console-feedback"
 import { DashboardDemo } from "./demo-dashboard"
+import { AudioStudioDemo } from "./demo-audio-studio"
 import { DetailLayoutDemo } from "./demo-detail-layout"
 import { MotionDemo } from "./demo-motion"
 import { AlertDialogDemo, FormDemo, PaginationDemo, SheetDemo, SidebarDemo } from "./demos-v2"
@@ -294,6 +295,10 @@ export function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
   }, [dark])
+
+  if (new URLSearchParams(window.location.search).get("preview") === "audio-studio") {
+    return <AudioStudioDemo dark={dark} onThemeChange={() => setDark(value => !value)} />
+  }
 
   if (new URLSearchParams(window.location.search).get("preview") === "motion-trio") {
     return <TooltipProvider><MotionTrioDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></TooltipProvider>
@@ -607,6 +612,11 @@ export function App() {
           <div className="rounded-xl border bg-card px-4">
             <LoadMoreDemo />
           </div>
+        </Section>
+
+        <Section title="音频工具与说明页模板">
+          <p className="text-sm text-muted-foreground">文件选择、真实本机试听、方式卡片与任务状态。页面不接入业务服务。</p>
+          <a className="text-link underline" href="?preview=audio-studio">打开音频工作台与说明页模板 →</a>
         </Section>
 
         <Section title="详情看板：先结论，再证据">

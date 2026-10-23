@@ -45,6 +45,10 @@ pnpm registry:build   # 生成 apps/docs/public/r/*.json（主题 + 每个组件
 
 - [详情看板 DetailLayout](docs/detail-layout.md)：一句话结论、关键指标、主内容与辅助栏；技术细节用 Sheet 按需查看。预览站包含亮/暗主题示例。
 
+## 音频工具与说明页模板
+
+`?preview=audio-studio` 展示源自 Mogi Suno 的工具页与说明页，支持亮／暗主题和真实本机试听。进度状态展览明确标为演示，不处理或上传文件。安装与契约见 [音频工具模板](docs/audio-studio.md)。
+
 ## 在其他项目里使用
 
 **方式一：通过 registry 安装（推荐）。** 任何 React 19 + Tailwind v4 的 shadcn 项目，先套主题，再按需装组件：
