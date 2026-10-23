@@ -5,14 +5,21 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   components:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: pnpm/action-setup@v4
         with:
           version: 10.28.0
@@ -22,6 +29,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
+      - run: pnpm build
       - run: node --test scripts/code-block-diff.test.mjs scripts/console-feedback.test.mjs scripts/audio-studio.test.mjs
       - run: pnpm registry:build
       - run: git diff --exit-code -- apps/docs/public/r
