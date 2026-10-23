@@ -14,6 +14,13 @@ const registry = registryItems.find((item) => item.name === "mogi-theme").cssVar
 const monochromeSelector = ':root[data-palette="monochrome"]:not(.dark)'
 const monochromeTokens = declarations(css.match(/:root\[data-palette="monochrome"\]:not\(\.dark\)\s*\{([^}]+)\}/)[1])
 const monochromeRegistry = registryItems.find(item => item.name === "mogi-theme-monochrome").css[monochromeSelector]
+const paperSelector = ':root[data-palette="paper"]:not(.dark)'
+const paperTokens = declarations(css.match(/:root\[data-palette="paper"\]:not\(\.dark\)\s*\{([^}]+)\}/)[1])
+const paperRegistry = registryItems.find(item => item.name === "mogi-theme-paper").css[paperSelector]
+const optionalThemes = {
+  monochrome: { tokens: monochromeTokens, published: monochromeRegistry },
+  paper: { tokens: paperTokens, published: paperRegistry },
+}
 const resolve = (name, vars, seen = new Set()) => {
   if (seen.has(name) || !vars[name]) throw new Error(`Invalid token reference: ${name}`)
   seen.add(name)
@@ -34,11 +41,11 @@ assert.equal(contrast("#ffffff", "#000000"), 21)
 assert.equal(contrast("#a65a2a", "#a65a2a"), 1)
 assert.throws(() => contrast("unknown", "#ffffff"))
 assert.ok(contrast("#777777", "#ffffff") < 4.5) // 4.478 must not round up to PASS
-for (const [mode, vars] of Object.entries({ light, dark, monochrome: { ...light, ...monochromeTokens } })) {
+for (const [mode, vars] of Object.entries({ light, dark, monochrome: { ...light, ...monochromeTokens }, paper: { ...light, ...paperTokens } })) {
   const color = (name) => resolve(name, vars)
   // Every published semantic token must match the workspace CSS.
-  for (const name of Object.keys(mode === "monochrome" ? monochromeTokens : block(mode === "light" ? ":root" : "\\.dark"))) {
-    const published = mode === "monochrome" ? monochromeRegistry[`--${name}`] : registry[mode][name]
+  for (const name of Object.keys(optionalThemes[mode] ? optionalThemes[mode].tokens : block(mode === "light" ? ":root" : "\\.dark"))) {
+    const published = optionalThemes[mode] ? optionalThemes[mode].published[`--${name}`] : registry[mode][name]
     assert.equal(published, color(name), `${mode} registry drift: ${name}`)
   }
   const pairs = [

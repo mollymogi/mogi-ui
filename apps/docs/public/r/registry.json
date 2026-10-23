@@ -199,6 +199,100 @@
       }
     },
     {
+      "name": "mogi-theme-paper",
+      "type": "registry:theme",
+      "title": "Mogi Cream Paper",
+      "description": "奶油纸感浅色主题：奶油底、黄色主按钮、深墨描边和偏移硬阴影。html 设置 data-palette=\"paper\" 并移除 dark。",
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/mogi-theme.json"
+      ],
+      "css": {
+        ":root[data-palette=\"paper\"]:not(.dark)": {
+          "--background": "#fff7e6",
+          "--foreground": "#29251f",
+          "--card": "#fffdf6",
+          "--card-foreground": "#29251f",
+          "--popover": "#fffdf6",
+          "--popover-foreground": "#29251f",
+          "--primary": "#f8d956",
+          "--primary-foreground": "#29251f",
+          "--link": "#87471e",
+          "--slider-range": "#29251f",
+          "--secondary": "#f5ecd9",
+          "--secondary-foreground": "#51483d",
+          "--muted": "#f1e7d2",
+          "--muted-foreground": "#6c6255",
+          "--accent": "#faedb4",
+          "--accent-foreground": "#29251f",
+          "--highlight": "#8c3455",
+          "--highlight-soft": "#f5d5df",
+          "--warning-foreground": "#29251f",
+          "--border": "#d3c7b6",
+          "--border-strong": "#8b7c6a",
+          "--input": "#8b7c6a",
+          "--ring": "#87471e",
+          "--sidebar": "#fffdf6",
+          "--sidebar-foreground": "#29251f",
+          "--sidebar-primary": "#29251f",
+          "--sidebar-primary-foreground": "#fffdf6",
+          "--sidebar-accent": "#faedb4",
+          "--sidebar-accent-foreground": "#29251f",
+          "--sidebar-border": "#d3c7b6",
+          "--sidebar-ring": "#87471e",
+          "--ambient-start": "#fff7e6",
+          "--ambient-middle": "#fff9ef",
+          "--ambient-end": "#f9f0dd",
+          "--glass-tint": "rgb(255 253 246 / 0.9)",
+          "--glass-border": "#d3c7b6"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"button\"][data-variant=\"default\"]": {
+          "border": "2px solid var(--foreground)",
+          "box-shadow": "4px 5px 0 var(--foreground)",
+          "transition-property": "background-color, box-shadow, translate",
+          "transition-duration": "var(--duration-mogi-fast)",
+          "transition-timing-function": "var(--ease-mogi)",
+          "scale": "1"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"button\"][data-variant=\"default\"]:not(:disabled):not([aria-disabled=\"true\"]):hover": {
+          "translate": "-1px -1px",
+          "box-shadow": "5px 6px 0 var(--foreground)"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"button\"][data-variant=\"default\"]:not(:disabled):not([aria-disabled=\"true\"]):active": {
+          "translate": "3px 4px",
+          "box-shadow": "1px 1px 0 var(--foreground)"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-glass], :root[data-palette=\"paper\"]:not(.dark) [data-slot=\"card\"]": {
+          "border-color": "var(--foreground)",
+          "box-shadow": "2px 3px 0 var(--foreground)"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"metric-card\"]": {
+          "box-shadow": "1px 2px 0 rgb(41 37 31 / 0.12)"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"checkbox\"], :root[data-palette=\"paper\"]:not(.dark) [data-slot=\"switch\"]": {
+          "border-color": "var(--foreground)"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"switch-thumb\"]": {
+          "background-color": "var(--foreground)"
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"paper-note\"]": {
+          "background-color": "var(--highlight-soft)",
+          "color": "var(--foreground)",
+          "border": "1px solid var(--foreground)",
+          "box-shadow": "3px 4px 0 var(--foreground)",
+          "rotate": "-2deg"
+        },
+        "@media (prefers-reduced-motion: reduce)": {
+          ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"button\"][data-variant=\"default\"]:not(:disabled):not([aria-disabled=\"true\"]):hover, :root[data-palette=\"paper\"]:not(.dark) [data-slot=\"button\"][data-variant=\"default\"]:not(:disabled):not([aria-disabled=\"true\"]):active": {
+            "translate": "none"
+          }
+        },
+        ":root[data-palette=\"paper\"]:not(.dark) [data-slot=\"button\"][data-variant=\"default\"]:focus-visible": {
+          "outline": "3px solid var(--ring)",
+          "outline-offset": "4px"
+        }
+      }
+    },
+    {
       "name": "alert-dialog",
       "type": "registry:ui",
       "title": "alert-dialog",

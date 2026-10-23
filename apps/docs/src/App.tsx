@@ -286,15 +286,18 @@ const sampleDiff = `@@ -5,7 +5,8 @@ void Dispatcher::OnFrame(const Frame& frame)
  }`
 
 export function App() {
-  const [palette, setPalette] = useState<"warm" | "monochrome">(() => new URLSearchParams(window.location.search).get("theme") === "monochrome" ? "monochrome" : "warm")
+  const [palette, setPalette] = useState<"warm" | "monochrome" | "paper">(() => {
+    const theme = new URLSearchParams(window.location.search).get("theme")
+    return theme === "monochrome" || theme === "paper" ? theme : "warm"
+  })
   const [dark, setDark] = useState(() => {
     const theme = new URLSearchParams(window.location.search).get("theme")
-    return theme === "dark" || (theme !== "light" && theme !== "monochrome" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    return theme === "dark" || (theme !== "light" && theme !== "monochrome" && theme !== "paper" && window.matchMedia("(prefers-color-scheme: dark)").matches)
   })
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
-    if (palette === "monochrome") document.documentElement.dataset.palette = "monochrome"
+    if (palette !== "warm") document.documentElement.dataset.palette = palette
     else delete document.documentElement.dataset.palette
   }, [dark, palette])
 

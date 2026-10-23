@@ -164,3 +164,18 @@ document.documentElement.dataset.palette = "monochrome"
 Registry 使用方安装 `https://mollymogi.github.io/mogi-ui/r/mogi-theme-monochrome.json`，其依赖 mogi-theme，输出相同的 `:root[data-palette="monochrome"]:not(.dark)` 作用域，不全局覆盖现有默认配色。该地址需在本分支合入并完成站点发布后才可用；本地生成的条目已可验证。
 
 contrast:check 同时验证暖色浅色、深色与黑白浅色，校验可选主题的源码/registry 一致性、正文 4.5:1、交互边框/焦点环 3:1、渐变与合成背景。新主题无需更换组件、字体或动效。
+
+## 奶油纸感主题（Cream Paper）
+
+主题选择：html 上设置 `data-palette="paper"` 并移除 dark；移除属性恢复默认暖色。规则排除 dark，因此与其他浅色配色、深色玻璃并存，portal 继承根节点主题。源码导入 tokens/theme.css 即包含；registry 使用方安装 `mogi-theme-paper`（依赖 mogi-theme，线上安装需本分支发布后可用）。
+
+- 背景 #fff7e6，面板 #fffdf6，正文 #29251f，次要文字 #6c6255。
+- 主按钮 #f8d956 黄底 + #29251f 深墨文字，2px 描边，4px 5px 硬阴影；悬停位移 -1px -1px，阴影 5px 6px；按下位移 3px 4px，阴影 1px 1px。尺寸与布局不重排。
+- 主要 Card / GlassSurface 使用深墨描边及 2px 3px 短硬阴影；MetricCard 用低强度 1px 2px 阴影，避免每层都很厚重。普通表格和输入仍采用轻边框。
+- 粉色 highlight-soft 为 #f5d5df，highlight 为 #8c3455；可将 data-slot="paper-note" 用于便签式提示，附带轻微静态倾斜。它只是展示提示，不代表可拖拽。
+- Checkbox / Switch 保留深墨边界；Switch thumb 改为深墨，确保黄色轨道上的控件可辨识。成功/警告/错误仍沿用语义色，未使用滤镜或背景图片。
+- 减少动态效果时，按钮保持阴影状态反馈并关闭位移；禁用按钮不触发 hover/active 位移。以上样式与 token 同时打包进独立 registry 条目。
+
+预览 `?preview=motion-trio&theme=paper`。页面欢迎区包含便签示例；与其他主题共用同一组实际控件和本地演示数据。
+
+纸感主按钮额外保留 3px focus-visible outline（4px offset），避免自定义硬阴影覆盖键盘焦点提示。

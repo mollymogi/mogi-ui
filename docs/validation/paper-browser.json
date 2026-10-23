@@ -1,0 +1,24 @@
+{
+  "browser": "156.0.8078.47",
+  "checks": [
+    "Explicit paper URL stays light under dark system preference",
+    "Primary action renders yellow, ink outline/text and directional hard shadow",
+    "Hover lifts button and extends shadow",
+    "Pressed button moves toward shadow while action feedback remains functional",
+    "Disabled action does not get physical hover displacement",
+    "Major panels and nested metrics use distinct shadow hierarchy",
+    "Paper note is pink with static paper-like tilt",
+    "Yellow checked controls retain contrasting ink boundaries and thumb",
+    "Portal dialog inherits cream surface and ink shadow",
+    "Dark palette does not inherit paper hard shadows or yellow controls",
+    "Monochrome and warm palette restoration remove paper effects",
+    "Reduced motion retains state feedback without physical translation",
+    "Keyboard focus remains visible independently of hard shadow",
+    "No page overflow 320px",
+    "No page overflow 390px",
+    "No page overflow 768px",
+    "No page overflow 1440px",
+    "No browser runtime exceptions"
+  ],
+  "errors": []
+}

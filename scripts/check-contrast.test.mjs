@@ -90,3 +90,12 @@ test("monochrome light text contrast is enforced even when registry matches", (t
   assert.equal(result.status, 1)
   assert.match(result.stderr, /FAIL monochrome foreground\/background/)
 })
+
+test("paper yellow primary requires contrasting ink text", (t) => {
+  const result = fixture(t, (change) => {
+    change("packages/tokens/src/theme.css", "--primary-foreground: #29251f;", "--primary-foreground: #f8d956;")
+    change("registry.json", '"--primary-foreground": "#29251f"', '"--primary-foreground": "#f8d956"')
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /FAIL paper primary-foreground\/primary/)
+})
