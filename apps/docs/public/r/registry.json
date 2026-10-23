@@ -64,7 +64,12 @@
           "duration-mogi": "200ms",
           "duration-mogi-slow": "320ms",
           "link": "#a65a2a",
-          "border-strong": "#a57e69"
+          "border-strong": "#a57e69",
+          "ambient-start": "#fdfaf5",
+          "ambient-middle": "#faf1e7",
+          "ambient-end": "#f3f2e9",
+          "glass-tint": "rgb(255 253 249 / 0.8)",
+          "glass-border": "#e9dccb"
         },
         "dark": {
           "background": "#241811",
@@ -109,7 +114,12 @@
           "sidebar-border": "#44332a",
           "sidebar-ring": "#dc9357",
           "link": "#dc9357",
-          "border-strong": "#a57e69"
+          "border-strong": "#a57e69",
+          "ambient-start": "#211917",
+          "ambient-middle": "#30201c",
+          "ambient-end": "#202822",
+          "glass-tint": "rgb(255 255 255 / 0.04)",
+          "glass-border": "rgb(255 255 255 / 0.14)"
         }
       },
       "css": {
@@ -163,6 +173,30 @@
       "files": [
         {
           "path": ".registry/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "ambient-background",
+      "type": "registry:ui",
+      "title": "ambient-background",
+      "description": "可选的暖色渐变背景，沿用明暗主题",
+      "files": [
+        {
+          "path": ".registry/ui/ambient-background.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "animated-number",
+      "type": "registry:ui",
+      "title": "animated-number",
+      "description": "仅在数值变化时按位滚动，首屏直出与减少动态效果支持",
+      "files": [
+        {
+          "path": ".registry/ui/animated-number.tsx",
           "type": "registry:ui"
         }
       ]
@@ -275,6 +309,40 @@
       ]
     },
     {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "collapsible",
+      "description": "保留表单状态的平滑折叠区，含键盘、inert 与减少动态效果支持",
+      "dependencies": [
+        "lucide-react",
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "copy-button",
+      "description": "真实剪贴板复制、动态图标与可见失败反馈",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/copy-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dashboard-layout",
       "type": "registry:ui",
       "title": "dashboard-layout",
@@ -379,6 +447,24 @@
       ]
     },
     {
+      "name": "feedback-button",
+      "type": "registry:ui",
+      "title": "feedback-button",
+      "description": "异步操作反馈按钮：处理中、成功与失败重试",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/feedback-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "file-type-icon",
       "type": "registry:ui",
       "title": "file-type-icon",
@@ -426,6 +512,21 @@
       "files": [
         {
           "path": ".registry/ui/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "glass-surface",
+      "type": "registry:ui",
+      "title": "glass-surface",
+      "description": "深色半透明毛玻璃面板，不支持模糊时回退实色",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/glass-surface.tsx",
           "type": "registry:ui"
         }
       ]
@@ -484,6 +585,7 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/animated-number.json",
         "https://mollymogi.github.io/mogi-ui/r/card.json"
       ],
       "files": [
@@ -714,11 +816,8 @@
       "type": "registry:ui",
       "title": "table-cell-truncate",
       "description": "保留完整长值的截断单元格，含可选复制",
-      "dependencies": [
-        "lucide-react"
-      ],
       "registryDependencies": [
-        "https://mollymogi.github.io/mogi-ui/r/button.json",
+        "https://mollymogi.github.io/mogi-ui/r/copy-button.json",
         "https://mollymogi.github.io/mogi-ui/r/table.json"
       ],
       "files": [
@@ -803,6 +902,8 @@
       "registryDependencies": [
         "https://mollymogi.github.io/mogi-ui/r/alert-dialog.json",
         "https://mollymogi.github.io/mogi-ui/r/alert.json",
+        "https://mollymogi.github.io/mogi-ui/r/ambient-background.json",
+        "https://mollymogi.github.io/mogi-ui/r/animated-number.json",
         "https://mollymogi.github.io/mogi-ui/r/avatar.json",
         "https://mollymogi.github.io/mogi-ui/r/badge.json",
         "https://mollymogi.github.io/mogi-ui/r/button.json",
@@ -810,6 +911,8 @@
         "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
         "https://mollymogi.github.io/mogi-ui/r/code-block.json",
         "https://mollymogi.github.io/mogi-ui/r/code-highlighter.json",
+        "https://mollymogi.github.io/mogi-ui/r/collapsible.json",
+        "https://mollymogi.github.io/mogi-ui/r/copy-button.json",
         "https://mollymogi.github.io/mogi-ui/r/dashboard-layout.json",
         "https://mollymogi.github.io/mogi-ui/r/description-list.json",
         "https://mollymogi.github.io/mogi-ui/r/detail-layout.json",
@@ -817,9 +920,11 @@
         "https://mollymogi.github.io/mogi-ui/r/diff.json",
         "https://mollymogi.github.io/mogi-ui/r/dropdown-menu.json",
         "https://mollymogi.github.io/mogi-ui/r/empty-state.json",
+        "https://mollymogi.github.io/mogi-ui/r/feedback-button.json",
         "https://mollymogi.github.io/mogi-ui/r/file-type-icon.json",
         "https://mollymogi.github.io/mogi-ui/r/flip-card.json",
         "https://mollymogi.github.io/mogi-ui/r/form.json",
+        "https://mollymogi.github.io/mogi-ui/r/glass-surface.json",
         "https://mollymogi.github.io/mogi-ui/r/input.json",
         "https://mollymogi.github.io/mogi-ui/r/label.json",
         "https://mollymogi.github.io/mogi-ui/r/load-more.json",
