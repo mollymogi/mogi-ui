@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import assert from "node:assert/strict"
-import { contrast, labelColor, composite } from "../packages/tokens/src/contrast.js"
+import { contrast, labelColor, composite, rgb } from "../packages/tokens/src/contrast.js"
 
 const read = (path) => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8")
 const declarations = (body) => Object.fromEntries([...body.matchAll(/--([\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]))
@@ -51,6 +51,21 @@ for (const [mode, vars] of Object.entries({ light, dark })) {
     for (const fg of ["border-strong", "input", "ring"]) check(`${mode} ${fg}/${bg}`, color(fg), color(bg), 3)
     check(`${mode} slider thumb border/${bg}`, color("slider-range"), color(bg), 3)
     check(`${mode} primary hover/${bg}`, color("primary-foreground"), composite(color("primary"), color(bg), .95), 4.5)
+  }
+  // Ambient gradients and glass must remain readable at every stop and at
+  // conservative per-channel bounds (also covering interpolation/blur).
+  const stops = ["ambient-start", "ambient-middle", "ambient-end"].map(color)
+  const channels = stops.map(rgb)
+  const bounds = [Math.min, Math.max].map(bound => `rgb(${[0, 1, 2].map(i => bound(...channels.map(channel => channel[i]))).join(", ")})`)
+  const tint = color("glass-tint").match(/^rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)$/)
+  assert.ok(tint, `${mode} glass tint must declare its alpha explicitly`)
+  const opaqueTint = `rgb(${tint.slice(1, 4).join(", ")})`
+  const alpha = Number(tint[4])
+  assert.ok(alpha >= 0 && alpha <= 1)
+  for (const [index, background] of [...stops, ...bounds, ...stops.map(stop => composite(opaqueTint, stop, alpha))].entries()) {
+    for (const fg of ["foreground", "muted-foreground", "link", "success", "highlight", "destructive", mode === "dark" ? "warning" : "warning-foreground"]) {
+      check(`${mode} ambient/glass ${index} ${fg}`, color(fg), background, 4.5)
+    }
   }
   check(`${mode} diff deletion text/background`, color("destructive"), composite(color("destructive"), color("card"), .1), 4.5)
   check(`${mode} slider selected range/track`, color("slider-range"), color("muted"), 3)

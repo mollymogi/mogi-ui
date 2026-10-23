@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "title": "collapsible",
+  "description": "保留表单状态的平滑折叠区，含键盘、inert 与减少动态效果支持",
+  "dependencies": [
+    "lucide-react",
+    "radix-ui"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/collapsible.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ChevronDown } from \"lucide-react\"\nimport { Collapsible as CollapsiblePrimitive } from \"radix-ui\"\nimport { cn } from \"@/lib/utils\"\n\nconst CollapsibleContext = React.createContext({ open: false, animated: true })\n\nfunction Collapsible({ open, defaultOpen = false, onOpenChange, animated = true, ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root> & { animated?: boolean }) {\n  const [internal, setInternal] = React.useState(defaultOpen)\n  const expanded = open ?? internal\n  return <CollapsibleContext.Provider value={{ open: expanded, animated }}><CollapsiblePrimitive.Root {...props} data-slot=\"collapsible\" open={expanded} onOpenChange={next => { if (open === undefined) setInternal(next); onOpenChange?.(next) }} /></CollapsibleContext.Provider>\n}\n\nfunction CollapsibleTrigger({ className, children, asChild, ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Trigger>) {\n  const { animated } = React.useContext(CollapsibleContext)\n  return <CollapsiblePrimitive.Trigger {...props} asChild={asChild} data-slot=\"collapsible-trigger\" className={cn(\"group/collapsible flex w-full items-center justify-between gap-3 rounded-md text-left text-sm font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50\", className)}>\n    {asChild ? children : <>{children}<ChevronDown aria-hidden=\"true\" className={cn(\"size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180 motion-reduce:transition-none\", !animated && \"transition-none\")} /></>}\n  </CollapsiblePrimitive.Trigger>\n}\n\n/** Keeps content mounted to retain form state; collapsed content is inert and hidden from AT. */\nfunction CollapsibleContent({ className, children, ...props }: Omit<React.ComponentProps<typeof CollapsiblePrimitive.Content>, \"forceMount\" | \"asChild\">) {\n  const { open, animated } = React.useContext(CollapsibleContext)\n  return <CollapsiblePrimitive.Content {...props} forceMount data-slot=\"collapsible-content\" aria-hidden={!open} inert={!open}>\n    <div data-slot=\"collapsible-motion\" data-state={open ? \"open\" : \"closed\"} className={cn(\"grid grid-rows-[0fr] transition-[grid-template-rows,opacity] duration-200 ease-mogi data-[state=open]:grid-rows-[1fr] data-[state=closed]:opacity-0 motion-reduce:transition-none\", !animated && \"transition-none\", className)}>\n      <div className=\"min-h-0 overflow-hidden\">{children}</div>\n    </div>\n  </CollapsiblePrimitive.Content>\n}\n\nexport { Collapsible, CollapsibleTrigger, CollapsibleContent }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

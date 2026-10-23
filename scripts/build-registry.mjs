@@ -24,6 +24,13 @@ const descriptions = {
   "choice-cards": "可描述的单选卡片组，原生键盘和表单语义",
   "task-progress": "真实事件驱动的进度、成功、失败与取消反馈",
   "tool-page-layout": "公开工具页与说明页布局：导航、首屏、主区、辅助区、页脚",
+
+  "collapsible": "保留表单状态的平滑折叠区，含键盘、inert 与减少动态效果支持",
+  "copy-button": "真实剪贴板复制、动态图标与可见失败反馈",
+  "animated-number": "仅在数值变化时按位滚动，首屏直出与减少动态效果支持",
+  "feedback-button": "异步操作反馈按钮：处理中、成功与失败重试",
+  "ambient-background": "可选的暖色渐变背景，沿用明暗主题",
+  "glass-surface": "深色半透明毛玻璃面板，不支持模糊时回退实色",
   alert: "提示条，含 success / warning 变体",
   "alert-dialog": "需要用户确认的对话框，用于删除等不可撤销操作",
   avatar: "头像",

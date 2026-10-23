@@ -138,3 +138,5 @@ curl -fsSL https://raw.githubusercontent.com/mollymogi/mogi-ui/main/skills/mogi-
 ## 看板接入组件
 
 新增 MetricCard、StatusBadge、TableCellTruncate、PasswordInput，配套历史状态、紧凑表格与描述值变体；表单支持稳定 ID 配对。详见 [看板接入反馈与 API](docs/console-feedback.md)，独立预览 `?preview=console-feedback`。
+
+动效与透明玻璃预览：开发服务使用 `?preview=motion-trio&theme=dark`，支持渐变、毛玻璃与动效独立开关；组件 API 与使用限制见 [动效预览说明](docs/motion-trio.md) 和 [主题 token](docs/design-tokens.md)。

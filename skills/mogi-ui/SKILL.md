@@ -74,3 +74,23 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 单文件入口用 `FileDropzone`（value/onFileChange/accept/maxSize/validateFile）。键盘和拖放共用校验，客户端校验不能代替服务端验证。试听用 `AudioPreview`，调用方创建并在更换文件或卸载时释放 object URL，组件不自动播放。
 - 互斥处理方式用 `ChoiceCards`（legend/options/value/onValueChange），保留原生 radio 箭头键和表单语义。任务用 `TaskProgress`（state/value/label/detail/onCancel），value 为 0–100，未知时不传；仅由真实事件更新，不用计时器伪造成功。
 - 公开工具站用 `ToolPageLayout`（navigation/hero/aside/after/footer）；指南、关于、隐私等长文用 `ContentPageLayout`（navigation/eyebrow/title/description/footer）。两者组织完整页面，不应嵌套在已有 main 中；不提供账号连接、上传、法律文案或广告脚本。示例见 `?preview=audio-studio` 和 `docs/audio-studio.md`。
+
+### 可选交互动效
+
+- `TabsList` 默认提供滑动选中指示器；`animated={false}` 恢复静态样式。保留 Radix 的 value/defaultValue、键盘和焦点约定；支持 default/line 与横纵方向。
+- `MetricCard animated` 仅为有限 number 值启用按位变化动画，首屏直接显示实际值；也可单独使用 `AnimatedNumber value locale formatOptions animated`。不要用动画生成假的进度或统计值。
+- `FeedbackButton onAction` 接收真实操作（可返回 Promise），内部处理 pending/success/error、重复点击保护和失败重试。children 为默认文字，pendingLabel/successLabel/errorLabel 可自定义。固定 type=button，表单提交应显式调用表单的合法提交逻辑。保存失败须 reject/throw；组件不会把返回 false 当成失败。复制操作返回 navigator.clipboard.writeText 的 Promise。
+- 上述动效遵循 prefers-reduced-motion；FeedbackButton 的 animated=false 关闭内容运动与加载旋转。不要对这些元素叠加相同属性的动画。
+
+### 勾选、折叠与复制交互
+
+- Checkbox 支持 checked="indeterminate"，半选显示减号；checked/defaultChecked/onCheckedChange 与 Radix 一致。Checkbox、Switch 的 animated=false 可关闭组件自身的运动。
+- Collapsible / CollapsibleTrigger / CollapsibleContent：根组件接受 open/defaultOpen/onOpenChange、disabled 与 animated。关闭时内容保留在 DOM 中并设为 inert、aria-hidden，适合保留输入草稿；不要依靠收起来隐藏敏感资料。内容 padding 放在内部 children，避免关闭后仍占空间。Trigger 默认包含旋转箭头；asChild 时调用方提供完整触发元素与图标。
+- CopyButton value label animated：原文始终由调用方提供，复制实际通过 navigator.clipboard.writeText 执行。权限拒绝显示可见错误文字，成功提示在 2.2 秒后复位。点击阻止向外冒泡；原生 DOM 监听器可能已先于 React 委托处理执行。复制按钮放在 CodeBlock.actions 或直接使用；TableCellTruncate copyable 已组合它。请为失败文字预留可换行空间。
+- DialogContent / PopoverContent 的 animated=false 关闭进入和退出动画；DialogContent 同时关闭其遮罩动画。保留 Escape、焦点管理与原有受控 API。长内容在视口范围内滚动；不要在有裁剪需求的内容区放会溢出显示的装饰。
+
+### 渐变与深色毛玻璃
+
+- 在受控页面外层使用 AmbientBackground，enabled=false 回到实色背景；它使用 ambient-start/middle/end 主题 token 的静态渐变，不做持续背景动画。
+- GlassSurface 默认 div，也可 asChild 包裹 section、DialogContent、PopoverContent；enabled=false 回到 card 实色。浅色保持实色，深色开启支持检测后的半透明与模糊；不支持 backdrop-filter 或系统减少透明度时回退实色。
+- 玻璃用于主要面板，玻璃模式下嵌套指标卡可透明，输入保留实色。不直接覆盖任意图片/视频；内置对比度验证仅针对受控渐变和对应 alpha 合成。单独安装这两个组件时也需要最新 mogi-theme token。

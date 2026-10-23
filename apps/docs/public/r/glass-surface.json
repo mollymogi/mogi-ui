@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "glass-surface",
+  "title": "glass-surface",
+  "description": "深色半透明毛玻璃面板，不支持模糊时回退实色",
+  "dependencies": [
+    "radix-ui"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/glass-surface.tsx",
+      "content": "import * as React from \"react\"\nimport { Slot } from \"radix-ui\"\nimport { cn } from \"@/lib/utils\"\n\nfunction GlassSurface({ asChild = false, enabled = true, className, ...props }: React.ComponentProps<\"div\"> & { asChild?: boolean; enabled?: boolean }) {\n  const Component = asChild ? Slot.Root : \"div\"\n  return <Component {...(!asChild && { \"data-slot\": \"glass-surface\" })} data-glass={enabled} className={cn(\n    \"border bg-card text-card-foreground\",\n    enabled && \"dark:border-[var(--glass-border)] dark:shadow-[inset_0_1px_0_rgb(255_255_255_/_0.08),0_16px_48px_rgb(0_0_0_/_0.14)] dark:supports-[backdrop-filter:blur(1px)]:bg-[var(--glass-tint)] dark:supports-[backdrop-filter:blur(1px)]:backdrop-blur-2xl dark:[@media(prefers-reduced-transparency:reduce)]:bg-card! dark:[@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none!\",\n    className,\n  )} {...props} />\n}\n\nexport { GlassSurface }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

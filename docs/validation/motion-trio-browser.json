@@ -1,0 +1,27 @@
+{
+  "browser": "156.0.8078.47",
+  "checks": [
+    "Initial real values render without count-up or entry animation",
+    "Shared indicator moves to selected tab and panel follows",
+    "Rapid switching retargets and settles at active bounds",
+    "Radix keyboard selection and focus preserved",
+    "Only data updates trigger digit motion and SR value is current",
+    "Rapid numeric updates settle on latest snapshot",
+    "Async success waits for operation, blocks duplicates and retains button width",
+    "Rejected action shows error and can retry successfully",
+    "Copy success corresponds to actual complete clipboard write",
+    "Clipboard denial is not reported as success",
+    "Preview switch disables custom animations while preserving controls",
+    "System reduced motion skips slide/digit/button animations",
+    "No page overflow at 320px light",
+    "No page overflow at 390px light",
+    "No page overflow at 768px light",
+    "No page overflow at 1440px light",
+    "No page overflow at 320px dark",
+    "No page overflow at 390px dark",
+    "No page overflow at 768px dark",
+    "No page overflow at 1440px dark",
+    "No browser runtime exceptions"
+  ],
+  "errors": []
+}

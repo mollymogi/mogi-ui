@@ -131,3 +131,19 @@
 1. 把以上写成 `packages/tokens/tokens.json`，用 Style Dictionary 生成 `globals.css` 和 Tailwind preset。
 2. 在 shadcn 初始化后用这份 CSS 覆盖 `globals.css`，跑一遍 Button / Input / Card / Dialog 看效果，再微调。
 3. 可选：做一个 mogi 图标（耳朵剪影 + 小花）作为库的 logo 和 favicon。
+
+## 渐变背景与深色毛玻璃（可选）
+
+新增独立 token，原有 background/card/popover 仍是实色，不自动改变所有使用方：
+
+| Token | 亮色 | 深色 |
+|---|---|---|
+| ambient-start | #fdfaf5 | #211917 |
+| ambient-middle | #faf1e7 | #30201c |
+| ambient-end | #f3f2e9 | #202822 |
+| glass-tint | rgb(255 253 249 / 0.8) | rgb(255 255 255 / 0.04) |
+| glass-border | #e9dccb | rgb(255 255 255 / 0.14) |
+
+AmbientBackground 用静态线性与径向渐变提供低对比度的空间层次。GlassSurface 在浅色保持实色；深色、支持 backdrop-filter 且 enabled 时使用半透明填充、40px 模糊及轻微内高光。不支持模糊、关闭玻璃或系统要求减少透明度时回退到 card 实色。主要面板和弹层可用玻璃，嵌套指标卡与代码面板在玻璃模式下透明，不叠加额外模糊；输入保持实色，避免多层透明叠加。
+
+contrast:check 新增渐变端点、逐通道保守边界和玻璃 alpha 合成的正文检查，覆盖 foreground / muted-foreground / link / success / highlight / destructive / warning；这不是对任意图片背景的保证。新的表面仅应用在受控渐变上，勿直接放在任意高对比图片或视频上。首个预览位于 `?preview=motion-trio`，页头可分别切换渐变与深色毛玻璃。

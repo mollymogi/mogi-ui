@@ -11,6 +11,13 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Opt-in ambient background and glass surfaces; base semantic fills stay opaque. */
+  --ambient-start: #fdfaf5;
+  --ambient-middle: #faf1e7;
+  --ambient-end: #f3f2e9;
+  --glass-tint: rgb(255 253 249 / 0.8);
+  --glass-border: #e9dccb;
+
   --radius: 0.75rem;
 
   --background: var(--sand-50);
@@ -62,6 +69,13 @@
 
 /* 暗色：摩卡底，链接与焦点环提亮，按钮保持白字深橘底。 */
 .dark {
+  /* Opt-in ambient background and glass surfaces; base semantic fills stay opaque. */
+  --ambient-start: #211917;
+  --ambient-middle: #30201c;
+  --ambient-end: #202822;
+  --glass-tint: rgb(255 255 255 / 0.04);
+  --glass-border: rgb(255 255 255 / 0.14);
+
   --link: var(--corgi-400);
   --background: #241811;
   --foreground: #f6ebdd;
