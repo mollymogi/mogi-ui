@@ -19,6 +19,7 @@ const baseUrl = (
 
 // 安装列表里显示的说明，没写的组件只显示名字
 const descriptions = {
+  "workflow-steps": "调用方驱动的流程节点，支持横纵布局、未知状态、键盘选择与节点元数据",
   "file-dropzone": "可键盘选择与拖放的受控文件入口，含大小/格式校验提示",
   "audio-preview": "有名称的原生音频试听，不自动播放；地址生命周期由使用方管理",
   "choice-cards": "可描述的单选卡片组，原生键盘和表单语义",
