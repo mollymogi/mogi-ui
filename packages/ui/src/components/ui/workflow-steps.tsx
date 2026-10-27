@@ -46,7 +46,7 @@ function WorkflowSteps({ steps, orientation = "horizontal", selectedStepId, onSt
         </span>
         <span className="grid min-w-0 flex-1 gap-1 text-left">
           <span className="text-sm font-medium wrap-anywhere">{step.label}</span>
-          <span className={cn("text-xs", info.tone)}>{label}</span>
+          <span className={cn("text-xs", state === "running" ? "text-accent-foreground" : info.tone)}>{label}</span>
           {step.description != null && <span className="text-xs text-muted-foreground wrap-anywhere">{step.description}</span>}
           {step.meta != null && <span className="text-xs text-muted-foreground wrap-anywhere">{step.meta}</span>}
         </span>

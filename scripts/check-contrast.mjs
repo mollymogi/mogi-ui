@@ -52,6 +52,11 @@ for (const [mode, vars] of Object.entries({ light, dark })) {
     check(`${mode} slider thumb border/${bg}`, color("slider-range"), color(bg), 3)
     check(`${mode} primary hover/${bg}`, color("primary-foreground"), composite(color("primary"), color(bg), .95), 4.5)
   }
+  // WorkflowSteps running labels use accent-foreground on static cards and
+  // on the accent fill shared by selected and hovered interactive steps.
+  for (const bg of ["card", "accent"]) {
+    check(`${mode} WorkflowSteps running label/${bg}`, color("accent-foreground"), color(bg), 4.5)
+  }
   // Ambient gradients and glass must remain readable at every stop and at
   // conservative per-channel bounds (also covering interpolation/blur).
   const stops = ["ambient-start", "ambient-middle", "ambient-end"].map(color)
