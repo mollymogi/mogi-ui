@@ -537,6 +537,25 @@
       ]
     },
     {
+      "name": "flow-canvas",
+      "type": "registry:ui",
+      "title": "flow-canvas",
+      "description": "React Flow 只读关系画布，带主题节点、平移缩放、缩略图和中文控制",
+      "dependencies": [
+        "@xyflow/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://mollymogi.github.io/mogi-ui/r/button.json"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/flow-canvas.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "form",
       "type": "registry:ui",
       "title": "form",
@@ -1010,6 +1029,7 @@
         "https://mollymogi.github.io/mogi-ui/r/file-dropzone.json",
         "https://mollymogi.github.io/mogi-ui/r/file-type-icon.json",
         "https://mollymogi.github.io/mogi-ui/r/flip-card.json",
+        "https://mollymogi.github.io/mogi-ui/r/flow-canvas.json",
         "https://mollymogi.github.io/mogi-ui/r/form.json",
         "https://mollymogi.github.io/mogi-ui/r/glass-surface.json",
         "https://mollymogi.github.io/mogi-ui/r/input.json",
