@@ -55,7 +55,8 @@
     "https://mollymogi.github.io/mogi-ui/r/task-progress.json",
     "https://mollymogi.github.io/mogi-ui/r/textarea.json",
     "https://mollymogi.github.io/mogi-ui/r/tool-page-layout.json",
-    "https://mollymogi.github.io/mogi-ui/r/tooltip.json"
+    "https://mollymogi.github.io/mogi-ui/r/tooltip.json",
+    "https://mollymogi.github.io/mogi-ui/r/workflow-steps.json"
   ],
   "type": "registry:item"
 }

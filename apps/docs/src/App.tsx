@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 
 import { MotionTrioDemo } from "./demo-motion-trio"
+import { WorkflowStepsDemo } from "./demo-workflow-steps"
 import { ConsoleFeedbackDemo } from "./demo-console-feedback"
 import { DashboardDemo } from "./demo-dashboard"
 import { AudioStudioDemo } from "./demo-audio-studio"
@@ -300,6 +301,10 @@ export function App() {
     return <AudioStudioDemo dark={dark} onThemeChange={() => setDark(value => !value)} />
   }
 
+  if (new URLSearchParams(window.location.search).get("preview") === "workflow-steps") {
+    return <TooltipProvider><main className="mx-auto min-w-0 max-w-6xl p-4 sm:p-8"><WorkflowStepsDemo /></main></TooltipProvider>
+  }
+
   if (new URLSearchParams(window.location.search).get("preview") === "motion-trio") {
     return <TooltipProvider><MotionTrioDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></TooltipProvider>
   }
@@ -337,6 +342,7 @@ export function App() {
 
         <a href="?preview=dashboard" className="text-sm text-link underline underline-offset-4">← 返回工作台示例</a>
 
+        <a href="?preview=workflow-steps" className="text-sm text-link underline underline-offset-4">查看流程节点与状态示例 →</a>
         <Section title="色板">
           <div className="grid gap-3">
             {palettes.map((p) => (

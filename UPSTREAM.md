@@ -1,5 +1,9 @@
 # 上游来源记录
 
+## 2026-10-27 · Herdr Studio 工作流步骤
+
+新增自有组件 `WorkflowSteps`，由 Herdr Studio 的任务节点视图提炼。调用者提供每个节点的状态、描述与元数据；组件不推断阶段完成、不模拟进度，也不推进业务流程。支持横向/纵向、键盘可达的可选步骤选择、当前运行节点、未知/阻塞/跳过状态及减少动态效果偏好。无新增依赖或主题颜色。交互示例：`?preview=workflow-steps`；回归检查：`node scripts/workflow-steps.test.mjs`。
+
 ## 2026-10-21 · Mogi Suno 网页组件回流
 
 来源：Mogi Suno 网页 `rea/sites/mogi-suno-web`。以下为重新适配语义 token 的 mogi 自有组件，没有复制业务处理器、Chrome 扩展、Suno 接口或凭据。

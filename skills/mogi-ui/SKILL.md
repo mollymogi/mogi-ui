@@ -77,6 +77,8 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 
 ### 可选交互动效
 
+- 多节点流程用 `WorkflowSteps`（steps/orientation/selectedStepId/onStepSelect/stateLabels）。每步显式提供 id/label/state，可选 description/meta/disabled；state 为 pending/running/completed/blocked/failed/skipped/unknown，不从相邻节点推断完成。onStepSelect 提供时渲染 type=button，支持键盘选择；静态流程不渲染按钮。横向在窄屏纵排，运行中图标遵循减少动态效果。选中、进行中与业务成功是不同事实。
+
 - `TabsList` 默认提供滑动选中指示器；`animated={false}` 恢复静态样式。保留 Radix 的 value/defaultValue、键盘和焦点约定；支持 default/line 与横纵方向。
 - `MetricCard animated` 仅为有限 number 值启用按位变化动画，首屏直接显示实际值；也可单独使用 `AnimatedNumber value locale formatOptions animated`。不要用动画生成假的进度或统计值。
 - `FeedbackButton onAction` 接收真实操作（可返回 Promise），内部处理 pending/success/error、重复点击保护和失败重试。children 为默认文字，pendingLabel/successLabel/errorLabel 可自定义。固定 type=button，表单提交应显式调用表单的合法提交逻辑。保存失败须 reject/throw；组件不会把返回 false 当成失败。复制操作返回 navigator.clipboard.writeText 的 Promise。
