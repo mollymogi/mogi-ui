@@ -64,6 +64,8 @@ npx shadcn add $R/all.json             # 或者一次装全部组件
 组件之间的依赖都指向 mogi-ui 自己的 registry，不会混进 shadcn 官方的同名组件。
 可安装的条目见 `https://mollymogi.github.io/mogi-ui/r/registry.json`。
 
+关系画布见 [FlowCanvas 使用说明](docs/flow-canvas.md)；本地预览 `?preview=flow-canvas`。
+
 新增或修改组件后跑 `pnpm registry:build` 即可，不需要手动改 `registry.json`；
 只有组件说明需要在 `scripts/build-registry.mjs` 的 `descriptions` 里补一行。
 

@@ -77,6 +77,8 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 
 ### 可选交互动效
 
+- 节点关系图用 `FlowCanvas`（基于 @xyflow/react，组件自动引入其 CSS；父容器需有高度）。传受控 nodes/edges/nodeTypes/onNodesChange；只读关系，不启用新增连线、删除或重连，传 onNodesChange 时可拖动整理。自定义节点用 `FlowCanvasNode` 的 selected/ports/children；ports 为 source/target/both/none。组件提供平移、缩放、适应全部、100% 与缩略图；颜色只映射既有语义 token。调用方保存位置和处理节点详情，业务状态、关系与布局分开管理，不用拖动改业务，也不凭布局推断任务依赖。实时数据更新时保留原位置与测量信息，不要每次轮询都重新 fitView。
+
 - 多节点流程用 `WorkflowSteps`（steps/orientation/selectedStepId/onStepSelect/stateLabels）。每步显式提供 id/label/state，可选 description/meta/disabled；state 为 pending/running/completed/blocked/failed/skipped/unknown，不从相邻节点推断完成。onStepSelect 提供时渲染 type=button，支持键盘选择；静态流程不渲染按钮。横向在窄屏纵排，运行中图标遵循减少动态效果。选中、进行中与业务成功是不同事实。运行状态文字使用 accent-foreground，保证卡片及选中／悬停 accent 底色上的可读性；图标保留 link 色。
 
 - `TabsList` 默认提供滑动选中指示器；`animated={false}` 恢复静态样式。保留 Radix 的 value/defaultValue、键盘和焦点约定；支持 default/line 与横纵方向。

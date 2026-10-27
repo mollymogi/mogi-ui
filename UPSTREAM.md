@@ -1,5 +1,9 @@
 # 上游来源记录
 
+## 2026-10-27 · Herdr Studio 无限关系画布
+
+新增 `FlowCanvas` / `FlowCanvasNode`，使用 MIT 的 `@xyflow/react` 12 提供平移、缩放、节点键盘/拖动、缩略图和可访问描述；节点外观与所有配色映射现有 mogi 语义 token，不改主题。默认不编辑关系、不删除节点；调用方管理受控布局及业务数据。来源项目 Herdr Studio 采用“运行→成员→实际派发任务”关系，未回流任何任务数据。预览 `?preview=flow-canvas`，安装 registry `flow-canvas.json`；CSS 随组件依赖导入，不使用外部字体或样式 CDN。
+
 ## 2026-10-27 · Herdr Studio 工作流步骤
 
 修复 R1：运行状态文字改用 accent-foreground，并为 card 与选中／悬停 accent 底色增加亮／暗对比度检查；图标继续使用独立底色上的 link。

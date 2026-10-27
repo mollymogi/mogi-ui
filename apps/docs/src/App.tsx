@@ -1,5 +1,5 @@
 import { labelColor } from "@mogi-ui/tokens/contrast"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import {
   CheckCircle2,
@@ -24,6 +24,7 @@ import { WorkflowStepsDemo } from "./demo-workflow-steps"
 import { ConsoleFeedbackDemo } from "./demo-console-feedback"
 import { DashboardDemo } from "./demo-dashboard"
 import { AudioStudioDemo } from "./demo-audio-studio"
+const FlowCanvasDemo = lazy(() => import("./demo-flow-canvas").then(module => ({default:module.FlowCanvasDemo})))
 import { DetailLayoutDemo } from "./demo-detail-layout"
 import { MotionDemo } from "./demo-motion"
 import { AlertDialogDemo, FormDemo, PaginationDemo, SheetDemo, SidebarDemo } from "./demos-v2"
@@ -305,6 +306,10 @@ export function App() {
     return <TooltipProvider><main className="mx-auto min-w-0 max-w-6xl p-4 sm:p-8"><WorkflowStepsDemo /></main></TooltipProvider>
   }
 
+  if (new URLSearchParams(window.location.search).get("preview") === "flow-canvas") {
+    return <Suspense fallback={<p role="status">正在加载画布…</p>}><FlowCanvasDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></Suspense>
+  }
+
   if (new URLSearchParams(window.location.search).get("preview") === "motion-trio") {
     return <TooltipProvider><MotionTrioDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></TooltipProvider>
   }
@@ -343,6 +348,7 @@ export function App() {
         <a href="?preview=dashboard" className="text-sm text-link underline underline-offset-4">← 返回工作台示例</a>
 
         <a href="?preview=workflow-steps" className="text-sm text-link underline underline-offset-4">查看流程节点与状态示例 →</a>
+        <a href="?preview=flow-canvas" className="text-sm text-link underline underline-offset-4">查看无限画布与节点示例 →</a>
         <Section title="色板">
           <div className="grid gap-3">
             {palettes.map((p) => (
