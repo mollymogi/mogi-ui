@@ -9,7 +9,9 @@ const alertVariants = cva(
       variant: {
         default: "bg-card text-card-foreground",
         destructive:
-          "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current",
+          "border-destructive/40 bg-destructive-soft text-foreground *:data-[slot=alert-description]:text-foreground [&>svg]:text-destructive",
+        info:
+          "border-transparent bg-info-soft text-foreground *:data-[slot=alert-description]:text-foreground [&>svg]:text-info",
         // mogi: 成功 / 警告提示，用柔和底色
         success:
           "border-transparent bg-success-soft text-foreground *:data-[slot=alert-description]:text-foreground/80 [&>svg]:text-success",

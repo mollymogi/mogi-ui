@@ -19,6 +19,8 @@ const baseUrl = (
 
 // 安装列表里显示的说明，没写的组件只显示名字
 const descriptions = {
+  "status-banner": "页面顶部的一句话结论：按严重程度着色，下一步紧跟结论",
+  "link-list": "一组同级入口：图标、标题、说明和箭头，把强调留给主操作",
   "flow-canvas": "React Flow 只读关系画布，带主题节点、平移缩放、缩略图和中文控制",
   "workflow-steps": "调用方驱动的流程节点，支持横纵布局、未知状态、键盘选择与节点元数据",
   "file-dropzone": "可键盘选择与拖放的受控文件入口，含大小/格式校验提示",
@@ -33,10 +35,10 @@ const descriptions = {
   "feedback-button": "异步操作反馈按钮：处理中、成功与失败重试",
   "ambient-background": "可选的暖色渐变背景，沿用明暗主题",
   "glass-surface": "深色半透明毛玻璃面板，不支持模糊时回退实色",
-  alert: "提示条，含 success / warning 变体",
+  alert: "提示条，含 success / warning / info / destructive 变体",
   "alert-dialog": "需要用户确认的对话框，用于删除等不可撤销操作",
   avatar: "头像",
-  badge: "标签，含 soft / success / warning / highlight 变体",
+  badge: "标签，含 soft / success / warning / danger / info / highlight 变体",
   button: "按钮",
   card: "卡片",
   checkbox: "复选框",
@@ -51,7 +53,7 @@ const descriptions = {
   "dropdown-menu": "下拉菜单",
   "empty-state": "空态 / 失败 / 未接入，以及加载骨架",
   "flip-card": "点击翻转卡片：正反面内容、键盘与触屏支持、减弱动态效果",
-  "metric-card": "指标卡：标签、等宽值、单位、提示与状态色",
+  "metric-card": "指标卡：标签、等宽值、单位、提示、状态色与主次层级",
   "status-badge": "封闭枚举映射到标签、图标与变体，含未知值兜底",
   "table-cell-truncate": "保留完整长值的截断单元格，含可选复制",
   "password-input": "口令输入与可访问的显隐切换",

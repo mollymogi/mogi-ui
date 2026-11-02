@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-banner",
+  "title": "status-banner",
+  "description": "页面顶部的一句话结论：按严重程度着色，下一步紧跟结论",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/status-banner.tsx",
+      "content": "import * as React from \"react\"\nimport { CheckCircle2, CircleAlert, Info, TriangleAlert, type LucideIcon } from \"lucide-react\"\nimport { cn } from \"@/lib/utils\"\n\nconst tones = {\n  danger: { box: \"border-destructive/40 bg-destructive-soft\", icon: \"text-destructive\", glyph: CircleAlert },\n  warning: { box: \"border-warning/60 bg-warning-soft\", icon: \"text-warning-foreground dark:text-warning\", glyph: TriangleAlert },\n  success: { box: \"border-success/40 bg-success-soft\", icon: \"text-success\", glyph: CheckCircle2 },\n  info: { box: \"border-info/40 bg-info-soft\", icon: \"text-info\", glyph: Info },\n  neutral: { box: \"bg-card\", icon: \"text-muted-foreground\", glyph: Info },\n}\n\ntype StatusBannerProps = Omit<React.ComponentProps<\"section\">, \"title\"> & {\n  tone?: keyof typeof tones\n  title: React.ReactNode\n  description?: React.ReactNode\n  /** 对 tone 的文字说明，避免只靠颜色表达状态 */\n  label?: React.ReactNode\n  /** 这个状态要求的下一步；一屏只放一个填充按钮 */\n  action?: React.ReactNode\n  icon?: LucideIcon\n  /** 次要信息和次要控件，显示在分隔线下方 */\n  footer?: React.ReactNode\n}\n\n// mogi: 页面顶部的一句话结论。颜色只表达严重程度，下一步紧跟结论。\nfunction StatusBanner({ tone = \"neutral\", title, description, label, action, icon, footer, className, children, ...props }: StatusBannerProps) {\n  const style = Object.hasOwn(tones, tone) ? tones[tone] : tones.neutral\n  const Icon = icon ?? style.glyph\n  const urgent = tone === \"danger\" || tone === \"warning\"\n  return <section data-slot=\"status-banner\" data-tone={Object.hasOwn(tones, tone) ? tone : \"neutral\"} className={cn(\"grid min-w-0 gap-3 rounded-xl border px-5 py-4 text-foreground\", style.box, className)} {...props}>\n    <div className=\"flex min-w-0 flex-wrap items-start gap-x-4 gap-y-3\">\n      <Icon aria-hidden=\"true\" className={cn(\"mt-0.5 size-5 shrink-0\", style.icon)} />\n      <div className=\"grid min-w-0 flex-1 basis-64 gap-1\" role={urgent ? \"alert\" : \"status\"}>\n        {label != null && <p className={cn(\"text-xs font-medium\", style.icon)}>{label}</p>}\n        <p className=\"text-lg font-semibold leading-snug\">{title}</p>\n        {description != null && <div className=\"text-sm leading-relaxed\">{description}</div>}\n        {children}\n      </div>\n      {action != null && <div data-slot=\"status-banner-action\" className=\"shrink-0\">{action}</div>}\n    </div>\n    {footer != null && <div data-slot=\"status-banner-footer\" className=\"border-t border-foreground/15 pt-3 text-sm\">{footer}</div>}\n  </section>\n}\n\nexport { StatusBanner }\nexport type { StatusBannerProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

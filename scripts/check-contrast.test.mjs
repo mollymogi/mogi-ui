@@ -8,7 +8,15 @@ import { spawnSync } from "node:child_process"
 function fixture(t, mutate) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mogi-contrast-"))
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }))
-  for (const file of ["scripts/check-contrast.mjs", "packages/tokens/src/contrast.js", "packages/tokens/src/primitives.css", "packages/tokens/src/theme.css", "registry.json"]) {
+  for (const file of [
+    "scripts/check-contrast.mjs",
+    "packages/tokens/src/contrast.js",
+    "packages/tokens/src/primitives.css",
+    "packages/tokens/src/theme.css",
+    "packages/ui/src/components/ui/button.tsx",
+    "packages/ui/src/components/ui/badge.tsx",
+    "registry.json",
+  ]) {
     const target = path.join(dir, file)
     fs.mkdirSync(path.dirname(target), { recursive: true })
     fs.copyFileSync(new URL(`../${file}`, import.meta.url), target)
@@ -75,8 +83,8 @@ test("low slider thumb border contrast fails independently of track", (t) => {
 
 test("dark diff deletion contrast fails for the previous destructive token", (t) => {
   const result = fixture(t, (change) => {
-    change("packages/tokens/src/theme.css", "--destructive: #e87960;", "--destructive: #e0735a;")
-    change("registry.json", '"destructive": "#e87960"', '"destructive": "#e0735a"')
+    change("packages/tokens/src/theme.css", "--destructive: #ee9a98;", "--destructive: #e0735a;")
+    change("registry.json", '"destructive": "#ee9a98"', '"destructive": "#e0735a"')
   })
   assert.equal(result.status, 1)
   assert.match(result.stderr, /FAIL dark diff deletion text\/background: .* = 4\.395 < 4\.5/)

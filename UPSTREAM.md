@@ -1,5 +1,9 @@
 # 上游来源记录
 
+## 2026-11-02 · 看板重点层级
+
+来源：Trellis Memory 概览页的反馈（颜色太统一看不出重点、信息过密）。语义色拉开色相或明度，新增自有组件 `StatusBanner`、`LinkList`；`MetricCard` 增加 `emphasis` / `density`，`Badge` 增加 `danger` / `info`，`Alert` 增加 `info` 并把 `destructive` 改为柔和底色。规则写进 `skills/mogi-ui/SKILL.md` 的“重点与密度”。
+
 ## 2026-10-27 · Herdr Studio 无限关系画布
 
 新增 `FlowCanvas` / `FlowCanvasNode`，使用 MIT 的 `@xyflow/react` 12 提供平移、缩放、节点键盘/拖动、缩略图和可访问描述；节点外观与所有配色映射现有 mogi 语义 token，不改主题。默认不编辑关系、不删除节点；调用方管理受控布局及业务数据。来源项目 Herdr Studio 采用“运行→成员→实际派发任务”关系，未回流任何任务数据。预览 `?preview=flow-canvas`，安装 registry `flow-canvas.json`；CSS 随组件依赖导入，不使用外部字体或样式 CDN。
@@ -110,3 +114,5 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 
 - Replaced dark glass's 72% brown fill with a neutral white tint at 4% opacity and a translucent white rim; increased backdrop blur to 40px. The panel now reveals the actual ambient backdrop instead of reading as an opaque brown card.
 - Nested metric/code panels in the glass preview use transparent fills without additional blur; inputs retain their control surface. Base card tokens and the glass-off fallback stay opaque.
+
+- 修复 Button / Badge 实心 destructive：使用 destructive-foreground，移除暗色 60% 底色；对比度检查覆盖实际变体在页面、卡片、弹层上的静止及悬停合成颜色。

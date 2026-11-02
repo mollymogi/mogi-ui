@@ -1,4 +1,4 @@
-# Mogi 风格 Design Token 方案（v1.6，2026-10-19：Diff 删除行对比度）
+# Mogi 风格 Design Token 方案（v1.7，2026-11-02：语义色拉开与重点层级）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
@@ -132,6 +132,23 @@
 2. 在 shadcn 初始化后用这份 CSS 覆盖 `globals.css`，跑一遍 Button / Input / Card / Dialog 看效果，再微调。
 3. 可选：做一个 mogi 图标（耳朵剪影 + 小花）作为库的 logo 和 favicon。
 
+## 语义色分离（v1.7）
+
+旧色板里 `primary`、`destructive`、`highlight` 都在 10°–23° 的橙红区间，亮色下主色与危险色只有 1.20:1，危险色与强调色 1.03:1；各类浅色底彼此 1.03–1.08:1，卡片与页面 1.02:1。看板上警告、主按钮和失败状态因此分不出主次。
+
+| 变化 | 亮色 | 暗色 |
+|---|---|---|
+| `rose` 改为灰玫红，`destructive` 跟随 | `#a62b3c`（白字 6.9:1） | `#ee9a98`，深色字 |
+| 新增 `destructive-soft`（暖藕粉，大面积不显艳） | `#f2e3e1` | `#3d2422` |
+| 新增冷色 `dew` 与 `info` / `info-foreground` / `info-soft` | `#2a6176` / `#fffaf3` / `#dcebf0` | `#8cc6dc` / `#10242c` / `#1c3640` |
+| `warning-soft`（honey-100） | `#fbefcb` | `#4a3b16` |
+| `success-soft` 加深 | `#e3edc9` | `#38481f` |
+| `background` 比卡片低一层 | `#f9f3ea` | `#1e130d` |
+
+`contrast:check` 新增两类检查：`primary`、`destructive`、`warning`、`success`、`info` 两两之间要么色相差 ≥18°，要么明度比 ≥1.5:1；卡片与页面背景亮色 ≥1.05:1、暗色 ≥1.15:1。旧色板在第一项上失败。
+
+配套组件：`StatusBanner`（一句话结论 + 下一步）、`LinkList`（同级入口）、`MetricCard` 的 `emphasis` / `density`、`Badge` 的 `danger` / `info`、`Alert` 的 `info` 与柔和底 `destructive`。示例：`?preview=emphasis`。
+
 ## 渐变背景与深色毛玻璃（可选）
 
 新增独立 token，原有 background/card/popover 仍是实色，不自动改变所有使用方：
@@ -149,3 +166,5 @@ AmbientBackground 用静态线性与径向渐变提供低对比度的空间层�
 contrast:check 新增渐变端点、逐通道保守边界和玻璃 alpha 合成的正文检查，覆盖 foreground / muted-foreground / link / success / highlight / destructive / warning；这不是对任意图片背景的保证。新的表面仅应用在受控渐变上，勿直接放在任意高对比图片或视频上。首个预览位于 `?preview=motion-trio`，页头可分别切换渐变与深色毛玻璃。
 
 WorkflowSteps 的运行状态文字使用 `accent-foreground`，覆盖默认 `card` 和选中／悬停 `accent` 底色；`scripts/check-contrast.mjs` 对这两种组合分别检查亮／暗主题 4.5:1。运行图标在独立的 `background` 圆形底色上保留 `link`，不修改主题 token。
+
+Button 与 Badge 的实心 `destructive` 使用 `text-destructive-foreground`，暗色保持不透明底色；悬停使用 90% 底色。`contrast:check` 从组件变体读取实际文字、底色与透明度，检查亮暗主题在 background / card / popover 上的静止和悬停合成对比度（≥4.5:1）。

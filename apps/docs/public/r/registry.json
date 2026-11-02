@@ -19,7 +19,7 @@
         },
         "light": {
           "radius": "0.75rem",
-          "background": "#fdfaf5",
+          "background": "#f9f3ea",
           "foreground": "#3a2820",
           "card": "#fffdf9",
           "card-foreground": "#3a2820",
@@ -34,14 +34,14 @@
           "muted-foreground": "#765645",
           "accent": "#fae8d3",
           "accent-foreground": "#8c4f2a",
-          "destructive": "#a8402c",
+          "destructive": "#a62b3c",
           "destructive-foreground": "#fffaf3",
           "success": "#55702a",
           "success-foreground": "#fffaf3",
-          "success-soft": "#e8efd6",
+          "success-soft": "#e3edc9",
           "warning": "#d9a63a",
           "warning-foreground": "#3a2820",
-          "warning-soft": "#fbefc9",
+          "warning-soft": "#fbefcb",
           "highlight": "#984a28",
           "highlight-soft": "#f8ddd0",
           "border": "#e9dccb",
@@ -69,10 +69,14 @@
           "ambient-middle": "#faf1e7",
           "ambient-end": "#f3f2e9",
           "glass-tint": "rgb(255 253 249 / 0.8)",
-          "glass-border": "#e9dccb"
+          "glass-border": "#e9dccb",
+          "destructive-soft": "#f2e3e1",
+          "info": "#2a6176",
+          "info-foreground": "#fffaf3",
+          "info-soft": "#dcebf0"
         },
         "dark": {
-          "background": "#241811",
+          "background": "#1e130d",
           "foreground": "#f6ebdd",
           "card": "#2e2017",
           "card-foreground": "#f6ebdd",
@@ -87,14 +91,14 @@
           "muted-foreground": "#c4a88f",
           "accent": "#4a3425",
           "accent-foreground": "#f3cfa6",
-          "destructive": "#e87960",
-          "destructive-foreground": "#2a1a10",
+          "destructive": "#ee9a98",
+          "destructive-foreground": "#2a1014",
           "success": "#a3bd6c",
           "success-foreground": "#1d2410",
-          "success-soft": "#33401f",
+          "success-soft": "#38481f",
           "warning": "#e6b94f",
           "warning-foreground": "#2a1a10",
-          "warning-soft": "#4a3a12",
+          "warning-soft": "#4a3b16",
           "highlight": "#e3a082",
           "highlight-soft": "#4a2e22",
           "border": "#44332a",
@@ -119,7 +123,11 @@
           "ambient-middle": "#30201c",
           "ambient-end": "#202822",
           "glass-tint": "rgb(255 255 255 / 0.04)",
-          "glass-border": "rgb(255 255 255 / 0.14)"
+          "glass-border": "rgb(255 255 255 / 0.14)",
+          "destructive-soft": "#3d2422",
+          "info": "#8cc6dc",
+          "info-foreground": "#10242c",
+          "info-soft": "#1c3640"
         }
       },
       "css": {
@@ -166,7 +174,7 @@
       "name": "alert",
       "type": "registry:ui",
       "title": "alert",
-      "description": "提示条，含 success / warning 变体",
+      "description": "提示条，含 success / warning / info / destructive 变体",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -232,7 +240,7 @@
       "name": "badge",
       "type": "registry:ui",
       "title": "badge",
-      "description": "标签，含 soft / success / warning / highlight 变体",
+      "description": "标签，含 soft / success / warning / danger / info / highlight 变体",
       "dependencies": [
         "class-variance-authority",
         "radix-ui"
@@ -617,6 +625,21 @@
       ]
     },
     {
+      "name": "link-list",
+      "type": "registry:ui",
+      "title": "link-list",
+      "description": "一组同级入口：图标、标题、说明和箭头，把强调留给主操作",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/link-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "load-more",
       "type": "registry:ui",
       "title": "load-more",
@@ -638,7 +661,7 @@
       "name": "metric-card",
       "type": "registry:ui",
       "title": "metric-card",
-      "description": "指标卡：标签、等宽值、单位、提示与状态色",
+      "description": "指标卡：标签、等宽值、单位、提示、状态色与主次层级",
       "dependencies": [
         "lucide-react"
       ],
@@ -855,6 +878,21 @@
       ]
     },
     {
+      "name": "status-banner",
+      "type": "registry:ui",
+      "title": "status-banner",
+      "description": "页面顶部的一句话结论：按严重程度着色，下一步紧跟结论",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/status-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:ui",
       "title": "switch",
@@ -1034,6 +1072,7 @@
         "https://mollymogi.github.io/mogi-ui/r/glass-surface.json",
         "https://mollymogi.github.io/mogi-ui/r/input.json",
         "https://mollymogi.github.io/mogi-ui/r/label.json",
+        "https://mollymogi.github.io/mogi-ui/r/link-list.json",
         "https://mollymogi.github.io/mogi-ui/r/load-more.json",
         "https://mollymogi.github.io/mogi-ui/r/metric-card.json",
         "https://mollymogi.github.io/mogi-ui/r/pagination.json",
@@ -1048,6 +1087,7 @@
         "https://mollymogi.github.io/mogi-ui/r/slider.json",
         "https://mollymogi.github.io/mogi-ui/r/sonner.json",
         "https://mollymogi.github.io/mogi-ui/r/status-badge.json",
+        "https://mollymogi.github.io/mogi-ui/r/status-banner.json",
         "https://mollymogi.github.io/mogi-ui/r/switch.json",
         "https://mollymogi.github.io/mogi-ui/r/table-cell-truncate.json",
         "https://mollymogi.github.io/mogi-ui/r/table.json",

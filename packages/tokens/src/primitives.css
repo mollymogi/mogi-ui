@@ -46,14 +46,19 @@
   /* petal：茉莉白 */
   --petal: #fffaf3;
 
-  /* rose：错误 / 危险 */
-  --rose-100: #f9ddd6;
-  --rose-500: #c4553c;
-  --rose-600: #a8402c;
-  --rose-700: #9b3f2b;
+  /* rose：错误 / 危险。灰玫红，与柯基橙拉开色相，浅底保持暖调 */
+  --rose-100: #f2e3e1;
+  --rose-500: #c4505e;
+  --rose-600: #a62b3c;
+  --rose-700: #8a2333;
+
+  /* dew：冷色信息，用来和暖色的品牌与告警区分 */
+  --dew-100: #dcebf0;
+  --dew-500: #4a8aa3;
+  --dew-700: #2a6176;
 
   /* honey：警告 */
-  --honey-100: #fbefc9;
+  --honey-100: #fbefcb;
   --honey-500: #d9a63a;
   --honey-700: #a67a1f;
 }

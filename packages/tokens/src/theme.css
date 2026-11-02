@@ -20,7 +20,7 @@
 
   --radius: 0.75rem;
 
-  --background: var(--sand-50);
+  --background: #f9f3ea;
   --foreground: var(--sand-900);
   --card: #fffdf9;
   --card-foreground: var(--sand-900);
@@ -38,9 +38,13 @@
   --accent-foreground: var(--corgi-700);
   --destructive: var(--rose-600);
   --destructive-foreground: var(--petal);
+  --destructive-soft: var(--rose-100);
+  --info: var(--dew-700);
+  --info-foreground: var(--petal);
+  --info-soft: var(--dew-100);
   --success: var(--jasmine-700);
   --success-foreground: var(--petal);
-  --success-soft: var(--jasmine-100);
+  --success-soft: #e3edc9;
   --warning: var(--honey-500);
   --warning-foreground: var(--sand-900);
   --warning-soft: var(--honey-100);
@@ -77,7 +81,7 @@
   --glass-border: rgb(255 255 255 / 0.14);
 
   --link: var(--corgi-400);
-  --background: #241811;
+  --background: #1e130d;
   --foreground: #f6ebdd;
   --card: #2e2017;
   --card-foreground: #f6ebdd;
@@ -92,14 +96,18 @@
   --muted-foreground: var(--sand-400);
   --accent: #4a3425;
   --accent-foreground: var(--corgi-200);
-  --destructive: #e87960;
-  --destructive-foreground: #2a1a10;
+  --destructive: #ee9a98;
+  --destructive-foreground: #2a1014;
+  --destructive-soft: #3d2422;
+  --info: #8cc6dc;
+  --info-foreground: #10242c;
+  --info-soft: #1c3640;
   --success: #a3bd6c;
   --success-foreground: #1d2410;
-  --success-soft: #33401f;
+  --success-soft: #38481f;
   --warning: #e6b94f;
   --warning-foreground: #2a1a10;
-  --warning-soft: #4a3a12;
+  --warning-soft: #4a3b16;
   --highlight: #e3a082;
   --highlight-soft: #4a2e22;
   --border: #44332a;
@@ -150,6 +158,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-soft: var(--info-soft);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
   --color-success-soft: var(--success-soft);
@@ -208,6 +220,9 @@
   --color-jasmine-500: var(--jasmine-500);
   --color-jasmine-700: var(--jasmine-700);
   --color-petal: var(--petal);
+  --color-dew-100: var(--dew-100);
+  --color-dew-500: var(--dew-500);
+  --color-dew-700: var(--dew-700);
 }
 
 @layer base {
