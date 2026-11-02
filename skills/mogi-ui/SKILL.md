@@ -107,3 +107,5 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 在受控页面外层使用 AmbientBackground，enabled=false 回到实色背景；它使用 ambient-start/middle/end 主题 token 的静态渐变，不做持续背景动画。
 - GlassSurface 默认 div，也可 asChild 包裹 section、DialogContent、PopoverContent；enabled=false 回到 card 实色。浅色保持实色，深色开启支持检测后的半透明与模糊；不支持 backdrop-filter 或系统减少透明度时回退实色。
 - 玻璃用于主要面板，玻璃模式下嵌套指标卡可透明，输入保留实色。不直接覆盖任意图片/视频；内置对比度验证仅针对受控渐变和对应 alpha 合成。单独安装这两个组件时也需要最新 mogi-theme token。
+
+- 更新灰玫红主题时同时重装 Button / Badge：实心 `destructive` 使用语义前景色，暗色不再叠加 60% 底色；不要覆盖成白字。

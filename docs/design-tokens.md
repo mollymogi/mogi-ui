@@ -166,3 +166,5 @@ AmbientBackground 用静态线性与径向渐变提供低对比度的空间层�
 contrast:check 新增渐变端点、逐通道保守边界和玻璃 alpha 合成的正文检查，覆盖 foreground / muted-foreground / link / success / highlight / destructive / warning；这不是对任意图片背景的保证。新的表面仅应用在受控渐变上，勿直接放在任意高对比图片或视频上。首个预览位于 `?preview=motion-trio`，页头可分别切换渐变与深色毛玻璃。
 
 WorkflowSteps 的运行状态文字使用 `accent-foreground`，覆盖默认 `card` 和选中／悬停 `accent` 底色；`scripts/check-contrast.mjs` 对这两种组合分别检查亮／暗主题 4.5:1。运行图标在独立的 `background` 圆形底色上保留 `link`，不修改主题 token。
+
+Button 与 Badge 的实心 `destructive` 使用 `text-destructive-foreground`，暗色保持不透明底色；悬停使用 90% 底色。`contrast:check` 从组件变体读取实际文字、底色与透明度，检查亮暗主题在 background / card / popover 上的静止和悬停合成对比度（≥4.5:1）。

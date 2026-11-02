@@ -114,3 +114,5 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 
 - Replaced dark glass's 72% brown fill with a neutral white tint at 4% opacity and a translucent white rim; increased backdrop blur to 40px. The panel now reveals the actual ambient backdrop instead of reading as an opaque brown card.
 - Nested metric/code panels in the glass preview use transparent fills without additional blur; inputs retain their control surface. Base card tokens and the glass-off fallback stay opaque.
+
+- 修复 Button / Badge 实心 destructive：使用 destructive-foreground，移除暗色 60% 底色；对比度检查覆盖实际变体在页面、卡片、弹层上的静止及悬停合成颜色。

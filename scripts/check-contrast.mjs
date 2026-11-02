@@ -16,6 +16,13 @@ const resolve = (name, vars, seen = new Set()) => {
   const ref = vars[name].match(/^var\(--([\w-]+)\)$/)
   return ref ? resolve(ref[1], vars, seen) : vars[name]
 }
+// Read the consumers so changes to their foregrounds or alpha fills are checked.
+const destructiveConsumers = ["button", "badge"].map(name => {
+  const source = read(`packages/ui/src/components/ui/${name}.tsx`)
+  const classes = source.match(/destructive:\s*"([^"]+)"/)
+  assert.ok(classes, `${name} destructive variant must be inspectable`)
+  return [name, classes[1].split(/\s+/)]
+})
 let failures = 0, checks = 0
 const hue = (value) => {
   const [r, g, b] = rgb(value).map(channel => channel / 255), max = Math.max(r, g, b), delta = max - Math.min(r, g, b)
@@ -60,6 +67,28 @@ for (const [mode, vars] of Object.entries({ light, dark })) {
     for (const fg of ["border-strong", "input", "ring"]) check(`${mode} ${fg}/${bg}`, color(fg), color(bg), 3)
     check(`${mode} slider thumb border/${bg}`, color("slider-range"), color(bg), 3)
     check(`${mode} primary hover/${bg}`, color("primary-foreground"), composite(color("primary"), color(bg), .95), 4.5)
+  }
+  // Resting and interactive fills are alpha-composited over each supported
+  // surface. Tailwind dark/hover overrides win over the unprefixed classes.
+  for (const [name, classes] of destructiveConsumers) {
+    for (const hovered of [false, true]) {
+      const styles = {}
+      for (const prefix of ["", ...(hovered ? ["hover:", "[a&]:hover:"] : []),
+        ...(mode === "dark" ? ["dark:", ...(hovered ? ["dark:hover:", "dark:[a&]:hover:"] : [])] : [])]) {
+        for (const utility of classes) {
+          if (!utility.startsWith(prefix)) continue
+          const match = utility.slice(prefix.length).match(/^(bg|text)-([\w-]+)(?:\/(\d+))?$/)
+          if (match) styles[match[1]] = { token: match[2], alpha: match[3] === undefined ? 1 : Number(match[3]) / 100 }
+        }
+      }
+      assert.ok(styles.bg && styles.text, `${name} destructive fill and text must be inspectable`)
+      const paint = token => token === "white" ? "#ffffff" : token === "black" ? "#000000" : color(token)
+      for (const surface of ["background", "card", "popover"]) {
+        const fill = composite(paint(styles.bg.token), color(surface), styles.bg.alpha)
+        const text = composite(paint(styles.text.token), fill, styles.text.alpha)
+        check(`${mode} ${name} destructive ${hovered ? "hover" : "rest"}/${surface}`, text, fill, 4.5)
+      }
+    }
   }
   // WorkflowSteps running labels use accent-foreground on static cards and
   // on the accent fill shared by selected and hovered interactive steps.
