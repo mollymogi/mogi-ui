@@ -1,4 +1,4 @@
-# Mogi 风格 Design Token 方案（v1.6，2026-10-19：Diff 删除行对比度）
+# Mogi 风格 Design Token 方案（v1.7，2026-11-02：语义色拉开与重点层级）
 
 来源：角色形象 mogi（茉莉花 + 柯基）。配色直接从原图取样：头发 `#be7d53`、耳朵 `#f3c59f`、毛衣 `#f9e9d9`、肩部 `#ebc0a7`、裙子 `#a57e69`、眼睛 `#9c755e`、叶子 `#a78b57`、花瓣近白 `#f7dfc7`。
 
@@ -131,6 +131,23 @@
 1. 把以上写成 `packages/tokens/tokens.json`，用 Style Dictionary 生成 `globals.css` 和 Tailwind preset。
 2. 在 shadcn 初始化后用这份 CSS 覆盖 `globals.css`，跑一遍 Button / Input / Card / Dialog 看效果，再微调。
 3. 可选：做一个 mogi 图标（耳朵剪影 + 小花）作为库的 logo 和 favicon。
+
+## 语义色分离（v1.7）
+
+旧色板里 `primary`、`destructive`、`highlight` 都在 10°–23° 的橙红区间，亮色下主色与危险色只有 1.20:1，危险色与强调色 1.03:1；各类浅色底彼此 1.03–1.08:1，卡片与页面 1.02:1。看板上警告、主按钮和失败状态因此分不出主次。
+
+| 变化 | 亮色 | 暗色 |
+|---|---|---|
+| `rose` 改为灰玫红，`destructive` 跟随 | `#a62b3c`（白字 6.9:1） | `#ee9a98`，深色字 |
+| 新增 `destructive-soft`（暖藕粉，大面积不显艳） | `#f2e3e1` | `#3d2422` |
+| 新增冷色 `dew` 与 `info` / `info-foreground` / `info-soft` | `#2a6176` / `#fffaf3` / `#dcebf0` | `#8cc6dc` / `#10242c` / `#1c3640` |
+| `warning-soft`（honey-100） | `#fbefcb` | `#4a3b16` |
+| `success-soft` 加深 | `#e3edc9` | `#38481f` |
+| `background` 比卡片低一层 | `#f9f3ea` | `#1e130d` |
+
+`contrast:check` 新增两类检查：`primary`、`destructive`、`warning`、`success`、`info` 两两之间要么色相差 ≥18°，要么明度比 ≥1.5:1；卡片与页面背景亮色 ≥1.05:1、暗色 ≥1.15:1。旧色板在第一项上失败。
+
+配套组件：`StatusBanner`（一句话结论 + 下一步）、`LinkList`（同级入口）、`MetricCard` 的 `emphasis` / `density`、`Badge` 的 `danger` / `info`、`Alert` 的 `info` 与柔和底 `destructive`。示例：`?preview=emphasis`。
 
 ## 渐变背景与深色毛玻璃（可选）
 

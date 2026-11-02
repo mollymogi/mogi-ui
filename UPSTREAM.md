@@ -1,5 +1,9 @@
 # 上游来源记录
 
+## 2026-11-02 · 看板重点层级
+
+来源：Trellis Memory 概览页的反馈（颜色太统一看不出重点、信息过密）。语义色拉开色相或明度，新增自有组件 `StatusBanner`、`LinkList`；`MetricCard` 增加 `emphasis` / `density`，`Badge` 增加 `danger` / `info`，`Alert` 增加 `info` 并把 `destructive` 改为柔和底色。规则写进 `skills/mogi-ui/SKILL.md` 的“重点与密度”。
+
 ## 2026-10-27 · Herdr Studio 无限关系画布
 
 新增 `FlowCanvas` / `FlowCanvasNode`，使用 MIT 的 `@xyflow/react` 12 提供平移、缩放、节点键盘/拖动、缩略图和可访问描述；节点外观与所有配色映射现有 mogi 语义 token，不改主题。默认不编辑关系、不删除节点；调用方管理受控布局及业务数据。来源项目 Herdr Studio 采用“运行→成员→实际派发任务”关系，未回流任何任务数据。预览 `?preview=flow-canvas`，安装 registry `flow-canvas.json`；CSS 随组件依赖导入，不使用外部字体或样式 CDN。

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link-list",
+  "title": "link-list",
+  "description": "一组同级入口：图标、标题、说明和箭头，把强调留给主操作",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": ".registry/ui/link-list.tsx",
+      "content": "import * as React from \"react\"\nimport { ChevronRight, type LucideIcon } from \"lucide-react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction LinkList({ className, children, ...props }: React.ComponentProps<\"nav\">) {\n  return <nav data-slot=\"link-list\" className={cn(\"min-w-0\", className)} {...props}><ul className=\"grid min-w-0\">{children}</ul></nav>\n}\n\ntype LinkListItemProps = Omit<React.ComponentProps<\"a\">, \"title\"> & {\n  title: React.ReactNode\n  description?: React.ReactNode\n  icon?: LucideIcon\n  /** 数量或状态，显示在箭头之前 */\n  trailing?: React.ReactNode\n}\n\n// mogi: 一组同级入口。替代成排的按钮，把强调留给页面的主操作。\nfunction LinkListItem({ title, description, icon: Icon, trailing, className, ...props }: LinkListItemProps) {\n  return <li className=\"min-w-0\"><a data-slot=\"link-list-item\" className={cn(\"flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-foreground outline-none transition-colors duration-(--duration-mogi-fast) hover:bg-accent focus-visible:ring-3 focus-visible:ring-ring\", className)} {...props}>\n    {Icon && <Icon aria-hidden=\"true\" className=\"size-4 shrink-0 text-muted-foreground\" />}\n    <span className=\"min-w-0 flex-1\">\n      <span className=\"block text-sm font-medium\">{title}</span>\n      {description != null && <span className=\"block text-xs text-muted-foreground\">{description}</span>}\n    </span>\n    {trailing != null && <span className=\"shrink-0 text-sm text-muted-foreground\">{trailing}</span>}\n    <ChevronRight aria-hidden=\"true\" className=\"size-4 shrink-0 text-muted-foreground\" />\n  </a></li>\n}\n\nexport { LinkList, LinkListItem }\nexport type { LinkListItemProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

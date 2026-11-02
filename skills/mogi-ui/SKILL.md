@@ -40,6 +40,15 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 亮/暗两套主题都要检查；文字对比度不低于 4.5:1，交互边框和焦点环不低于 3:1。链接用 `text-link`（亮色 corgi-600、暗色 corgi-400），交互轮廓用 `border-border-strong` 或 `border-input`，装饰卡片保留 `border-border`。滑块已选区段和圆钮边框使用 `slider-range`（亮色沿用 primary，暗色 corgi-400），更新滑块时需同时重装主题以获得该 token。主按钮为深橘底白字；不要给焦点环额外叠加透明度。更新主题和组件时一并重新安装 registry 条目。
 - 不修改 mogi-ui 主题文件本身；需要改主题时走第 3 步上报。
 
+### 重点与密度
+
+- 颜色只表达严重程度：失败用 `destructive`，等待用 `warning`，完成用 `success`，说明性信息用 `info`；品牌色 `primary` 只给操作，不用来标状态。中性数字不上色。
+- 页面顶部的结论用 `StatusBanner`（`tone` 为 danger / warning / success / info / neutral，`label` 写状态文字），这个状态要求的下一步放进 `action`。一屏只放一个填充按钮，其余用 outline 或 ghost。
+- 一组同级入口用 `LinkList` + `LinkListItem`（`icon`、`title`、`description`、`trailing`），不要排成一列按钮。
+- 指标里需要处理的放前面并用 `tone`；背景性的数量用 `MetricCard emphasis="quiet"`，密集网格用 `density="compact"`。
+- 状态标签优先用柔和底色：`Badge variant="danger"` / `"info"`；实心 `destructive` 留给不可撤销操作的按钮。
+- 免责和来源说明合并成页面底部一行，不在每张卡片里重复。
+
 ## 3. 缺什么就上报
 
 遇到以下情况，不要在业务项目里私自造一个长期组件或改主题：

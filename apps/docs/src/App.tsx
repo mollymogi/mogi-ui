@@ -21,6 +21,7 @@ import {
 
 import { MotionTrioDemo } from "./demo-motion-trio"
 import { WorkflowStepsDemo } from "./demo-workflow-steps"
+import { EmphasisDemo } from "./demo-emphasis"
 import { ConsoleFeedbackDemo } from "./demo-console-feedback"
 import { DashboardDemo } from "./demo-dashboard"
 import { AudioStudioDemo } from "./demo-audio-studio"
@@ -306,6 +307,10 @@ export function App() {
     return <TooltipProvider><main className="mx-auto min-w-0 max-w-6xl p-4 sm:p-8"><WorkflowStepsDemo /></main></TooltipProvider>
   }
 
+  if (new URLSearchParams(window.location.search).get("preview") === "emphasis") {
+    return <TooltipProvider><main className="mx-auto min-w-0 max-w-6xl p-4 sm:p-8"><EmphasisDemo /></main></TooltipProvider>
+  }
+
   if (new URLSearchParams(window.location.search).get("preview") === "flow-canvas") {
     return <Suspense fallback={<p role="status">正在加载画布…</p>}><FlowCanvasDemo dark={dark} onThemeChange={() => setDark(value => !value)} /></Suspense>
   }
@@ -348,6 +353,7 @@ export function App() {
         <a href="?preview=dashboard" className="text-sm text-link underline underline-offset-4">← 返回工作台示例</a>
 
         <a href="?preview=workflow-steps" className="text-sm text-link underline underline-offset-4">查看流程节点与状态示例 →</a>
+        <a href="?preview=emphasis" className="text-sm text-link underline underline-offset-4">查看看板重点层级示例 →</a>
         <a href="?preview=flow-canvas" className="text-sm text-link underline underline-offset-4">查看无限画布与节点示例 →</a>
         <Section title="色板">
           <div className="grid gap-3">
