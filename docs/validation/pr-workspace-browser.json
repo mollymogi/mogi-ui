@@ -1,0 +1,24 @@
+{
+  "browser": "157.0.8103.50",
+  "checks": [
+    "Paper palette renders the PR workspace from the shared tokens",
+    "Skip link appears only while focused",
+    "Primary hard shadow and separate visible keyboard focus both render",
+    "Search and project selection filter only the current view",
+    "Project groups collapse and expand with pointer and keyboard",
+    "Detail sheet preserves independent roles and returns focus after Escape",
+    "Archive is bounded by project pagination and per-project expansion; filtering resets the page",
+    "No horizontal overflow at 320px paper",
+    "No horizontal overflow at 390px paper",
+    "No horizontal overflow at 768px paper",
+    "No horizontal overflow at 1440px paper",
+    "No horizontal overflow at 320px dark",
+    "No horizontal overflow at 390px dark",
+    "No horizontal overflow at 768px dark",
+    "No horizontal overflow at 1440px dark",
+    "Dark mode does not retain paper-only button shadows",
+    "Reduced motion disables tactile button translation",
+    "Base warm theme stays available independently of paper"
+  ],
+  "errors": []
+}

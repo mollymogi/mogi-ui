@@ -116,3 +116,14 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - Nested metric/code panels in the glass preview use transparent fills without additional blur; inputs retain their control surface. Base card tokens and the glass-off fallback stay opaque.
 
 - 修复 Button / Badge 实心 destructive：使用 destructive-foreground，移除暗色 60% 底色；对比度检查覆盖实际变体在页面、卡片、弹层上的静止及悬停合成颜色。
+
+
+## 2026-11-11 · PR 工作台纸感风格回流
+
+- 从用户自己的 PR Pilot `frontend/vendor/tokens/src/theme.css` 对应的 mogi-ui
+  `0f0de6f6e7b2e28b13e2f653f8a40225fd7a4f50` 提取 paper token 与触感规则。
+  原 #38 合入的是先决功能分支，当前 main 未包含 paper；本次仅回流该主题，保留 main 的新语义色。
+- 独立 `mogi-theme-paper` registry 条目依赖基础主题，不替换默认主题；暗色、减弱动态效果和键盘焦点保持可用。
+- 依据 PR Pilot `frontend/src/style.css` 的页面层级新增 `pr-workspace` 文档示例与局部 CSS；
+  使用合成数据，不携带本地状态、仓库业务逻辑、会话 ID 或服务连接。
+- 没有修改 shadcn 上游组件源码。预览与接入见 `docs/pr-workspace.md`。

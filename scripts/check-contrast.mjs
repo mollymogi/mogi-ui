@@ -9,7 +9,14 @@ const css = read("packages/tokens/src/theme.css").replace(/\/\*[\s\S]*?\*\//g, "
 const block = (selector) => declarations(css.match(new RegExp(`${selector}\\s*\\{([^}]+)\\}`))[1])
 const light = { ...primitives, ...block(":root") }
 const dark = { ...light, ...block("\\.dark") }
-const registry = JSON.parse(read("registry.json")).items.find((item) => item.name === "mogi-theme").cssVars
+const registryItems = JSON.parse(read("registry.json")).items
+const registry = registryItems.find((item) => item.name === "mogi-theme").cssVars
+const paperSelector = ':root[data-palette="paper"]:not(.dark)'
+const paperTokens = declarations(css.match(/:root\[data-palette="paper"\]:not\(\.dark\)\s*\{([^}]+)\}/)[1])
+const paperRegistry = registryItems.find(item => item.name === "mogi-theme-paper").css[paperSelector]
+for (const [name, value] of Object.entries(paperTokens)) {
+  assert.equal(paperRegistry[`--${name}`], value, `paper registry drift: ${name}`)
+}
 const resolve = (name, vars, seen = new Set()) => {
   if (seen.has(name) || !vars[name]) throw new Error(`Invalid token reference: ${name}`)
   seen.add(name)
@@ -44,10 +51,10 @@ assert.equal(contrast("#ffffff", "#000000"), 21)
 assert.equal(contrast("#a65a2a", "#a65a2a"), 1)
 assert.throws(() => contrast("unknown", "#ffffff"))
 assert.ok(contrast("#777777", "#ffffff") < 4.5) // 4.478 must not round up to PASS
-for (const [mode, vars] of Object.entries({ light, dark })) {
+for (const [mode, vars] of Object.entries({ light, dark, paper: { ...light, ...paperTokens } })) {
   const color = (name) => resolve(name, vars)
   // Every published semantic token must match the workspace CSS.
-  for (const name of Object.keys(block(mode === "light" ? ":root" : "\\.dark"))) {
+  for (const name of mode === "paper" ? [] : Object.keys(block(mode === "light" ? ":root" : "\\.dark"))) {
     assert.equal(registry[mode][name], color(name), `${mode} registry drift: ${name}`)
   }
   const pairs = [
@@ -118,7 +125,9 @@ for (const [mode, vars] of Object.entries({ light, dark })) {
     checks++
     if (gap < 18 && ratio < 1.5) { failures++; console.error(`FAIL ${mode} ${first}/${second}: ${gap.toFixed(1)}° and ${ratio.toFixed(2)}:1`) }
   }
-  check(`${mode} card/background layer`, color("card"), color("background"), mode === "dark" ? 1.15 : 1.05)
+  // Paper surfaces use a contrasting ink outline, rather than luminance alone.
+  if (mode === "paper") check("paper card outline/card", color("foreground"), color("card"), 3)
+  else check(`${mode} card/background layer`, color("card"), color("background"), mode === "dark" ? 1.15 : 1.05)
   check(`${mode} diff deletion text/background`, color("destructive"), composite(color("destructive"), color("card"), .1), 4.5)
   check(`${mode} slider selected range/track`, color("slider-range"), color("muted"), 3)
   check(`${mode} sidebar-ring`, color("sidebar-ring"), color("sidebar"), 3)
