@@ -109,3 +109,15 @@ description: 在 mercury 的任何项目里搭建或改造界面（页面、仪�
 - 玻璃用于主要面板，玻璃模式下嵌套指标卡可透明，输入保留实色。不直接覆盖任意图片/视频；内置对比度验证仅针对受控渐变和对应 alpha 合成。单独安装这两个组件时也需要最新 mogi-theme token。
 
 - 更新灰玫红主题时同时重装 Button / Badge：实心 `destructive` 使用语义前景色，暗色不再叠加 60% 底色；不要覆盖成白字。
+
+
+## 可选纸感主题与 PR 列表模式
+
+- 奶油纸底、墨色描边、黄色主按钮和粉色便签使用 `mogi-theme-paper.json`，在基础主题之后安装；
+  根元素设置 `data-palette="paper"`。暗色仍使用基础暗色主题，不能把 paper token 写进 `.dark`。
+- workspace 直接用 tokens；registry 项目先 `npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json`，
+  再添加同目录的 `mogi-theme-paper.json`。默认主题无需更换。
+- PR 类多项目列表参考 `?preview=pr-workspace&theme=paper`：阶段统计条 + 按项目折叠的紧凑树，
+  历史记录放独立 tab，并限制每页项目数；详情使用 Sheet，关闭后焦点返回原按钮。
+  页面示例及局部布局 CSS 在 `apps/docs/src/demo-pr-workspace.tsx`、`pr-workspace.css`，不是额外通用组件。
+- 不复制示例数据为真实处理结果；状态和时间从使用方服务提供，颜色不单独承担状态含义。

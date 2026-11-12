@@ -41,6 +41,19 @@ pnpm registry:build   # 生成 apps/docs/public/r/*.json（主题 + 每个组件
 
 工作台壳使用 `DashboardLayout`，见 [工作台布局](docs/dashboard-layout.md)。
 
+## 纸感主题与 PR 工作台
+
+预览：[`?preview=pr-workspace&theme=paper`](https://mollymogi.github.io/mogi-ui/?preview=pr-workspace&theme=paper)。
+主题来自 PR Pilot 看板：奶油纸底、墨色描边、黄色主操作、粉色便签与按压阴影。
+项目树、阶段统计、搜索筛选、分页归档和详情抽屉可参考 [PR 工作台模式](docs/pr-workspace.md)。
+
+```bash
+npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme.json
+npx shadcn add https://mollymogi.github.io/mogi-ui/r/mogi-theme-paper.json
+```
+
+给根元素添加 `data-palette="paper"` 启用；`.dark` 使用基础暗色主题。
+
 ## 布局模式
 
 - [详情看板 DetailLayout](docs/detail-layout.md)：一句话结论、关键指标、主内容与辅助栏；技术细节用 Sheet 按需查看。预览站包含亮/暗主题示例。

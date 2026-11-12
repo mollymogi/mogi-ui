@@ -85,6 +85,7 @@ export function DashboardDemo({ dark, onThemeChange }: { dark: boolean; onThemeC
           <button className={view === "overview" ? "is-current" : ""} aria-current={view === "overview" ? "page" : undefined} onClick={() => setView("overview")}><LayoutDashboard size={18} />工作台<span className="ws-nav-dot" /></button>
           <button className={view !== "overview" ? "is-current" : ""} aria-current={view !== "overview" ? "page" : undefined} onClick={() => setView("tasks")}><ListTodo size={18} />我的任务<span className="ws-nav-count">{tasks.length}</span></button>
           <span className="ws-eyebrow ws-library-label">LIBRARY</span>
+          <a href="?preview=pr-workspace&theme=paper"><Code2 size={18} />PR 纸感工作台<ExternalLink size={13} /></a>
           <a href="?preview=components"><BookOpen size={18} />组件展览<ExternalLink size={13} /></a>
           <a href="?preview=detail-layout"><Code2 size={18} />规则详情示例<ExternalLink size={13} /></a>
         </nav>

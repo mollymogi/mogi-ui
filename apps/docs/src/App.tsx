@@ -1,3 +1,4 @@
+import { PrWorkspaceDemo } from "./demo-pr-workspace"
 import { labelColor } from "@mogi-ui/tokens/contrast"
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { toast } from "sonner"
@@ -290,14 +291,22 @@ const sampleDiff = `@@ -5,7 +5,8 @@ void Dispatcher::OnFrame(const Frame& frame)
  }`
 
 export function App() {
+  const query = new URLSearchParams(window.location.search)
+  const paper = query.get("theme") === "paper" || (query.get("preview") === "pr-workspace" && !["light", "dark"].includes(query.get("theme") || ""))
   const [dark, setDark] = useState(() => {
     const theme = new URLSearchParams(window.location.search).get("theme")
-    return theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    return theme === "dark" || (theme !== "light" && !paper && window.matchMedia("(prefers-color-scheme: dark)").matches)
   })
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
-  }, [dark])
+    if (paper) document.documentElement.dataset.palette = "paper"
+    else delete document.documentElement.dataset.palette
+  }, [dark, paper])
+
+  if (query.get("preview") === "pr-workspace") {
+    return <PrWorkspaceDemo dark={dark} onThemeChange={() => setDark(value => !value)} />
+  }
 
   if (new URLSearchParams(window.location.search).get("preview") === "audio-studio") {
     return <AudioStudioDemo dark={dark} onThemeChange={() => setDark(value => !value)} />
@@ -352,6 +361,7 @@ export function App() {
 
         <a href="?preview=dashboard" className="text-sm text-link underline underline-offset-4">← 返回工作台示例</a>
 
+        <a href="?preview=pr-workspace&amp;theme=paper" className="text-sm text-link underline underline-offset-4">查看纸感 PR 工作台 →</a>
         <a href="?preview=workflow-steps" className="text-sm text-link underline underline-offset-4">查看流程节点与状态示例 →</a>
         <a href="?preview=emphasis" className="text-sm text-link underline underline-offset-4">查看看板重点层级示例 →</a>
         <a href="?preview=flow-canvas" className="text-sm text-link underline underline-offset-4">查看无限画布与节点示例 →</a>

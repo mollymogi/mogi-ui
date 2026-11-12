@@ -89,3 +89,18 @@ test("dark diff deletion contrast fails for the previous destructive token", (t)
   assert.equal(result.status, 1)
   assert.match(result.stderr, /FAIL dark diff deletion text\/background: .* = 4\.395 < 4\.5/)
 })
+
+
+test("paper text contrast fails even when registry agrees", (t) => {
+  const result = fixture(t, change => {
+    change("packages/tokens/src/theme.css", "--foreground: #29251f;", "--foreground: #fff7e6;")
+    change("registry.json", '"--foreground": "#29251f"', '"--foreground": "#fff7e6"')
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /FAIL paper foreground\/background/)
+})
+test("paper registry drift fails", (t) => {
+  const result = fixture(t, change => change("registry.json", '"--primary": "#f8d956"', '"--primary": "#ffffff"'))
+  assert.equal(result.status, 1)
+  assert.match(result.stderr, /paper registry drift: primary/)
+})

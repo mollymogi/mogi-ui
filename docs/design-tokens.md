@@ -168,3 +168,18 @@ contrast:check 新增渐变端点、逐通道保守边界和玻璃 alpha 合成�
 WorkflowSteps 的运行状态文字使用 `accent-foreground`，覆盖默认 `card` 和选中／悬停 `accent` 底色；`scripts/check-contrast.mjs` 对这两种组合分别检查亮／暗主题 4.5:1。运行图标在独立的 `background` 圆形底色上保留 `link`，不修改主题 token。
 
 Button 与 Badge 的实心 `destructive` 使用 `text-destructive-foreground`，暗色保持不透明底色；悬停使用 90% 底色。`contrast:check` 从组件变体读取实际文字、底色与透明度，检查亮暗主题在 background / card / popover 上的静止和悬停合成对比度（≥4.5:1）。
+
+
+## 可选 paper 纸感主题
+
+在 `<html data-palette="paper">` 上启用，仅作用于非 `.dark` 根元素。
+通过 registry 先安装 `mogi-theme`，再安装 `mogi-theme-paper`；workspace 包直接设置属性。
+
+奶油底 `#fff7e6`、纸卡 `#fffdf6`、墨色字 `#29251f`、黄色主操作 `#f8d956`、粉色便签 `#f5d5df`。
+纸卡依靠墨色边线与硬阴影区分层级，默认和暗色的卡片亮度检查维持原门槛；paper 额外检查墨色边线对比度。
+主题继承 main 当前危险、成功、警告、信息语义色；不从旧分支覆盖这些角色。
+主按钮 hover/pressed 改变位移与阴影，focus-visible 始终使用独立 3px/4px-offset 轮廓。
+`prefers-reduced-motion: reduce` 下按钮不位移；暗色自动回退基础 token，不保留纸感硬阴影。
+
+`node scripts/check-contrast.mjs` 同时核对 paper 发布条目与 CSS 变量、正文、控件、状态、叠层与边线。
+完整页面参考 [PR 工作台](pr-workspace.md)，预览 `?preview=pr-workspace&theme=paper`。
