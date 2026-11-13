@@ -133,4 +133,11 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 
 来源：Herdr Studio 群聊室界面升级，视觉交互原语参考 `slev12397/beautiful-ui`（`EntityChip` / `Monogram`、`StatusPill`、`ThinkingState`、`ChatExperience`、`PromptBar`）并使用 mogi 语义 token 与动效 token 实现。导出 `ChatThread` / `ChatBubble` / `ChatMonogram` / `ChatEntityChip` / `ChatStatusPill` / `ChatParticipantChip` / `ChatThinkingState` / `ChatMentionBar` / `ChatPromptBar`（`chat-thread.tsx`），无新增第三方依赖或业务状态耦合。
 
+## 2026-11-14 · Agent 品牌头像、`ChatMessageContent` 与 `.mogi-surface-clean`
+
+在 `tokens` 与 `chat-thread` 中新增三项通用能力：
+- **Agent 品牌色与 `ChatAgentAvatar`**：新增 `--agent-foreground` 与 `--agent-{claude,openai,grok,gemini,deepseek,opencode,dsh,qwen,glm,kimi,minimax,hermes,generic}` 语义 token（及 `@theme inline` 映射）并通过浅/深双主题 AA 对比度校验；导出 `ChatAgentAvatar`、`ChatAgentIcon`、`resolveAgentBrand` 与 12 个模型/CLI 品牌矢量图标，`ChatParticipantChip` / `ChatEntityChip` / `ChatBubble` 支持可选 `avatar` 插槽。
+- **`ChatMessageContent` 流式 Markdown 与路径原语**：内置零新依赖的 `parseMarkdownBlocks` 与 `parseFilePathRef`，支持流式未闭合代码块保护、GFM 表格、加粗/斜体/删除线/行内代码、列表/任务列表/引用块、代码块一键 `CopyButton`、行内 `@mention` chip、`http(s)` 外链，以及通过 `onOpenPath(path, line)` 回调触发的可点击文件/行号路径。
+- **`.mogi-surface-clean` 局部高对比纯白/纯黑表面**：提供 `:where(.mogi-surface-clean, [data-surface="clean"])` 作用域 token 覆盖，使单一对话框/阅读区域可切换高对比白底黑字（深色模式为黑底白字）而不影响宿主全局主题。
+
 修复：`ChatBubble` 的 system 消息使用 `article` 根节点并透传剩余 DOM props，保证原生属性、事件与 React 19 `ref` 在所有 sender 分支一致。

@@ -69,6 +69,22 @@
   --sidebar-accent-foreground: var(--sand-900);
   --sidebar-border: #e9dccb;
   --sidebar-ring: var(--corgi-600);
+
+  /* Semantic brand surfaces for multi-agent chat avatars (contrast >= 4.5:1 against white). */
+  --agent-foreground: #ffffff;
+  --agent-claude: #bc5332;
+  --agent-openai: #098566;
+  --agent-grok: #18181b;
+  --agent-gemini: #1d63ed;
+  --agent-deepseek: #3b5bdb;
+  --agent-opencode: #334155;
+  --agent-dsh: #0f766e;
+  --agent-qwen: #6d28d9;
+  --agent-glm: #0369a1;
+  --agent-kimi: #4338ca;
+  --agent-minimax: #be123c;
+  --agent-hermes: #b45309;
+  --agent-generic: #475569;
 }
 
 /* 暗色：摩卡底，链接与焦点环提亮，按钮保持白字深橘底。 */
@@ -129,6 +145,21 @@
   --sidebar-accent-foreground: #f6ebdd;
   --sidebar-border: #44332a;
   --sidebar-ring: var(--corgi-400);
+
+  --agent-foreground: #ffffff;
+  --agent-claude: #bc5332;
+  --agent-openai: #098566;
+  --agent-grok: #27272a;
+  --agent-gemini: #1d63ed;
+  --agent-deepseek: #3b5bdb;
+  --agent-opencode: #334155;
+  --agent-dsh: #0f766e;
+  --agent-qwen: #6d28d9;
+  --agent-glm: #0369a1;
+  --agent-kimi: #4338ca;
+  --agent-minimax: #be123c;
+  --agent-hermes: #b45309;
+  --agent-generic: #475569;
 }
 
 /* Optional cream paper palette and scoped tactile surfaces. */
@@ -226,6 +257,84 @@
 }
 }
 
+/* Optional scoped high-contrast white-and-black surface (e.g. dense multi-agent chat rooms). */
+:where(.mogi-surface-clean, [data-surface="clean"]) {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --link: #1d4ed8;
+  --primary: #18181b;
+  --primary-foreground: #ffffff;
+  --slider-range: #18181b;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --accent: #f4f4f5;
+  --accent-foreground: #09090b;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --destructive-soft: #fef2f2;
+  --info: #1d4ed8;
+  --info-foreground: #ffffff;
+  --info-soft: #eff6ff;
+  --success: #15803d;
+  --success-foreground: #ffffff;
+  --success-soft: #f0fdf4;
+  --warning: #d9a63a;
+  --warning-foreground: #3f2a06;
+  --warning-soft: #fef3c7;
+  --highlight: #6d28d9;
+  --highlight-soft: #f5f3ff;
+  --border: #e4e4e7;
+  --border-strong: #71717a;
+  --input: #71717a;
+  --ring: #18181b;
+  color-scheme: light;
+}
+
+.dark :where(.mogi-surface-clean, [data-surface="clean"]),
+.dark:where(.mogi-surface-clean, [data-surface="clean"]) {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111113;
+  --card-foreground: #fafafa;
+  --popover: #111113;
+  --popover-foreground: #fafafa;
+  --link: #60a5fa;
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+  --slider-range: #fafafa;
+  --secondary: #27272a;
+  --secondary-foreground: #f4f4f5;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #f87171;
+  --destructive-foreground: #09090b;
+  --destructive-soft: #3f1515;
+  --info: #60a5fa;
+  --info-foreground: #09090b;
+  --info-soft: #172554;
+  --success: #4ade80;
+  --success-foreground: #052e16;
+  --success-soft: #0f291e;
+  --warning: #fbbf24;
+  --warning-foreground: #18181b;
+  --warning-soft: #422006;
+  --highlight: #c4b5fd;
+  --highlight-soft: #2e1065;
+  --border: #27272a;
+  --border-strong: #71717a;
+  --input: #71717a;
+  --ring: #d4d4d8;
+  color-scheme: dark;
+}
+
 @theme inline {
   --font-sans: "JetBrains Mono Variable", "JetBrains Mono", "Jiangcheng Yuanti", "Noto Sans SC", ui-monospace, monospace;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "Jiangcheng Yuanti", ui-monospace, monospace;
@@ -282,6 +391,20 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-agent-foreground: var(--agent-foreground);
+  --color-agent-claude: var(--agent-claude);
+  --color-agent-openai: var(--agent-openai);
+  --color-agent-grok: var(--agent-grok);
+  --color-agent-gemini: var(--agent-gemini);
+  --color-agent-deepseek: var(--agent-deepseek);
+  --color-agent-opencode: var(--agent-opencode);
+  --color-agent-dsh: var(--agent-dsh);
+  --color-agent-qwen: var(--agent-qwen);
+  --color-agent-glm: var(--agent-glm);
+  --color-agent-kimi: var(--agent-kimi);
+  --color-agent-minimax: var(--agent-minimax);
+  --color-agent-hermes: var(--agent-hermes);
+  --color-agent-generic: var(--agent-generic);
 
   --color-corgi-50: var(--corgi-50);
   --color-corgi-100: var(--corgi-100);
