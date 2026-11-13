@@ -132,6 +132,33 @@ for (const [mode, vars] of Object.entries({ light, dark, paper: { ...light, ...p
   check(`${mode} slider selected range/track`, color("slider-range"), color("muted"), 3)
   check(`${mode} sidebar-ring`, color("sidebar-ring"), color("sidebar"), 3)
   for (const [fg, bg] of pairs) check(`${mode} ${fg}/${bg}`, color(fg), color(bg), 4.5)
+  if (mode === "light" || mode === "dark") {
+    for (const brand of ["claude", "openai", "grok", "gemini", "deepseek", "opencode", "dsh", "qwen", "glm", "kimi", "minimax", "hermes", "generic"]) {
+      check(`${mode} agent-${brand}`, color("agent-foreground"), color(`agent-${brand}`), 4.5)
+    }
+  }
+}
+const cleanLightVars = declarations(css.match(/:where\(\.mogi-surface-clean,\s*\[data-surface="clean"\]\)\s*\{([^}]+)\}/)[1])
+const cleanDarkVars = declarations(css.match(/\.dark\s+:where\(\.mogi-surface-clean,\s*\[data-surface="clean"\]\)[^\{]*\{([^}]+)\}/)[1])
+for (const [cleanMode, raw] of [["clean-light", cleanLightVars], ["clean-dark", cleanDarkVars]]) {
+  const vars = { ...light, ...raw }
+  const color = (name) => resolve(name, vars)
+  for (const [fg, bg] of [
+    ["foreground", "background"], ["card-foreground", "card"], ["popover-foreground", "popover"],
+    ["primary-foreground", "primary"], ["secondary-foreground", "secondary"],
+    ["muted-foreground", "muted"], ["accent-foreground", "accent"],
+    ["link", "background"], ["muted-foreground", "background"],
+    ["destructive-foreground", "destructive"], ["destructive", "destructive-soft"],
+    ["success-foreground", "success"], ["success", "success-soft"],
+    ["highlight", "highlight-soft"], ["info", "info-soft"], ["info-foreground", "info"],
+    [cleanMode === "clean-dark" ? "warning" : "warning-foreground", "warning-soft"],
+    ["warning-foreground", "warning"],
+  ]) {
+    check(`${cleanMode} ${fg}/${bg}`, color(fg), color(bg), 4.5)
+  }
+  for (const ctrl of ["border-strong", "input", "ring"]) {
+    check(`${cleanMode} ${ctrl}/background`, color(ctrl), color("background"), 3)
+  }
 }
 for (const [name, value] of Object.entries(primitives)) {
   check(`swatch ${name}`, labelColor(value, primitives["sand-950"]), value, 4.5)

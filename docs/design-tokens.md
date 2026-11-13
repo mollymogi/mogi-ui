@@ -183,3 +183,35 @@ Button 与 Badge 的实心 `destructive` 使用 `text-destructive-foreground`，
 
 `node scripts/check-contrast.mjs` 同时核对 paper 发布条目与 CSS 变量、正文、控件、状态、叠层与边线。
 完整页面参考 [PR 工作台](pr-workspace.md)，预览 `?preview=pr-workspace&theme=paper`。
+
+## Agent 品牌与局部 clean 表面
+
+`--agent-foreground` 是品牌头像前景色（亮／暗均为 `#ffffff`），与以下实心背景配对；`@theme inline` 将它们映射为 `--color-agent-*`，可使用 `bg-agent-claude`、`text-agent-foreground` 等工具类。
+
+| Token | 亮色 | 暗色 |
+|---|---|---|
+| `--agent-claude` | `#bc5332` | `#bc5332` |
+| `--agent-openai` | `#098566` | `#098566` |
+| `--agent-grok` | `#18181b` | `#27272a` |
+| `--agent-gemini` | `#1d63ed` | `#1d63ed` |
+| `--agent-deepseek` | `#3b5bdb` | `#3b5bdb` |
+| `--agent-opencode` | `#334155` | `#334155` |
+| `--agent-dsh` | `#0f766e` | `#0f766e` |
+| `--agent-qwen` | `#6d28d9` | `#6d28d9` |
+| `--agent-glm` | `#0369a1` | `#0369a1` |
+| `--agent-kimi` | `#4338ca` | `#4338ca` |
+| `--agent-minimax` | `#be123c` | `#be123c` |
+| `--agent-hermes` | `#b45309` | `#b45309` |
+| `--agent-generic` | `#475569` | `#475569` |
+
+在面板上设置 `.mogi-surface-clean` 或 `data-surface="clean"` 启用局部语义变量覆盖，子元素通过继承使用；宿主其余区域继续使用原主题。仍需用 `bg-background text-foreground` 等工具类绘制表面。选择器为 `:where(.mogi-surface-clean, [data-surface="clean"])`；面板本身或祖先有 `.dark` 时使用暗色覆盖，同时设置对应的 `color-scheme`。
+
+| 语义变量 | clean 亮色 | clean 暗色 |
+|---|---|---|
+| `background` / `foreground` | `#ffffff` / `#09090b` | `#09090b` / `#fafafa` |
+| `card`、`popover` / 对应前景 | `#ffffff` / `#09090b` | `#111113` / `#fafafa` |
+| `primary` / `primary-foreground` | `#18181b` / `#ffffff` | `#fafafa` / `#09090b` |
+| `muted` / `muted-foreground` | `#f4f4f5` / `#52525b` | `#18181b` / `#a1a1aa` |
+| `link` | `#1d4ed8` | `#60a5fa` |
+
+clean 同时覆盖 secondary、accent、状态色及 soft 背景、highlight、border、input 与 ring；完整值以 `packages/tokens/src/theme.css` 为准。品牌 token 继续继承基础亮／暗主题。`scripts/check-contrast.mjs` 覆盖品牌头像前景／背景与 clean 表面的文字配对，正文目标为至少 4.5:1；任意自定义颜色组合仍需单独核验。
