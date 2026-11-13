@@ -127,3 +127,8 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - 依据 PR Pilot `frontend/src/style.css` 的页面层级新增 `pr-workspace` 文档示例与局部 CSS；
   使用合成数据，不携带本地状态、仓库业务逻辑、会话 ID 或服务连接。
 - 没有修改 shadcn 上游组件源码。预览与接入见 `docs/pr-workspace.md`。
+
+
+## 2026-11-13 · 多智能体群聊对话原语（`chat-thread`）
+
+来源：Herdr Studio 群聊室界面升级。新增自有组合组件 `ChatThread` / `ChatBubble` / `ChatParticipantChip` / `ChatMentionBar`（`chat-thread.tsx`），提供成员在线状态胶囊、`@` 快捷栏、用户/Agent/系统对话气泡及工作态/错误态渲染；全部映射 mogi 语义 token 与动效 token，无新增第三方依赖或业务状态耦合。

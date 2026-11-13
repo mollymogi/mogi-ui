@@ -375,6 +375,21 @@
       ]
     },
     {
+      "name": "chat-thread",
+      "type": "registry:ui",
+      "title": "chat-thread",
+      "description": "多智能体群聊会话：成员胶囊、@ 快捷栏与角色对话气泡",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": ".registry/ui/chat-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:ui",
       "title": "checkbox",
@@ -1144,6 +1159,7 @@
         "https://mollymogi.github.io/mogi-ui/r/badge.json",
         "https://mollymogi.github.io/mogi-ui/r/button.json",
         "https://mollymogi.github.io/mogi-ui/r/card.json",
+        "https://mollymogi.github.io/mogi-ui/r/chat-thread.json",
         "https://mollymogi.github.io/mogi-ui/r/checkbox.json",
         "https://mollymogi.github.io/mogi-ui/r/choice-cards.json",
         "https://mollymogi.github.io/mogi-ui/r/code-block.json",
