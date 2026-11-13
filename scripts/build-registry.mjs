@@ -21,6 +21,7 @@ const baseUrl = (
 const descriptions = {
   "status-banner": "页面顶部的一句话结论：按严重程度着色，下一步紧跟结论",
   "link-list": "一组同级入口：图标、标题、说明和箭头，把强调留给主操作",
+  "chat-thread": "多智能体群聊会话：成员胶囊、@ 快捷栏与角色对话气泡",
   "flow-canvas": "React Flow 只读关系画布，带主题节点、平移缩放、缩略图和中文控制",
   "workflow-steps": "调用方驱动的流程节点，支持横纵布局、未知状态、键盘选择与节点元数据",
   "file-dropzone": "可键盘选择与拖放的受控文件入口，含大小/格式校验提示",
