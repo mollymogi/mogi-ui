@@ -132,3 +132,5 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 ## 2026-11-13 · 多智能体群聊对话原语（`chat-thread`）
 
 来源：Herdr Studio 群聊室界面升级，视觉交互原语参考 `slev12397/beautiful-ui`（`EntityChip` / `Monogram`、`StatusPill`、`ThinkingState`、`ChatExperience`、`PromptBar`）并使用 mogi 语义 token 与动效 token 实现。导出 `ChatThread` / `ChatBubble` / `ChatMonogram` / `ChatEntityChip` / `ChatStatusPill` / `ChatParticipantChip` / `ChatThinkingState` / `ChatMentionBar` / `ChatPromptBar`（`chat-thread.tsx`），无新增第三方依赖或业务状态耦合。
+
+修复：`ChatBubble` 的 system 消息使用 `article` 根节点并透传剩余 DOM props，保证原生属性、事件与 React 19 `ref` 在所有 sender 分支一致。

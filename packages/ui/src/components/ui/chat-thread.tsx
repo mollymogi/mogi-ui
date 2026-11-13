@@ -315,15 +315,16 @@ function ChatBubble({
 }: ChatBubbleProps) {
   if (sender === "system") {
     return (
-      <div
+      <article
         data-slot="chat-bubble"
         data-sender="system"
         className={cn("flex justify-center py-0.5", className)}
+        {...props}
       >
         <span className="rounded-full border border-border bg-muted px-3 py-0.5 text-[11px] text-muted-foreground">
           {children}
         </span>
-      </div>
+      </article>
     )
   }
 
