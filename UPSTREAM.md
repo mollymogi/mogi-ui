@@ -131,4 +131,4 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 
 ## 2026-11-13 · 多智能体群聊对话原语（`chat-thread`）
 
-来源：Herdr Studio 群聊室界面升级。新增自有组合组件 `ChatThread` / `ChatBubble` / `ChatParticipantChip` / `ChatMentionBar`（`chat-thread.tsx`），提供成员在线状态胶囊、`@` 快捷栏、用户/Agent/系统对话气泡及工作态/错误态渲染；全部映射 mogi 语义 token 与动效 token，无新增第三方依赖或业务状态耦合。
+来源：Herdr Studio 群聊室界面升级，视觉交互原语参考 `slev12397/beautiful-ui`（`EntityChip` / `Monogram`、`StatusPill`、`ThinkingState`、`ChatExperience`、`PromptBar`）并使用 mogi 语义 token 与动效 token 实现。导出 `ChatThread` / `ChatBubble` / `ChatMonogram` / `ChatEntityChip` / `ChatStatusPill` / `ChatParticipantChip` / `ChatThinkingState` / `ChatMentionBar` / `ChatPromptBar`（`chat-thread.tsx`），无新增第三方依赖或业务状态耦合。
