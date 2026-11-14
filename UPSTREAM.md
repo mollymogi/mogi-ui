@@ -140,4 +140,10 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - **`ChatMessageContent` 流式 Markdown 与路径原语**：内置零新依赖的 `parseMarkdownBlocks` 与 `parseFilePathRef`，支持流式未闭合代码块保护、GFM 表格、加粗/斜体/删除线/行内代码、列表/任务列表/引用块、代码块一键 `CopyButton`、行内 `@mention` chip、`http(s)` 外链，以及通过 `onOpenPath(path, line)` 回调触发的可点击文件/行号路径。
 - **`.mogi-surface-clean` 局部高对比纯白/纯黑表面**：提供 `:where(.mogi-surface-clean, [data-surface="clean"])` 作用域 token 覆盖，使单一对话框/阅读区域可切换高对比白底黑字（深色模式为黑底白字）而不影响宿主全局主题。
 
+## 2026-11-14 · 右侧对话详情原语（`ChatDetailPanel` / `ChatActivityItem`）与可交互思考条
+
+扩展 `chat-thread` 支持右侧实时检视当前 Agent 对话详情：
+- `ChatThinkingState` 与 `ChatBubble` 新增 `onInspect` / `selected` / `inspectDetail`，点击思考条即可触发右侧详情检视并高亮当前选中的对话轮次。
+- 新增无业务耦合的 `ChatDetailPanel`（右侧抽屉/分栏容器，带 `avatar`/`title`/`subtitle`/`tabsSlot`/`noticeSlot`/`onClose`）与 `ChatActivityItem`（支持 `thinking`/`tool`/`result`/`message`/`error`/`prompt` 语义条及按需折叠展开）。
+
 修复：`ChatBubble` 的 system 消息使用 `article` 根节点并透传剩余 DOM props，保证原生属性、事件与 React 19 `ref` 在所有 sender 分支一致。

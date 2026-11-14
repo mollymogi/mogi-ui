@@ -63,6 +63,9 @@ const {
   parseFilePathRef,
   parseMarkdownBlocks,
   ChatMessageContent,
+  ChatThinkingState,
+  ChatDetailPanel,
+  ChatActivityItem,
 } = chatThread;
 
 test("resolveAgentBrand matches model family before CLI and handles fallback", () => {
@@ -192,4 +195,72 @@ test("ChatAgentAvatar and ChatMessageContent render semantic tokens, mentions, c
     }),
   );
   assert.match(entityHtml, /bg-agent-deepseek/);
+});
+
+test("ChatThinkingState interactive inspection, ChatDetailPanel, and ChatActivityItem render cleanly", () => {
+  const staticThinking = renderToStaticMarkup(
+    React.createElement(ChatThinkingState, {
+      label: "正在独立思考与调查…",
+    }),
+  );
+  assert.match(staticThinking, /role="status"/);
+  assert.doesNotMatch(staticThinking, /<button/);
+
+  const interactiveThinking = renderToStaticMarkup(
+    React.createElement(ChatThinkingState, {
+      label: "正在独立思考与调查…",
+      active: true,
+      onInspect: () => {},
+    }),
+  );
+  assert.match(interactiveThinking, /<button/);
+  assert.match(interactiveThinking, /aria-pressed="true"/);
+  assert.match(interactiveThinking, /查看详情/);
+
+  const selectedBubble = renderToStaticMarkup(
+    React.createElement(
+      ChatBubble,
+      {
+        sender: "agent",
+        speaker: "@codex (gpt-6-astra)",
+        status: "working",
+        selected: true,
+        onInspect: () => {},
+      },
+      null,
+    ),
+  );
+  assert.match(selectedBubble, /data-selected="true"/);
+  assert.match(selectedBubble, /data-active="true"/);
+
+  const panelHtml = renderToStaticMarkup(
+    React.createElement(
+      ChatDetailPanel,
+      {
+        avatar: React.createElement(ChatAgentAvatar, { cli: "codex", model: "gpt-6-astra", size: "sm" }),
+        title: "@codex (gpt-6-astra)",
+        subtitle: "原生会话追踪中",
+        onClose: () => {},
+        tabsSlot: React.createElement("div", null, "实时过程"),
+        noticeSlot: "仅展示本机已落盘或实时终端输出",
+      },
+      React.createElement(
+        ChatActivityItem,
+        {
+          kind: "tool",
+          title: "exec_command",
+          meta: "13:00:05",
+          expandable: true,
+          defaultExpanded: true,
+        },
+        React.createElement("pre", null, "git status"),
+      ),
+    ),
+  );
+  assert.match(panelHtml, /data-slot="chat-detail-panel"/);
+  assert.match(panelHtml, /@codex \(gpt-6-astra\)/);
+  assert.match(panelHtml, /关闭详情面板/);
+  assert.match(panelHtml, /data-slot="chat-activity-item"/);
+  assert.match(panelHtml, /data-kind="tool"/);
+  assert.match(panelHtml, /git status/);
 });

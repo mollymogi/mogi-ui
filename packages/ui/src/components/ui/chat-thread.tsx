@@ -5,10 +5,15 @@ import {
   AlertCircle,
   Bot,
   Check,
+  ChevronDown,
+  ChevronRight,
   ExternalLink,
   FileText,
   Loader2,
+  MessageSquare,
+  Send,
   Sparkles,
+  Terminal,
   User,
   X,
 } from "lucide-react"
@@ -468,18 +473,58 @@ function ChatParticipantChip({
   )
 }
 
-type ChatThinkingStateProps = React.ComponentProps<"div"> & {
+type ChatThinkingStateProps = Omit<React.HTMLAttributes<HTMLElement>, "onClick"> & {
   label?: React.ReactNode
   detail?: React.ReactNode
+  active?: boolean
+  onInspect?: () => void
 }
 
 // mogi: Adapted from slev12397/beautiful-ui ThinkingState for live agent reasoning/turn status.
 function ChatThinkingState({
   label = "正在思考与调查…",
   detail,
+  active = false,
+  onInspect,
   className,
   ...props
 }: ChatThinkingStateProps) {
+  const inner = (
+    <>
+      <span className="flex min-w-0 items-center gap-2">
+        <Loader2 aria-hidden="true" className="size-3.5 shrink-0 text-link motion-safe:animate-spin" />
+        <Sparkles aria-hidden="true" className="size-3 shrink-0 text-link" />
+        <span className="truncate font-medium text-foreground">{label}</span>
+      </span>
+      <span className="flex shrink-0 items-center gap-1 text-[11px] text-muted-foreground">
+        {detail != null ? detail : onInspect ? "查看详情" : null}
+        {onInspect && <ChevronRight aria-hidden="true" className="size-3.5 shrink-0 text-muted-foreground" />}
+      </span>
+    </>
+  )
+
+  if (onInspect) {
+    return (
+      <button
+        type="button"
+        data-slot="chat-thinking-state"
+        data-active={active ? "true" : undefined}
+        aria-pressed={active}
+        onClick={onInspect}
+        className={cn(
+          "flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left text-xs text-muted-foreground transition-colors duration-(--duration-mogi-fast) ease-mogi focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          active
+            ? "border-link/60 bg-accent/60 text-foreground"
+            : "border-border bg-muted/60 hover:border-border-strong hover:bg-muted",
+          className
+        )}
+        {...props}
+      >
+        {inner}
+      </button>
+    )
+  }
+
   return (
     <div
       data-slot="chat-thinking-state"
@@ -491,12 +536,7 @@ function ChatThinkingState({
       )}
       {...props}
     >
-      <div className="flex min-w-0 items-center gap-2">
-        <Loader2 aria-hidden="true" className="size-3.5 shrink-0 text-link motion-safe:animate-spin" />
-        <Sparkles aria-hidden="true" className="size-3 shrink-0 text-link" />
-        <span className="truncate font-medium text-foreground">{label}</span>
-      </div>
-      {detail != null && <span className="shrink-0 text-[11px] text-muted-foreground">{detail}</span>}
+      {inner}
     </div>
   )
 }
@@ -1223,6 +1263,9 @@ type ChatBubbleProps = Omit<React.ComponentProps<"article">, "title"> & {
   avatar?: React.ReactNode
   status?: "idle" | "sending" | "starting" | "working" | "completed" | "error"
   workingLabel?: React.ReactNode
+  inspectDetail?: React.ReactNode
+  selected?: boolean
+  onInspect?: () => void
   error?: React.ReactNode
   actions?: React.ReactNode
 }
@@ -1237,6 +1280,9 @@ function ChatBubble({
   avatar,
   status = "completed",
   workingLabel = "正在思考与调查…",
+  inspectDetail,
+  selected = false,
+  onInspect,
   error,
   actions,
   children,
@@ -1302,6 +1348,7 @@ function ChatBubble({
     <article
       data-slot="chat-bubble"
       data-sender="agent"
+      data-selected={selected ? "true" : undefined}
       className={cn("flex w-full items-start justify-start gap-2.5", className)}
       {...props}
     >
@@ -1323,7 +1370,14 @@ function ChatBubble({
           {actions != null && <div className="flex items-center gap-1.5">{actions}</div>}
         </header>
 
-        {isBusy && <ChatThinkingState label={workingLabel} />}
+        {isBusy && (
+          <ChatThinkingState
+            label={workingLabel}
+            detail={inspectDetail}
+            active={selected}
+            onInspect={onInspect}
+          />
+        )}
 
         {status === "error" && error != null && (
           <div
@@ -1340,7 +1394,8 @@ function ChatBubble({
             className={cn(
               "rounded-2xl rounded-tl-xs border border-border bg-card px-4 py-3 text-[13.5px] leading-relaxed text-card-foreground shadow-xs transition-colors duration-(--duration-mogi-fast) ease-mogi",
               (isBusy || (status === "error" && error != null)) && "mt-1.5",
-              status === "error" && "border-destructive/50"
+              status === "error" && "border-destructive/50",
+              selected && "border-link/60 ring-1 ring-link/35"
             )}
           >
             <div className={cn("break-words text-foreground", isPlainTextBody && "whitespace-pre-wrap")}>
@@ -1403,6 +1458,182 @@ function ChatPromptBar({
   )
 }
 
+type ChatActivityKind = "thinking" | "tool" | "result" | "message" | "error" | "prompt"
+
+type ChatActivityItemProps = Omit<React.ComponentProps<"div">, "title"> & {
+  kind?: ChatActivityKind
+  title: React.ReactNode
+  meta?: React.ReactNode
+  badge?: React.ReactNode
+  expandable?: boolean
+  defaultExpanded?: boolean
+}
+
+function ChatActivityItem({
+  kind = "message",
+  title,
+  meta,
+  badge,
+  expandable = false,
+  defaultExpanded = false,
+  children,
+  className,
+  ...props
+}: ChatActivityItemProps) {
+  const [expanded, setExpanded] = React.useState(defaultExpanded)
+  const hasBody = children != null && children !== ""
+  const showBody = hasBody && (!expandable || expanded)
+
+  const iconNode =
+    kind === "thinking" ? (
+      <Sparkles aria-hidden="true" className="size-3.5 shrink-0 text-link" />
+    ) : kind === "tool" ? (
+      <Terminal aria-hidden="true" className="size-3.5 shrink-0 text-foreground" />
+    ) : kind === "result" ? (
+      <Check aria-hidden="true" className="size-3.5 shrink-0 text-link" />
+    ) : kind === "error" ? (
+      <AlertCircle aria-hidden="true" className="size-3.5 shrink-0 text-destructive" />
+    ) : kind === "prompt" ? (
+      <Send aria-hidden="true" className="size-3.5 shrink-0 text-muted-foreground" />
+    ) : (
+      <MessageSquare aria-hidden="true" className="size-3.5 shrink-0 text-muted-foreground" />
+    )
+
+  return (
+    <div
+      data-slot="chat-activity-item"
+      data-kind={kind}
+      className={cn(
+        "rounded-lg border text-xs transition-colors duration-(--duration-mogi-fast) ease-mogi",
+        kind === "error"
+          ? "border-destructive/40 bg-destructive-soft/50 text-foreground"
+          : kind === "tool"
+            ? "border-border bg-secondary/40 text-foreground"
+            : "border-border bg-card text-card-foreground",
+        className
+      )}
+      {...props}
+    >
+      {expandable && hasBody ? (
+        <button
+          type="button"
+          onClick={() => setExpanded(v => !v)}
+          aria-expanded={expanded}
+          className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left transition-colors duration-(--duration-mogi-fast) ease-mogi hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <span className="flex min-w-0 items-center gap-2">
+            {iconNode}
+            <span className="truncate font-medium text-foreground">{title}</span>
+            {badge}
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 text-[11px] text-muted-foreground">
+            {meta}
+            {expanded ? (
+              <ChevronDown aria-hidden="true" className="size-3.5 shrink-0" />
+            ) : (
+              <ChevronRight aria-hidden="true" className="size-3.5 shrink-0" />
+            )}
+          </span>
+        </button>
+      ) : (
+        <div className="flex items-center justify-between gap-2 px-3 py-2">
+          <div className="flex min-w-0 items-center gap-2">
+            {iconNode}
+            <span className="truncate font-medium text-foreground">{title}</span>
+            {badge}
+          </div>
+          {meta != null && <span className="shrink-0 text-[11px] text-muted-foreground">{meta}</span>}
+        </div>
+      )}
+
+      {showBody && (
+        <div className="border-t border-border/70 px-3 py-2 text-xs leading-relaxed text-foreground">
+          {children}
+        </div>
+      )}
+    </div>
+  )
+}
+
+type ChatDetailPanelProps = Omit<React.ComponentProps<"aside">, "title"> & {
+  avatar?: React.ReactNode
+  title: React.ReactNode
+  subtitle?: React.ReactNode
+  badge?: React.ReactNode
+  headerActions?: React.ReactNode
+  onClose?: () => void
+  closeLabel?: string
+  tabsSlot?: React.ReactNode
+  noticeSlot?: React.ReactNode
+  footerSlot?: React.ReactNode
+}
+
+function ChatDetailPanel({
+  avatar,
+  title,
+  subtitle,
+  badge,
+  headerActions,
+  onClose,
+  closeLabel = "关闭详情面板",
+  tabsSlot,
+  noticeSlot,
+  footerSlot,
+  children,
+  className,
+  ...props
+}: ChatDetailPanelProps) {
+  return (
+    <aside
+      data-slot="chat-detail-panel"
+      aria-label={typeof title === "string" ? `${title} 对话详情` : "对话详情"}
+      className={cn("flex min-h-0 min-w-0 flex-col bg-card text-card-foreground", className)}
+      {...props}
+    >
+      <header className="flex items-start justify-between gap-2 border-b border-border px-4 py-3">
+        <div className="flex min-w-0 items-center gap-2.5">
+          {avatar != null && <div className="shrink-0">{avatar}</div>}
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <h3 className="truncate font-mono text-xs font-semibold text-foreground">{title}</h3>
+              {badge}
+            </div>
+            {subtitle != null && (
+              <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{subtitle}</p>
+            )}
+          </div>
+        </div>
+        <div className="flex shrink-0 items-center gap-1">
+          {headerActions}
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={closeLabel}
+              className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-(--duration-mogi-fast) ease-mogi hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <X className="size-4" />
+            </button>
+          )}
+        </div>
+      </header>
+
+      {tabsSlot != null && <div className="border-b border-border px-4 py-2">{tabsSlot}</div>}
+      {noticeSlot != null && (
+        <div className="border-b border-border/70 bg-muted/40 px-4 py-2 text-[11px] text-muted-foreground">
+          {noticeSlot}
+        </div>
+      )}
+
+      <div className="min-h-0 flex-1 space-y-2.5 overflow-y-auto px-4 py-3">{children}</div>
+
+      {footerSlot != null && (
+        <footer className="border-t border-border px-4 py-2.5 text-xs">{footerSlot}</footer>
+      )}
+    </aside>
+  )
+}
+
 export {
   ChatThread,
   ChatBubble,
@@ -1416,6 +1647,8 @@ export {
   ChatMessageContent,
   ChatMentionBar,
   ChatPromptBar,
+  ChatDetailPanel,
+  ChatActivityItem,
   resolveAgentBrand,
   parseFilePathRef,
   parseMarkdownBlocks,
@@ -1436,5 +1669,8 @@ export type {
   ChatMentionCandidate,
   ChatMentionBarProps,
   ChatPromptBarProps,
+  ChatDetailPanelProps,
+  ChatActivityItemProps,
+  ChatActivityKind,
   FilePathRef,
 }
