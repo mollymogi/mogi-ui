@@ -54,6 +54,22 @@ const brandSurfaceClass: Record<ChatAgentBrand, string> = {
   generic: "bg-agent-generic text-agent-foreground",
 }
 
+const brandMentionBoxClass: Record<ChatAgentBrand, string> = {
+  claude: "bg-agent-claude/15 ring-1 ring-agent-claude/55",
+  openai: "bg-agent-openai/15 ring-1 ring-agent-openai/55",
+  grok: "bg-agent-grok/12 ring-1 ring-agent-grok/45",
+  gemini: "bg-agent-gemini/15 ring-1 ring-agent-gemini/55",
+  deepseek: "bg-agent-deepseek/15 ring-1 ring-agent-deepseek/55",
+  opencode: "bg-agent-opencode/15 ring-1 ring-agent-opencode/55",
+  dsh: "bg-agent-dsh/15 ring-1 ring-agent-dsh/55",
+  qwen: "bg-agent-qwen/15 ring-1 ring-agent-qwen/55",
+  glm: "bg-agent-glm/15 ring-1 ring-agent-glm/55",
+  kimi: "bg-agent-kimi/15 ring-1 ring-agent-kimi/55",
+  minimax: "bg-agent-minimax/15 ring-1 ring-agent-minimax/55",
+  hermes: "bg-agent-hermes/15 ring-1 ring-agent-hermes/55",
+  generic: "bg-link/15 ring-1 ring-link/55",
+}
+
 function resolveAgentBrand(cli?: string | null, model?: string | null): ChatAgentBrand {
   const m = (model || "").trim().toLowerCase()
   const c = (cli || "").trim().toLowerCase()
@@ -269,6 +285,10 @@ type ChatEntityChipProps = {
   avatar?: React.ReactNode
   monogram?: string
   badge?: React.ReactNode
+  brand?: ChatAgentBrand
+  cli?: string | null
+  model?: string | null
+  tone?: "default" | "accent"
   size?: "sm" | "md"
   interactive?: boolean
   onClick?: () => void
@@ -282,6 +302,10 @@ function ChatEntityChip({
   avatar,
   monogram,
   badge,
+  brand,
+  cli,
+  model,
+  tone = "default",
   size = "md",
   interactive,
   onClick,
@@ -289,9 +313,15 @@ function ChatEntityChip({
   className,
 }: ChatEntityChipProps) {
   const isClickable = Boolean(interactive || onClick)
+  const resolvedBrand = brand ?? (cli || model ? resolveAgentBrand(cli, model) : undefined)
   const sharedClass = cn(
-    "inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary align-middle font-medium text-secondary-foreground transition-colors duration-(--duration-mogi-fast) ease-mogi",
-    size === "sm" ? "py-px pl-0.5 pr-2 text-[11px]" : "py-0.5 pl-1 pr-2.5 text-xs",
+    "inline-flex max-w-[12.5rem] items-center gap-1.5 rounded-full border align-middle font-medium transition-colors duration-(--duration-mogi-fast) ease-mogi",
+    tone === "accent"
+      ? resolvedBrand
+        ? cn("border-transparent text-foreground", brandMentionBoxClass[resolvedBrand])
+        : "border-border-strong bg-card text-foreground shadow-2xs"
+      : "border-border bg-secondary text-secondary-foreground",
+    size === "sm" ? "py-px pl-1 pr-2 text-[11px]" : "py-0.5 pl-1 pr-2.5 text-xs",
     isClickable &&
       "cursor-pointer hover:border-border-strong hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
     className
@@ -303,6 +333,8 @@ function ChatEntityChip({
         <span aria-hidden="true" className="inline-flex shrink-0 items-center justify-center">
           {avatar}
         </span>
+      ) : resolvedBrand ? (
+        <ChatAgentAvatar brand={resolvedBrand} size="xs" />
       ) : monogram ? (
         <ChatMonogram text={monogram} size={size === "sm" ? "xs" : "sm"} />
       ) : (
@@ -396,9 +428,15 @@ function ChatStatusPill({
 
 type ChatParticipantChipProps = Omit<React.ComponentProps<"div">, "children"> & {
   label: React.ReactNode
+  subtitle?: React.ReactNode
   avatar?: React.ReactNode
+  brand?: ChatAgentBrand
+  cli?: string | null
+  model?: string | null
   monogram?: string
   badge?: React.ReactNode
+  emphasis?: "default" | "lead"
+  density?: "default" | "compact"
   status?: ChatParticipantStatus
   statusTitle?: string
   onMention?: () => void
@@ -417,9 +455,15 @@ const participantDotClass: Record<ChatParticipantStatus, string> = {
 // mogi: Multi-agent group chat participant pill combining beautiful-ui avatar/monogram and semantic status dots.
 function ChatParticipantChip({
   label,
+  subtitle,
   avatar,
+  brand,
+  cli,
+  model,
   monogram,
   badge,
+  emphasis = "default",
+  density = "default",
   status = "idle",
   statusTitle,
   onMention,
@@ -428,12 +472,42 @@ function ChatParticipantChip({
   className,
   ...props
 }: ChatParticipantChipProps) {
+  const avatarNode =
+    avatar ??
+    (brand || cli || model ? (
+      <ChatAgentAvatar brand={brand} cli={cli} model={model} size="xs" />
+    ) : (
+      monogram && <ChatMonogram text={monogram} size="sm" />
+    ))
+
+  const labelContent = (
+    <>
+      <span className="max-w-[9.5rem] truncate">{label}</span>
+      {subtitle != null && subtitle !== "" && (
+        <span className="hidden sm:inline-block max-w-[5.25rem] truncate rounded bg-muted px-1 py-px font-mono text-[10px] font-normal leading-tight text-muted-foreground">
+          {subtitle}
+        </span>
+      )}
+      {badge}
+    </>
+  )
+
   return (
     <div
       data-slot="chat-participant-chip"
       data-status={status}
+      data-emphasis={emphasis}
+      data-density={density}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-border bg-card py-1 pl-2 pr-2.5 text-xs text-card-foreground transition-colors duration-(--duration-mogi-fast) ease-mogi hover:border-border-strong",
+        "inline-flex shrink-0 items-center gap-1.5 rounded-full border text-xs text-card-foreground transition-colors duration-(--duration-mogi-fast) ease-mogi hover:border-border-strong",
+        density === "compact" ? "py-0.5 pl-1.5 pr-2" : "py-1 pl-2 pr-2.5",
+        status === "error"
+          ? "border-destructive/50 bg-destructive-soft/45"
+          : status === "working" || status === "starting"
+            ? "border-link/60 bg-link-soft/35"
+            : emphasis === "lead"
+              ? "border-border-strong bg-accent/55"
+              : "border-border bg-card",
         className
       )}
       {...props}
@@ -443,20 +517,18 @@ function ChatParticipantChip({
         title={statusTitle}
         className={cn("size-2 shrink-0 rounded-full", participantDotClass[status])}
       />
-      {avatar ?? (monogram && <ChatMonogram text={monogram} size="sm" />)}
+      {avatarNode}
       {onMention ? (
         <button
           type="button"
           onClick={onMention}
-          className="inline-flex min-w-0 items-center gap-1.5 rounded-sm font-mono font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="inline-flex min-w-0 items-center gap-1 rounded-sm font-mono font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <span className="truncate">{label}</span>
-          {badge}
+          {labelContent}
         </button>
       ) : (
-        <span className="inline-flex min-w-0 items-center gap-1.5 font-mono font-medium text-foreground">
-          <span className="truncate">{label}</span>
-          {badge}
+        <span className="inline-flex min-w-0 items-center gap-1 font-mono font-medium text-foreground">
+          {labelContent}
         </span>
       )}
       {onRemove && (
@@ -795,6 +867,7 @@ type ChatMentionCandidate = {
   matchers: string[]
   token: string
   label: string
+  kind?: "agent" | "all"
   monogram?: string
   avatar?: React.ReactNode
   cli?: string | null
@@ -823,6 +896,43 @@ function buildMentionLookup(mentions?: ChatMentionCandidate[]): MentionLookup | 
   return patterns.length ? { byKey, patterns } : null
 }
 
+type MentionTextSegment =
+  | { kind: "text"; start: number; end: number; text: string }
+  | { kind: "mention"; start: number; end: number; text: string; candidate: ChatMentionCandidate }
+
+function splitMentionSegments(
+  text: string,
+  mentionLookup: MentionLookup | null
+): MentionTextSegment[] {
+  if (!text) return []
+  if (!mentionLookup) return [{ kind: "text", start: 0, end: text.length, text }]
+  const mentionRegex = new RegExp(
+    `(^|[\\s([{\"'“‘：:、])(${mentionLookup.patterns.join("|")})(?=$|[\\s\\])},.!?，。！？：；;、\"'”’])`,
+    "gi"
+  )
+  const segments: MentionTextSegment[] = []
+  let last = 0
+  let match: RegExpExecArray | null
+  while ((match = mentionRegex.exec(text)) !== null) {
+    const lead = match[1] ?? ""
+    const tokenText = match[2] ?? ""
+    const start = match.index + lead.length
+    const end = start + tokenText.length
+    const cand = mentionLookup.byKey.get(tokenText.toLowerCase())
+    if (!cand) continue
+    if (start > last) {
+      segments.push({ kind: "text", start: last, end: start, text: text.slice(last, start) })
+    }
+    segments.push({ kind: "mention", start, end, text: tokenText, candidate: cand })
+    last = end
+  }
+  if (last === 0) return [{ kind: "text", start: 0, end: text.length, text }]
+  if (last < text.length) {
+    segments.push({ kind: "text", start: last, end: text.length, text: text.slice(last) })
+  }
+  return segments
+}
+
 const PATH_OR_URL_REGEX =
   /(https?:\/\/[^\s<>"'()\]，。！？；：、】」》]+|file:\/\/\/[^\s"'`<>\[\]()，。！？；：、）】」》]+|(?<![a-zA-Z0-9_@./-])(?:~\/|\.\.?\/|\/(?:Users|Volumes|tmp|var|private|home|opt|etc|Applications|Library|mnt)\/)[^\s"'`<>\[\]()，。！？；：、）】」》]+|(?<![a-zA-Z0-9_@./:-])(?:[a-zA-Z0-9._-]+\/)+[a-zA-Z0-9._\-\u4e00-\u9fff]+\.(?:md|mdx|txt|log|csv|json|jsonc|jsonl|yaml|yml|toml|ts|tsx|js|jsx|mjs|cjs|py|sh|zsh|bash|css|scss|html|sql|rs|go|java|c|cpp|h|hpp|png|jpg|jpeg|svg|mp3|wav|mp4|pdf)(?::\d+(?::\d+)?)?(?:#L\d+)?(?![a-zA-Z0-9_/#-]|\.[a-zA-Z0-9_]|:\d)|(?<![a-zA-Z0-9_@./:-])[a-zA-Z0-9._-]+\.(?:md|mdx|json|yaml|yml|toml|ts|tsx|js|jsx|mjs|cjs|py|sh|css|html|sql|rs|go|java)(?::\d+(?::\d+)?)?(?:#L\d+)?(?![a-zA-Z0-9_/#-]|\.[a-zA-Z0-9_]|:\d))/g
 
@@ -836,34 +946,29 @@ function renderPlainSegment(
   if (!segment) return null
 
   if (mentionLookup) {
-    const mentionRegex = new RegExp(
-      `(^|[\\s([{\"'“‘：:])(${mentionLookup.patterns.join("|")})(?=$|[\\s\\])},.!?，。！？：；;\"'”’])`,
-      "gi"
-    )
-    const parts: React.ReactNode[] = []
-    let last = 0
-    let match: RegExpExecArray | null
-    let idx = 0
-    while ((match = mentionRegex.exec(segment)) !== null) {
-      const lead = match[1] ?? ""
-      const tokenText = match[2] ?? ""
-      const start = match.index + lead.length
-      if (start > last) {
-        parts.push(
-          renderPathsAndUrls(segment.slice(last, start), onOpenPath, `${keyPrefix}-pre-${idx}`)
-        )
-      }
-      const cand = mentionLookup.byKey.get(tokenText.toLowerCase())
-      if (cand) {
+    const pieces = splitMentionSegments(segment, mentionLookup)
+    if (pieces.some((p) => p.kind === "mention")) {
+      return pieces.map((piece, idx) => {
+        if (piece.kind === "text") {
+          return (
+            <React.Fragment key={`${keyPrefix}-t-${idx}`}>
+              {renderPathsAndUrls(piece.text, onOpenPath, `${keyPrefix}-p-${idx}`)}
+            </React.Fragment>
+          )
+        }
+        const cand = piece.candidate
         const avatarNode =
           cand.avatar ??
           (cand.cli || cand.model ? (
             <ChatAgentAvatar cli={cand.cli} model={cand.model} size="xs" />
           ) : undefined)
-        parts.push(
+        return (
           <ChatEntityChip
-            key={`${keyPrefix}-m-${idx++}`}
+            key={`${keyPrefix}-m-${idx}`}
             size="sm"
+            tone="accent"
+            cli={cand.cli}
+            model={cand.model}
             avatar={avatarNode}
             monogram={cand.monogram}
             name={cand.label}
@@ -871,16 +976,7 @@ function renderPlainSegment(
             className="mx-0.5 align-baseline"
           />
         )
-      } else {
-        parts.push(tokenText)
-      }
-      last = start + tokenText.length
-    }
-    if (last > 0) {
-      if (last < segment.length) {
-        parts.push(renderPathsAndUrls(segment.slice(last), onOpenPath, `${keyPrefix}-tail`))
-      }
-      return parts
+      })
     }
   }
 
@@ -1476,6 +1572,170 @@ function ChatPromptBar({
   )
 }
 
+type ChatMentionTextRange = {
+  start: number
+  end: number
+}
+
+type ChatMentionTextareaProps = Omit<React.ComponentProps<"textarea">, "value" | "onChange"> & {
+  value: string
+  onValueChange: (value: string, selectionStart: number) => void
+  onSelectionChange?: (selectionStart: number) => void
+  mentions?: ChatMentionCandidate[]
+  activeQueryRange?: ChatMentionTextRange | null
+  containerClassName?: string
+}
+
+function renderMirrorNodes(
+  value: string,
+  mentionLookup: MentionLookup | null,
+  activeQueryRange?: ChatMentionTextRange | null
+): React.ReactNode {
+  if (!value) return "\u200b"
+  const pieces = splitMentionSegments(value, mentionLookup)
+  const nodes: React.ReactNode[] = []
+  pieces.forEach((piece, idx) => {
+    if (piece.kind === "mention") {
+      const isAll =
+        piece.candidate.kind === "all" ||
+        (!piece.candidate.cli &&
+          !piece.candidate.model &&
+          /^@(?:全体|所有人|all|everyone)$/i.test(piece.text))
+      if (isAll) {
+        nodes.push(
+          <span
+            key={`m-${idx}`}
+            data-mention-highlight="all"
+            className="rounded-[4px] bg-accent py-px ring-1 ring-border-strong [box-decoration-break:clone]"
+          >
+            {piece.text}
+          </span>
+        )
+      } else {
+        const brand = resolveAgentBrand(piece.candidate.cli, piece.candidate.model)
+        nodes.push(
+          <span
+            key={`m-${idx}`}
+            data-mention-highlight="agent"
+            data-brand={brand}
+            className={cn(
+              "rounded-[4px] py-px [box-decoration-break:clone]",
+              brandMentionBoxClass[brand]
+            )}
+          >
+            {piece.text}
+          </span>
+        )
+      }
+      return
+    }
+
+    if (
+      activeQueryRange &&
+      activeQueryRange.end > activeQueryRange.start &&
+      activeQueryRange.start >= piece.start &&
+      activeQueryRange.end <= piece.end
+    ) {
+      const relStart = activeQueryRange.start - piece.start
+      const relEnd = activeQueryRange.end - piece.start
+      if (relStart > 0) nodes.push(piece.text.slice(0, relStart))
+      nodes.push(
+        <span
+          key={`q-${idx}`}
+          data-mention-highlight="query"
+          className="rounded-[4px] bg-warning-soft/90 py-px ring-1 ring-warning/75 [box-decoration-break:clone]"
+        >
+          {piece.text.slice(relStart, relEnd)}
+        </span>
+      )
+      if (relEnd < piece.text.length) nodes.push(piece.text.slice(relEnd))
+      return
+    }
+
+    nodes.push(piece.text)
+  })
+
+  if (value.endsWith("\n")) nodes.push("\u200b")
+  return nodes
+}
+
+// mogi: Synchronized mirror-backdrop textarea that draws semantic highlight boxes behind @Agent mentions while preserving native caret and CJK IME behavior.
+function ChatMentionTextarea({
+  value,
+  onValueChange,
+  onSelectionChange,
+  mentions,
+  activeQueryRange,
+  containerClassName,
+  className,
+  rows = 2,
+  onSelect,
+  onClick,
+  onKeyUp,
+  ...props
+}: ChatMentionTextareaProps) {
+  const mentionLookup = React.useMemo(() => buildMentionLookup(mentions), [mentions])
+  const mirrorNodes = React.useMemo(
+    () => renderMirrorNodes(value, mentionLookup, activeQueryRange),
+    [value, mentionLookup, activeQueryRange]
+  )
+  const rowsMinHeight =
+    rows <= 1 ? "min-h-[2.25rem]" : rows === 2 ? "min-h-[3.5rem]" : "min-h-[4.5rem]"
+
+  const sharedMetrics = cn(
+    "col-start-1 row-start-1 w-full px-1.5 py-1 font-sans text-sm leading-6 whitespace-pre-wrap [overflow-wrap:break-word]",
+    className
+  )
+
+  return (
+    <div
+      data-slot="chat-mention-textarea"
+      className={cn(
+        "grid max-h-36 w-full grid-cols-[minmax(0,1fr)] overflow-y-auto",
+        rowsMinHeight,
+        containerClassName
+      )}
+    >
+      <div
+        aria-hidden="true"
+        className={cn(
+          sharedMetrics,
+          "pointer-events-none select-none bg-transparent text-transparent"
+        )}
+      >
+        {mirrorNodes}
+      </div>
+      <textarea
+        rows={rows}
+        value={value}
+        onChange={(e) =>
+          onValueChange(
+            e.target.value,
+            e.target.selectionStart ?? e.target.value.length
+          )
+        }
+        onSelect={(e) => {
+          onSelectionChange?.(e.currentTarget.selectionStart ?? value.length)
+          onSelect?.(e)
+        }}
+        onClick={(e) => {
+          onSelectionChange?.(e.currentTarget.selectionStart ?? value.length)
+          onClick?.(e)
+        }}
+        onKeyUp={(e) => {
+          onSelectionChange?.(e.currentTarget.selectionStart ?? value.length)
+          onKeyUp?.(e)
+        }}
+        className={cn(
+          sharedMetrics,
+          "h-full min-h-full resize-none overflow-hidden border-0 bg-transparent text-foreground caret-foreground shadow-none outline-none! placeholder:text-muted-foreground focus-visible:border-transparent focus-visible:ring-0"
+        )}
+        {...props}
+      />
+    </div>
+  )
+}
+
 type ChatActivityKind = "thinking" | "tool" | "result" | "message" | "error" | "prompt"
 
 type ChatActivityItemProps = Omit<React.ComponentProps<"div">, "title"> & {
@@ -1664,6 +1924,7 @@ export {
   ChatThinkingState,
   ChatMessageContent,
   ChatMentionBar,
+  ChatMentionTextarea,
   ChatPromptBar,
   ChatDetailPanel,
   ChatActivityItem,
@@ -1686,6 +1947,8 @@ export type {
   ChatMessageContentProps,
   ChatMentionCandidate,
   ChatMentionBarProps,
+  ChatMentionTextareaProps,
+  ChatMentionTextRange,
   ChatPromptBarProps,
   ChatDetailPanelProps,
   ChatActivityItemProps,

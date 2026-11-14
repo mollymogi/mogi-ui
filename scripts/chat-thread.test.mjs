@@ -66,6 +66,7 @@ const {
   ChatThinkingState,
   ChatDetailPanel,
   ChatActivityItem,
+  ChatMentionTextarea,
 } = chatThread;
 
 test("resolveAgentBrand matches model family before CLI and handles fallback", () => {
@@ -299,4 +300,53 @@ test("R48-004: escaped pipes remain inside table cells", () => {
   assert.deepEqual(parseMarkdownBlocks('| first | second |\n| --- | --- |\n| a\\|b | c |'), [
     { kind: "table", headers: ["first", "second"], rows: [["a|b", "c"]] },
   ]);
+});
+
+test("ChatMentionTextarea highlights confirmed agents, @all, and active lookup query distinctly from user typing", () => {
+  const value = "问下 @codex-sol 和 @全体 再看看 @cl 的结果";
+  const html = renderToStaticMarkup(
+    React.createElement(ChatMentionTextarea, {
+      value,
+      onValueChange: () => {},
+      activeQueryRange: { start: 24, end: 27 },
+      mentions: [
+        {
+          matchers: ["@全体", "@all"],
+          kind: "all",
+          token: "全体",
+          label: "@全体",
+        },
+        {
+          matchers: ["@codex-sol"],
+          kind: "agent",
+          token: "codex-sol",
+          label: "@codex-sol",
+          cli: "codex",
+          model: "gpt-6.1-sol",
+        },
+      ],
+    }),
+  );
+
+  assert.match(html, /data-slot="chat-mention-textarea"/);
+  assert.match(html, /<textarea[^>]*>问下 @codex-sol 和 @全体 再看看 @cl 的结果<\/textarea>/);
+  assert.match(html, /data-mention-highlight="agent"[^>]*data-brand="openai"[^>]*bg-agent-openai\/15[^>]*>@codex-sol<\/span>/);
+  assert.match(html, /data-mention-highlight="all"[^>]*>@全体<\/span>/);
+  assert.match(html, /data-mention-highlight="query"[^>]*bg-warning-soft\/90[^>]*>@cl<\/span>/);
+
+  const chipHtml = renderToStaticMarkup(
+    React.createElement(ChatParticipantChip, {
+      cli: "codex",
+      model: "gpt-6.1-sol",
+      label: "@codex-sol",
+      subtitle: "sol",
+      emphasis: "lead",
+      density: "compact",
+      status: "idle",
+    }),
+  );
+  assert.match(chipHtml, /data-emphasis="lead"/);
+  assert.match(chipHtml, /data-density="compact"/);
+  assert.match(chipHtml, />sol<\/span>/);
+  assert.match(chipHtml, /bg-agent-openai/);
 });

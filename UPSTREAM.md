@@ -146,4 +146,10 @@ CodeBlock 增加 language/fileName 语法高亮、保留行号与复制原文；
 - `ChatThinkingState` 与 `ChatBubble` 新增 `onInspect` / `selected` / `inspectDetail`，点击思考条即可触发右侧详情检视并高亮当前选中的对话轮次。
 - 新增无业务耦合的 `ChatDetailPanel`（右侧抽屉/分栏容器，带 `avatar`/`title`/`subtitle`/`tabsSlot`/`noticeSlot`/`onClose`）与 `ChatActivityItem`（支持 `thinking`/`tool`/`result`/`message`/`error`/`prompt` 语义条及按需折叠展开）。
 
+## 2026-11-14 · `@` 输入框内联高亮（`ChatMentionTextarea`）与成员紧凑芯片
+
+继续打磨多 Agent 群聊细节：
+- 新增 `ChatMentionTextarea`：采用同网格同步镜像层在原生 `<textarea>` 底层为已识别的 `@Agent`（按品牌色）、`@全体`（中性强调框）与正在检索的 `@query`（提示框）绘制零偏移高亮框，同时保留原生光标与中文输入法体验。
+- 升级 `ChatParticipantChip`（支持 `subtitle` 模型短标、`emphasis="lead"` 群主层级、`density="compact"` 紧凑模式与截断保护）与 `ChatEntityChip`（支持 `tone="accent"` 与品牌语义边框）。
+
 修复：`ChatBubble` 的 system 消息使用 `article` 根节点并透传剩余 DOM props，保证原生属性、事件与 React 19 `ref` 在所有 sender 分支一致。
