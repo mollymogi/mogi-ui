@@ -634,8 +634,25 @@ type MarkdownBlock =
   | { kind: "paragraph"; lines: string[] }
 
 function parseTableCells(line: string): string[] {
-  const trimmed = line.trim().replace(/^\|/, "").replace(/\|$/, "")
-  return trimmed.split("|").map(cell => cell.trim())
+  const trimmed = line.trim()
+  const cells: string[] = []
+  let cell = ""
+  for (let i = 0; i < trimmed.length; i++) {
+    const char = trimmed[i]
+    if (char === "\\" && i + 1 < trimmed.length) {
+      const next = trimmed[++i]
+      cell += next === "|" ? "|" : "\\" + next
+    } else if (char === "|") {
+      cells.push(cell.trim())
+      cell = ""
+    } else {
+      cell += char
+    }
+  }
+  cells.push(cell.trim())
+  if (trimmed.startsWith("|")) cells.shift()
+  if (trimmed.endsWith("|") && cell === "") cells.pop()
+  return cells
 }
 
 function isTableSeparator(line: string): boolean {
@@ -759,7 +776,7 @@ function parseMarkdownBlocks(input: string): MarkdownBlock[] {
     while (i < lines.length) {
       const curr = lines[i] ?? ""
       if (!curr.trim()) break
-      if (/^\s*```/.test(curr)) break
+      if (/^\s*```([a-zA-Z0-9_+#.-]*)\s*$/.test(curr)) break
       if (/^\s*#{1,4}\s+/.test(curr)) break
       if (/^\s*(?:---+|===+|\*\*\*+)\s*$/.test(curr)) break
       if (/^\s*>\s?/.test(curr)) break
@@ -807,7 +824,7 @@ function buildMentionLookup(mentions?: ChatMentionCandidate[]): MentionLookup | 
 }
 
 const PATH_OR_URL_REGEX =
-  /(https?:\/\/[^\s<>"'()\]，。！？；：、】」》]+|file:\/\/\/[^\s"'`<>\[\]()，。！？；：、）】」》]+|(?<![a-zA-Z0-9_@./-])(?:~\/|\.\.?\/|\/(?:Users|Volumes|tmp|var|private|home|opt|etc|Applications|Library|mnt)\/)[^\s"'`<>\[\]()，。！？；：、）】」》]+|(?<![a-zA-Z0-9_@./:-])(?:[a-zA-Z0-9._-]+\/)+[a-zA-Z0-9._\-\u4e00-\u9fff]+\.(?:md|mdx|txt|log|csv|json|jsonc|jsonl|yaml|yml|toml|ts|tsx|js|jsx|mjs|cjs|py|sh|zsh|bash|css|scss|html|sql|rs|go|java|c|cpp|h|hpp|png|jpg|jpeg|svg|mp3|wav|mp4|pdf)(?::\d+(?::\d+)?)?(?:#L\d+)?|(?<![a-zA-Z0-9_@./:-])[a-zA-Z0-9._-]+\.(?:md|mdx|json|yaml|yml|toml|ts|tsx|js|jsx|mjs|cjs|py|sh|css|html|sql|rs|go|java)(?::\d+(?::\d+)?)?(?:#L\d+)?)/g
+  /(https?:\/\/[^\s<>"'()\]，。！？；：、】」》]+|file:\/\/\/[^\s"'`<>\[\]()，。！？；：、）】」》]+|(?<![a-zA-Z0-9_@./-])(?:~\/|\.\.?\/|\/(?:Users|Volumes|tmp|var|private|home|opt|etc|Applications|Library|mnt)\/)[^\s"'`<>\[\]()，。！？；：、）】」》]+|(?<![a-zA-Z0-9_@./:-])(?:[a-zA-Z0-9._-]+\/)+[a-zA-Z0-9._\-\u4e00-\u9fff]+\.(?:md|mdx|txt|log|csv|json|jsonc|jsonl|yaml|yml|toml|ts|tsx|js|jsx|mjs|cjs|py|sh|zsh|bash|css|scss|html|sql|rs|go|java|c|cpp|h|hpp|png|jpg|jpeg|svg|mp3|wav|mp4|pdf)(?::\d+(?::\d+)?)?(?:#L\d+)?(?![a-zA-Z0-9_/#-]|\.[a-zA-Z0-9_]|:\d)|(?<![a-zA-Z0-9_@./:-])[a-zA-Z0-9._-]+\.(?:md|mdx|json|yaml|yml|toml|ts|tsx|js|jsx|mjs|cjs|py|sh|css|html|sql|rs|go|java)(?::\d+(?::\d+)?)?(?:#L\d+)?(?![a-zA-Z0-9_/#-]|\.[a-zA-Z0-9_]|:\d))/g
 
 function renderPlainSegment(
   segment: string,
@@ -1291,15 +1308,16 @@ function ChatBubble({
 }: ChatBubbleProps) {
   if (sender === "system") {
     return (
-      <div
+      <article
         data-slot="chat-bubble"
         data-sender="system"
         className={cn("flex justify-center py-0.5", className)}
+        {...props}
       >
         <span className="rounded-full border border-border bg-muted px-3 py-0.5 text-[11px] text-muted-foreground">
           {children}
         </span>
-      </div>
+      </article>
     )
   }
 

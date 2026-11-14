@@ -264,3 +264,39 @@ test("ChatThinkingState interactive inspection, ChatDetailPanel, and ChatActivit
   assert.match(panelHtml, /data-kind="tool"/);
   assert.match(panelHtml, /git status/);
 });
+
+test("R48-001: unrecognized fences are consumed as paragraph text", () => {
+  for (const line of ['```typescript title="example"', '````']) {
+    assert.deepEqual(parseMarkdownBlocks(`${line}\nbody`), [
+      { kind: "paragraph", lines: [line, "body"] },
+    ]);
+  }
+});
+
+test("R48-002: system bubbles retain article semantics and native props", () => {
+  const ref = React.createRef();
+  const onClick = () => {};
+  const element = ChatBubble({ sender: "system", id: "notice", "aria-label": "Notice", ref, onClick, children: "Ready" });
+  assert.equal(element.type, "article");
+  assert.equal(element.props.id, "notice");
+  assert.equal(element.props["aria-label"], "Notice");
+  assert.equal(element.props.ref, ref);
+  assert.equal(element.props.onClick, onClick);
+});
+
+test("R48-003: path buttons contain complete extensions and line suffixes", () => {
+  for (const ext of ["tsx", "jsx", "mdx", "jsonc", "jsonl", "cpp", "hpp"]) {
+    const filename = `src/App.${ext}`;
+    const html = renderToStaticMarkup(React.createElement(ChatMessageContent, {
+      content: `${filename}:42.`, onOpenPath: () => {},
+    }));
+    assert.ok(html.includes(`title="点击预览或打开：${filename} (第 42 行)"`), html);
+    assert.ok(html.includes(`>${filename}:42</span>`), html);
+  }
+});
+
+test("R48-004: escaped pipes remain inside table cells", () => {
+  assert.deepEqual(parseMarkdownBlocks('| first | second |\n| --- | --- |\n| a\\|b | c |'), [
+    { kind: "table", headers: ["first", "second"], rows: [["a|b", "c"]] },
+  ]);
+});
